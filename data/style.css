@@ -11,9 +11,8 @@ body{
 }
 
 header{
-	width: 90%;
 	margin: 0 auto;
-	padding: 2px;
+	padding: 4px;
 	display: flex;
 	background: #282828;
 	border-bottom: 1px solid #d4be98;
