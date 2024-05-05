@@ -6,15 +6,14 @@
 }
 
 body{
-	/* background: #141617; */
-	background: #1d2021;
+	background: var(--bg0);
 }
 
 header{
 	padding: 4px;
 	display: flex;
 	align-items:center;
-	background: #282828;
+	background: var(--bg1);
 	border-bottom: 1px solid #d4be98;
 }
 
@@ -79,10 +78,6 @@ p{
 	margin-bottom: 10px;
 }
 
-hr{
-	border:1px solid;
-}
-
 a{
 	text-decoration:none;
 }
@@ -132,4 +127,28 @@ li > a:hover{
 
 .card:hover .card-overlay{
 	opacity:1;
+}
+
+/*** cool new free ***/
+
+h1{
+	font-size:26px;
+	line-height:32px;
+	font-weight:600;
+}
+
+p{
+	font-size:14px;
+	line-height:18px;
+}
+
+a{
+	font-size:14px;
+	line-height:18px;
+	cursor:pointer;
+}
+
+hr{
+	margin:10px 0;
+	border:1px solid;
 }
