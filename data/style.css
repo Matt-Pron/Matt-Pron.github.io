@@ -11,11 +11,18 @@ body{
 }
 
 header{
-	margin: 0 auto;
 	padding: 4px;
 	display: flex;
 	background: #282828;
 	border-bottom: 1px solid #d4be98;
+}
+
+.breadcrumb{
+	list-style:none;
+}
+
+.breadcrumb li{
+	display:inline;
 }
 
 #wrapper{
