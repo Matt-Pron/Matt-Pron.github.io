@@ -18,6 +18,10 @@ header{
 	border-bottom: 1px solid #d4be98;
 }
 
+#hrTitle{
+	margin: 2px 0 15px;
+}
+
 .breadcrumb{
 	list-style:none;
 	font-size:.9em;
