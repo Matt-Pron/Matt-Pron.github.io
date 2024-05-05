@@ -149,3 +149,31 @@ li > a:hover{
 	/* background: #442e2d; */
 	color: #141617;
 }
+
+/* FLIP CARD */
+
+.card {
+	height: 150px;
+	width:150px;
+	border:3px solid;
+}
+
+.card-img {
+	width: 150px;
+	height: 150px;
+}
+
+.card-overlay{
+	position: absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	opacity:0;
+	transition: .4s ease;
+	background-color: #282828;
+}
+
+.card:hover .card-overlay{
+	opacity:1;
+}
