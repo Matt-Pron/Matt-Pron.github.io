@@ -12,6 +12,13 @@ body{
 	background: #1d2021;
 }
 
+header{
+	width: 90%;
+	display: flex;
+	background: #282828;
+	border-bottom: 1px solid #d4be98;
+}
+
 #wrapper{
 	position:fixed;
 	top:0;
