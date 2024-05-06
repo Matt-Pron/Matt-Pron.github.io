@@ -4,7 +4,7 @@ main {
 	display:flex;
 	justify-content:center;
 	align-items:center;
-	padding-top: 32vh;
+	padding-top: 28vh;
 }
 
 main .main-panel {
@@ -85,7 +85,7 @@ main li a:hover {
 
 @media only screen and (max-width: 80rem) {
 	main {
-		width:88vw;
+		width:82vw;
 		height:90vh;
 		display:flex;
 		flex-direction:column-reverse;
