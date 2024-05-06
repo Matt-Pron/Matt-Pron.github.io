@@ -53,6 +53,7 @@ header{
 .header-nav ul li a{
 	padding:0 1rem;
 	font-size:3em;
+	font-weight:900;
 	line-height:var(--header-height);
 	display:block;
 	height:100%;
@@ -143,13 +144,9 @@ hr{
 		max-width:84vw;
 	}
 	
-	.breadcrumb {
-		display:none;
-	}
-	
 	#separador{
-		left:3vw;
-		right:3vw;
+		left:6vw;
+		right:6vw;
 	}
 
 }
