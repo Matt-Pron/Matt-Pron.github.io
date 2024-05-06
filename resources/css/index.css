@@ -33,7 +33,7 @@ main p {
 
 main a {
 	text-align:right;
-	font-size:1.6rem;
+	font-size:2rem;
 	line-height:1.5;
 	display:block;
 	transition: 300ms;
