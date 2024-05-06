@@ -55,6 +55,10 @@ header{
 	line-height:var(--header-height);
 }
 
+.header-nav ul li a:hover{
+	color:var(--yellow);
+}
+
 #separador{
 	position:fixed;
 	top:var(--header-height);
