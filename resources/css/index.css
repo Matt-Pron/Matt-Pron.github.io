@@ -1,6 +1,6 @@
 main {
-	width:96%;
-	height:100%;
+	width:94%;
+	height:94%;
 	display:flex;
 	justify-content:center;
 	align-items:center;
@@ -85,7 +85,7 @@ main li a:hover {
 
 @media only screen and (max-width: 80rem) {
 	main {
-		width:90vw;
+		width:88vw;
 		height:90vh;
 		display:flex;
 		flex-direction:column-reverse;
