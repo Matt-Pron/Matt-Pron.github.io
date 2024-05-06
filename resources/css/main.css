@@ -15,21 +15,36 @@ body{
 
 header{
 	width:100%;
-	padding: 4px;
+	padding: 4px 16vw 4px;
 	position:fixed;
 	top:0;
+	background:var(--bg0);
 	display: flex;
 	align-items:center;
-	background: var(--bg1);
-	border-bottom: 1px solid var(--fg1);
+	z-index:999;
+}
+
+#separador{
+	position:fixed;
+	top:43px;
+	left:16vw;
+	right:16vw;
+	height:2px;
+	background:var(--fg1);
+	z-index:1000;
+}
+
+#sombra{
+	position:fixed;
+	top:43px;
+	width:100%;
+	height:24px;
+	background: linear-gradient(var(--bg0) 15%, rgba(0, 0, 0, 0));
+	z-index:998;
 }
 
 #hrTitle{
 	margin: 2px 0 15px;
-}
-
-.breadcrumb{
-	list-style:none;
 }
 
 .breadcrumb li{
@@ -41,26 +56,12 @@ header{
 }
 
 #wrapper{
-	max-width:700px;
+	max-width:768px;
 	display:flex;
 	flex-direction:column;
 	/*background: #1d2021;*/
 	margin:auto;
-	margin-top:31px;
-	padding:22px;
-}
-
-#wrapper-portada{
-	position:fixed;
-	top:0;
-	bottom:0;
-	left:0;
-	right:0;
-	max-width:700px;
-	max-height:280px;
-	display:flex;
-	/*background: #1d2021;*/
-	margin:auto;
+	margin-top:36px;
 	padding:22px;
 }
 
@@ -103,35 +104,6 @@ li > a:hover{
 	color: #d8a657;
 }
 
-/* FLIP CARD */
-
-.card {
-	position:relative;
-	height: 150px;
-	width:150px;
-	border:3px solid;
-}
-
-.card-img {
-	width: 150px;
-	height: 150px;
-}
-
-.card-overlay{
-	position: absolute;
-	top:0;
-	bottom:0;
-	left:0;
-	right:0;
-	opacity:0;
-	transition: .4s ease;
-	background-color: #282828;
-}
-
-.card:hover .card-overlay{
-	opacity:1;
-}
-
 /*** cool new free ***/
 
 h1{
@@ -159,4 +131,24 @@ a{
 hr{
 	margin:10px 0;
 	border:1px solid;
+}
+
+@media only screen and (max-width: 768px) {
+	.breadcrumb {
+		display:none;
+	}
+	
+	#separador{
+		left:3vw;
+		right:3vw;
+	}
+	
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1200px) {
+	#separador{
+		left:3.6vw;
+		right:3.6vw;
+	}
+	
 }
