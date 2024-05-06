@@ -1,6 +1,5 @@
 :root{
 	font-size:62.5%;
-	font-size:.3em;
 	--header-height: 5vh;
 }
 
@@ -142,7 +141,7 @@ hr{
 
 @media only screen and (max-width: 80rem) {
 	:root{
-		font-size:calc(62.5% * 1.4);
+		font-size:calc(62.5% * 1.2);
 	}
 	
 	#wrapper{
