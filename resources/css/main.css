@@ -1,5 +1,6 @@
 :root{
 	font-size:62.5%;
+	font-size:.5em;
 	--header-height: 8vh;
 }
 
@@ -140,6 +141,10 @@ hr{
 }
 
 @media only screen and (max-width: 80rem) {
+	:root{
+		font-size:3em;
+	}
+	
 	#wrapper{
 		max-width:84vw;
 	}
