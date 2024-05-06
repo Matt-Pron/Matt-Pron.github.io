@@ -71,10 +71,9 @@ header{
 }
 
 #wrapper{
-	max-width:1000px;
+	max-width:100rem;
 	display:flex;
 	flex-direction:column;
-	/*background: #1d2021;*/
 	margin:auto;
 	margin-top:36px;
 	padding:22px;
@@ -149,6 +148,10 @@ hr{
 }
 
 @media only screen and (max-width: 70rem) {
+	#wrapper{
+		max-width:90vw;
+	}
+	
 	.breadcrumb {
 		display:none;
 	}
@@ -157,7 +160,7 @@ hr{
 		left:3vw;
 		right:3vw;
 	}
-	
+
 }
 
 @media only screen and (min-width: 70.01rem) and (max-width: 10rem) {
