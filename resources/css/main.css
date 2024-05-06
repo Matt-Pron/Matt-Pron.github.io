@@ -6,7 +6,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: "Courier New", monospace;
-	color: #d4be98;
+	color: var(--fg0);
 }
 
 body{
@@ -14,7 +14,10 @@ body{
 }
 
 header{
+	width:100%;
 	padding: 4px;
+	position:fixed;
+	top:0;
 	display: flex;
 	align-items:center;
 	background: var(--bg1);
@@ -27,7 +30,6 @@ header{
 
 .breadcrumb{
 	list-style:none;
-	font-size:.9em;
 }
 
 .breadcrumb li{
@@ -35,7 +37,7 @@ header{
 }
 
 .breadcrumb li+li:before{
-	content:'> ';
+	content:'| ';
 }
 
 #wrapper{
@@ -44,6 +46,7 @@ header{
 	flex-direction:column;
 	/*background: #1d2021;*/
 	margin:auto;
+	margin-top:31px;
 	padding:22px;
 }
 
@@ -80,10 +83,6 @@ p{
 	text-align:justify;
 	margin-top: 5px;
 	margin-bottom: 10px;
-}
-
-a{
-	text-decoration:none;
 }
 
 nav > ul > li{
@@ -136,24 +135,24 @@ li > a:hover{
 /*** cool new free ***/
 
 h1{
-	font-size:26px;
-	line-height:32px;
+	font-size:3rem;
+	line-height:1.1;
 	font-weight:600;
 }
 
 h4{
-	font-size:14px;
-	line-height:18px;
+	font-size:1.4rem;
+	line-height:1.75;
 }
 
 p{
-	font-size:16px;
-	line-height:18px;
+	font-size:1.6rem;
+	line-height:1.5;
 }
 
 a{
-	font-size:14px;
-	line-height:18px;
+	font-size:1.6rem;
+	line-height:1.5;
 	cursor:pointer;
 }
 
