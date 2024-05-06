@@ -89,24 +89,16 @@ main{
 	display:flex;
 	flex-direction:column;
 	margin:auto;
-	margin-top:36px;
+	margin-top:	var(--header-height);
 	padding:22px;
 }
 
 #hrTitle{
 	margin: 2px 0 15px;
-}
-
-li > a:hover{
-	color: #d8a657;
+	border-color:var(--bg3);
 }
 
 /*** cool new free ***/
-
-#logo{
-	width:2rem;
-	height:2rem;
-}
 
 h1{
 	font-size:5rem;
@@ -159,12 +151,4 @@ hr{
 		right:3vw;
 	}
 
-}
-
-@media only screen and (min-width: 80.01rem) and (max-width: 10rem) {
-	#separador{
-		left:3.6vw;
-		right:3.6vw;
-	}
-	
 }
