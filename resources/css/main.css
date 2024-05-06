@@ -27,8 +27,8 @@ header{
 #separador{
 	position:fixed;
 	top:43px;
-	left:16vw;
-	right:16vw;
+	left:8vw;
+	right:8vw;
 	height:2px;
 	background:var(--fg1);
 	z-index:1000;
@@ -56,7 +56,7 @@ header{
 }
 
 #wrapper{
-	max-width:768px;
+	max-width:1000px;
 	display:flex;
 	flex-direction:column;
 	/*background: #1d2021;*/
@@ -108,6 +108,12 @@ li > a:hover{
 
 h1{
 	font-size:3rem;
+	line-height:1.1;
+	font-weight:600;
+}
+
+h2{
+	font-size:2rem;
 	line-height:1.1;
 	font-weight:600;
 }
