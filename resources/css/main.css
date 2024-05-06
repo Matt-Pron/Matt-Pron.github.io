@@ -53,6 +53,8 @@ header{
 .header-nav ul li a{
 	padding:0 1rem;
 	line-height:var(--header-height);
+	display:block;
+	height:100%;
 }
 
 .header-nav ul li a:hover{
