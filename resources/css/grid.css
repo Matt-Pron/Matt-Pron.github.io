@@ -42,11 +42,11 @@
 }
 
 .card-tag h4{
-	font-size:2.4rem;
+	font-size:1.4rem;
 }
 
 .card-tag h2{
-	font-size:3rem;
+	font-size:2.4rem;
 }
 
 	/* GRID */
@@ -60,13 +60,13 @@
 	grid-auto-rows: 32rem;
 }
 
-@media only screen and (min-width: 80rem) {
+@media only screen and (max-width: 80rem) {
 	.card-tag h4{
-		font-size:1.4rem;
+		font-size:2.8rem;
 	}
 
 	.card-tag h2{
-		font-size:2.4rem;
+		font-size:3.4rem;
 	}
 	.basic-grid {
 		grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
