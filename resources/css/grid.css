@@ -29,7 +29,7 @@
 }
 
 .card:hover .card-img {
-	padding: 18px;
+	padding: 0;
 	opacity: 1;
 }
 
