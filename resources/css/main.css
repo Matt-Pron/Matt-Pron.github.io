@@ -88,10 +88,8 @@ nav{
 }
 
 main{
-	min-height:250px;
-	min-width:400px;
+	min-width:40rem;
 	margin:auto;
-	margin-left: 2rem;
 }
 
 .menuBtn{
