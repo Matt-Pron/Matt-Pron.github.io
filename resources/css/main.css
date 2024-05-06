@@ -139,11 +139,7 @@ hr{
 	border:1px solid;
 }
 
-@media only screen and (max-width: 80rem) {
-	:root{
-		font-size:calc(62.5% * 1.2);
-	}
-	
+@media only screen and (max-width: 80rem) {	
 	#wrapper{
 		max-width:84vw;
 	}
