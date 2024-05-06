@@ -15,12 +15,12 @@ main .main-panel {
 }
 
 main .main-intro h1 {
-	font-size:3.8rem;
+	font-size:3.6rem;
 	line-height:1.25;
 }
 
 main .main-intro h2 {
-	font-size:2.2rem;
+	font-size:2rem;
 	line-height:1.5;
 	font-weight:600;
 	text-indent:2.2rem;
@@ -86,7 +86,7 @@ main li a:hover {
 		display:flex;
 		flex-direction:column-reverse;
 		padding-top: 6vh;
-		gap: 16rem;
+		gap: 14rem;
 	}
 	
 	main .main-panel {
