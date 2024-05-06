@@ -142,8 +142,7 @@ hr{
 
 @media only screen and (max-width: 80rem) {
 	:root{
-		font-size:62.5%;
-		font-size:1.4em;
+		font-size:calc(62.5% * 1.4);
 	}
 	
 	#wrapper{
