@@ -15,7 +15,7 @@ body{
 
 header{
 	width:100%;
-	height:5rem;
+	height:8rem;
 	padding: 4px 16vw 4px;
 	position:fixed;
 	top:0;
@@ -32,11 +32,20 @@ header{
 }
 
 .header-logo img{
-	height:5rem;
+	height:8rem;
 }
 
 .header-nav{
 	background:var(--red);
+}
+
+.breadcrumb li{
+	margin-left:3rem;
+}
+
+.breadcrumb ul li{
+	display:inline;
+	float:left;
 }
 
 #separador{
@@ -62,14 +71,6 @@ header{
 	margin: 2px 0 15px;
 }
 
-.breadcrumb li{
-	display:inline;
-}
-
-.breadcrumb li+li:before{
-	content:'| ';
-}
-
 #wrapper{
 	max-width:100rem;
 	display:flex;
@@ -77,26 +78,6 @@ header{
 	margin:auto;
 	margin-top:36px;
 	padding:22px;
-}
-
-nav{
-	padding:16px;
-	border-right:5px solid;
-	display:flex;
-	min-height:250px;
-}
-
-main{
-	min-width:40rem;
-	margin:auto;
-}
-
-.menuBtn{
-	transition: .6s;
-}
-
-.menuBtn:hover{
-	transform: translate(-5px);
 }
 
 li > a:hover{
