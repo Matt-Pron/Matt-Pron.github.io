@@ -67,8 +67,8 @@ header{
 	z-index:998;
 }
 
-#hrTitle{
-	margin: 2px 0 15px;
+main{
+	margin:0 4rem 0;
 }
 
 #wrapper{
@@ -78,6 +78,10 @@ header{
 	margin:auto;
 	margin-top:36px;
 	padding:22px;
+}
+
+#hrTitle{
+	margin: 2px 0 15px;
 }
 
 li > a:hover{
