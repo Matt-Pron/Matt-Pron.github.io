@@ -1,7 +1,6 @@
 main {
 	width:100%;
 	height:100%;
-	margin:auto;
 	display:flex;
 	justify-content:center;
 	align-items:center;
@@ -78,4 +77,31 @@ main li a:hover {
 
 .fa-instagram:hover {
 	background: var(--purple);
+}
+
+@media only screen and (max-width: 768px) {
+	main {
+		width:90vw;
+		height:90vh;
+		display:flex;
+		flex-direction:column-reverse;
+		padding-top: 6vh;
+		gap: 16rem;
+	}
+	
+	main .main-panel {
+		padding:16px;
+		border-right:4px solid;
+		position:relative;
+		left:20vw;
+	}
+
+	main .main-intro {
+		position:relative;
+		right:5vw;
+	}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1200px) {
+	
 }
