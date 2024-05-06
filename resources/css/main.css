@@ -69,7 +69,7 @@ header{
 	left:8vw;
 	right:8vw;
 	height:2px;
-	background:var(--fg1);
+	background:var(--fg0);
 	z-index:1000;
 }
 
@@ -97,7 +97,7 @@ main{
 
 #hrTitle{
 	margin: 2px 0 15px;
-	border-color:var(--bg3);
+	border-color:var(--fg1);
 }
 
 /*** cool new free ***/
