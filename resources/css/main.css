@@ -1,6 +1,6 @@
 :root{
 	font-size:62.5%;
-	--header-height: 10rem;
+	--header-height: 14rem;
 }
 
 *{
@@ -52,6 +52,7 @@ header{
 
 .header-nav ul li a{
 	padding:0 1rem;
+	font-size:3em;
 	line-height:var(--header-height);
 	display:block;
 	height:100%;
