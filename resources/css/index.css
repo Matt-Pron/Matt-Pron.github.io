@@ -85,7 +85,7 @@ main li a:hover {
 @media only screen and (max-width: 80rem) {
 	main {
 		width:82vw;
-		height:90vh;
+		height:84vh;
 		display:flex;
 		flex-direction:column-reverse;
 		padding-top: 6vh;
