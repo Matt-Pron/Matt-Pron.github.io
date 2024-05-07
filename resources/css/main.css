@@ -3,10 +3,6 @@
 	--header-height: 5rem;
 }
 
-:root p{
-	width:clamp(45ch,50%,75ch);
-}
-
 *{
 	margin: 0;
 	padding: 0;
@@ -114,7 +110,6 @@ header{
 	margin:auto;
 	margin-top:	var(--header-height);
 	padding:2.2rem;
-	align-items:center;
 }
 
 #hrTitle{
@@ -148,6 +143,8 @@ p{
 	text-indent: 2em;
 	margin-top: 5px;
 	margin-bottom: 10px;
+	width:clamp(45ch,100%,75ch);
+	align-self:center;
 }
 
 a{
