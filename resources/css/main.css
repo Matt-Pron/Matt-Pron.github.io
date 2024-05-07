@@ -157,6 +157,10 @@ hr{
 	.header-nav ul li a{
 		font-size:5.2em;
 	}
+
+	#wrapper{
+		padding:3rem;
+	}
 	
 	h4{
 		font-size:1.8rem;
