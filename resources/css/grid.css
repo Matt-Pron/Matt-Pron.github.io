@@ -4,6 +4,10 @@
 	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
+.basic-grid p{
+	align-self:auto;
+}
+
 .card {
 	aspect-ratio: 1 / 1.5;
 }
