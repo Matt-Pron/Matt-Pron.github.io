@@ -92,10 +92,6 @@ header{
 	z-index:999;
 }
 
-main{
-	margin:0 4rem 0;
-}
-
 #wrapper{
 	max-width:100rem;
 	display:flex;
