@@ -20,7 +20,9 @@
 }
 
 .card-img {
-	padding: 32px;
+	padding: 5rem;
+	width:100%;
+	height:100%;
 	transition: 200ms;
 	z-index:1;
 	opacity: .1;
@@ -29,8 +31,6 @@
 .card:hover .card-img {
 	padding: 0;
 	opacity: 1;
-	width:100%;
-	height:100%;
 }
 
 .card-tag{
