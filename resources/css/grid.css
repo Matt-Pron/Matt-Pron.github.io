@@ -1,7 +1,7 @@
 	/* CARD */
 
 .card-slot {
-	border:3px solid;
+	border:6px solid;
 	display:flex;
 	align-items:center;
 	justify-content:center;
@@ -20,7 +20,7 @@
 }
 
 .card-img {
-	padding: 5rem;
+	padding: 6rem;
 	width:100%;
 	height:100%;
 	transition: 200ms;
@@ -58,8 +58,8 @@
 	margin: 5px 0 10px;
 	gap:2rem;
 	
-	grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
-	grid-auto-rows: 28rem;
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+	grid-auto-rows: 20rem;
 }
 
 @media only screen and (max-width: 80rem) {
