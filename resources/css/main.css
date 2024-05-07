@@ -65,6 +65,17 @@ header{
 	padding:0 1rem;
 	margin-top:0.4rem;
 	font-size:1.8em;
+	font-weight:600;
+	line-height:var(--header-height);
+	display:block;
+	height:100%;
+}
+
+.header-nav .current{
+	color:var(--yellow);
+	padding:0 1rem;
+	margin-top:0.4rem;
+	font-size:2em;
 	font-weight:900;
 	line-height:var(--header-height);
 	display:block;
