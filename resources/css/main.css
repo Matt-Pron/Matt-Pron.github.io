@@ -140,7 +140,7 @@ hr{
 	border:1px solid;
 }
 
-@media only screen and (max-width: 80rem) {
+@media only screen and (max-width: 70rem) {
 	:root{
 		--header-height: 8vh;
 	}
