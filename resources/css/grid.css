@@ -17,6 +17,10 @@
 	height:100%;
 	width:100%;
 	background: var(--bg0);
+	
+	background-size:cover;
+	background-position:center;
+	background-repeat:no-repeat;
 }
 
 .card-img {
