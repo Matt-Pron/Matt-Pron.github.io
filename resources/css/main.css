@@ -1,6 +1,6 @@
 :root{
 	font-size:62.5%;
-	--header-height: 8vh;
+	--header-height: 4vh;
 }
 
 *{
@@ -52,7 +52,7 @@ header{
 
 .header-nav ul li a{
 	padding:0 1rem;
-	font-size:3em;
+	font-size:2.2em;
 	font-weight:900;
 	line-height:var(--header-height);
 	display:block;
@@ -140,6 +140,10 @@ hr{
 }
 
 @media only screen and (max-width: 80rem) {
+	:root{
+		--header-height: 8vh;
+	}
+	
 	.header-nav ul li a{
 		font-size:3.4em;
 	}
