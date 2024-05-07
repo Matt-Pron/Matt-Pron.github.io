@@ -145,6 +145,11 @@ p{
 	margin-bottom: 10px;
 }
 
+.clamped{
+	width:clamp(45ch,50%,75ch);
+	align-self:center;
+}
+
 a{
 	font-size:2.2rem;
 	line-height:1.5;
