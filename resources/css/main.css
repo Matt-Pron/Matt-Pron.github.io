@@ -142,7 +142,7 @@ hr{
 
 @media only screen and (max-width: 70rem) {
 	:root{
-		--header-height: 5rem;
+		--header-height: 10rem;
 	}
 
 	.header-logo{
@@ -150,7 +150,7 @@ hr{
 	}
 	
 	.header-nav ul li a{
-		font-size:3.2em;
+		font-size:5.2em;
 	}
 	
 	#wrapper{
