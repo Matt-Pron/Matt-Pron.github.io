@@ -42,7 +42,7 @@ header{
 }
 
 .header-nav ul{
-	margin-left:3rem;
+	margin-left:5rem;
 }
 
 .header-nav ul li{
@@ -52,6 +52,7 @@ header{
 
 .header-nav ul li a{
 	padding:0 1rem;
+	margin-top:0.4rem;
 	font-size:2.0em;
 	font-weight:900;
 	line-height:var(--header-height);
