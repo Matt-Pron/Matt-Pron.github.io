@@ -62,7 +62,7 @@
 	grid-auto-rows: 20rem;
 }
 
-@media only screen and (max-width: 70rem) {
+@media only screen and (max-width: 60rem) {
 	.card-tag h4{
 		font-size:3.2rem;
 	}
