@@ -5,7 +5,7 @@
 }
 
 .card {
-	aspect-ratio: 1 / 1.25;
+	aspect-ratio: 1 / 1.5;
 }
 
 .card-tag{
@@ -22,6 +22,15 @@
 	object-fit:cover;
 	
 	transition: 200ms;
+}
+
+.card.featured {
+	grid-row: span 2;
+	grid-column: span 2;
+}
+
+.card.featured .card-img{
+	aspect-ratio: 1 / 1.25;
 }
 
 .card:hover .card-img {
