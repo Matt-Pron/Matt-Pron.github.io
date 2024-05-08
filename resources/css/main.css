@@ -116,6 +116,7 @@ header{
 	margin:auto;
 	margin-top:	var(--header-height);
 	padding:2.2rem;
+	align-items:center;
 }
 
 #hrTitle{
@@ -151,7 +152,6 @@ p{
 	margin-top: 5px;
 	margin-bottom: 10px;
 	width:clamp(45ch,100%,75ch);
-	align-self:center;
 }
 
 hr{
