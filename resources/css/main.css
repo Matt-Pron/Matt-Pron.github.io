@@ -119,6 +119,7 @@ header{
 }
 
 #hrTitle{
+	width:100%;
 	margin: 2px 0 15px;
 	border-color:var(--fg1);
 }
@@ -150,6 +151,7 @@ p{
 	margin-top: 5px;
 	margin-bottom: 10px;
 	width:clamp(45ch,100%,75ch);
+	align-self:center;
 }
 
 hr{
