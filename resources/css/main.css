@@ -14,6 +14,12 @@ body{
 	background: var(--bg0);
 }
 
+a{
+	font-size:2.2rem;
+	line-height:1.5;
+	cursor:pointer;
+}
+
 header{
 	position:fixed;
 	top:0;
@@ -144,13 +150,6 @@ p{
 	margin-top: 5px;
 	margin-bottom: 10px;
 	width:clamp(45ch,100%,75ch);
-	align-self:center;
-}
-
-a{
-	font-size:2.2rem;
-	line-height:1.5;
-	cursor:pointer;
 }
 
 hr{
