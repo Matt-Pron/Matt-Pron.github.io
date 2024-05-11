@@ -1,0 +1,129 @@
+:root {
+    --header-height: 4rem;
+    font-family: "Courier New", monospace;
+    font-size: 1.00rem;
+    line-height: 1.2;
+
+    --fg: hsl(38, 41%, 71%);
+    --bg: hsl(195, 6%, 12%);
+
+    --sutil: hsl(28, 11%, 44%);
+
+    --bg-light: hsl(0, 0%, 16%);
+
+    --yellow: hsl(37, 62%, 59%);
+    --red: hsl(3, 76%, 65%);
+
+    --bg-yellow: hsl(38, 27%, 22%);
+}
+
+@media only screen and (max-width: 50em) {
+    :root { --header-height: 5.5rem; }
+}
+
+body {
+    color: var(--fg);
+    background-color: var(--bg);
+}
+
+.main-header {
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg);
+    border-bottom: 0.20rem solid var(--fg);
+    box-shadow: 0 1rem 0.8rem var(--bg);
+}
+
+.main-base {
+    margin: calc(var(--header-height) + 1.2rem) auto;
+}
+
+.main-nav {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    align-items: center;
+}
+
+@media only screen and (max-width: 50em) {
+    .main-nav {
+        grid-template-columns: 1fr 4fr;
+    }
+}
+
+.main-nav a {
+    justify-self: safe center;
+}
+
+a:hover, a:focus {
+    color: var(--yellow);
+}
+
+h1 {
+    font-size: 1.5em;
+    font-weight: 900;
+}
+
+h2 {
+    text-indent: .8em;
+    font-size: 1.25em;
+    font-weight: 600;
+}
+
+.texto h2 {
+    font-size: 1.3em;
+}
+
+h4 {
+    text-indent: .8em;
+    font-size: 0.90em;
+    line-height: 1.75;
+    color: var(--sutil);
+}
+
+p {
+    text-indent: 2.4rem;
+    text-align: justify;
+    padding: .6rem 0;
+}
+
+hr {
+    border-bottom: 1px solid;
+}
+
+.texto {
+    margin: auto;
+    padding-bottom: 1.4rem;
+    max-width: clamp(45ch, 100%, 75ch);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    transition: 100ms;
+}
+
+.logo img {
+    padding: .2em 0;
+    max-height: calc(var(--header-height) - (2 * .6em));
+}
+
+.logo a:hover, .logo a:focus {
+    filter: brightness(130%);
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 60em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+

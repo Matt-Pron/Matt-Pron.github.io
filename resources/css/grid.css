@@ -1,11 +1,12 @@
 .basic-grid {
-	display:grid;
-	gap:2rem;
-	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+	display: grid;
+	gap: 2rem;
+	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    padding-bottom: 2rem;
 }
 
 .basic-grid p{
-	align-self:auto;
+	align-self: auto;
 }
 
 .card {
@@ -13,53 +14,37 @@
 }
 
 .card-tag{
-	align-self:end;
-	padding: 1rem;
+	padding: .4em;
 }
 
 .card-img {
-	display:block;
-	border:6px solid;
-	padding:4rem;
+	display: block;
+	border: .4em solid;
+	padding:22%;
 	width:100%;
 	aspect-ratio: 1 / 1;
-	object-fit:cover;
 	
 	transition: 200ms;
 }
 
-.card.featured {
-	grid-row: span 2;
-	grid-column: span 2;
+.card-img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
-.card.featured .card-img{
-	aspect-ratio: 1 / 1.25;
-}
-
-.card:hover .card-img {
+.card:hover .card-img,
+.card a:focus .card-img {
 	padding:0;
 }
 
 .card-desc{
-	font-size:1.4rem;
-	text-indent: 0;
+    text-indent: 0;
+	font-size:0.9em;
 }
 
 .card-title{
-	font-size:2.4rem;
+    text-indent: 0;
+	font-size:1.5em;
 }
 
-@media only screen and (max-width: 65rem) {
-	.card-desc{
-		font-size:3.0rem;
-	}
-
-	.card-title{
-		font-size:4.2rem;
-	}
-	.basic-grid {
-		grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-	}
-
-}

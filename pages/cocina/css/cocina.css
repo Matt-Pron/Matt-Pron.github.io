@@ -1,0 +1,60 @@
+.start {
+    display: grid;
+    grid-template-columns: 1fr 16em;
+    gap: .6em;
+}
+
+@media only screen and (max-width: 50em) {
+    .start {
+        display: revert;
+    }
+
+    .foto {
+        max-height: 12em;
+        width: 100%;
+        object-fit: cover;
+    }
+
+}
+
+.foto {
+    border-radius: 1rem;
+    border: .16em solid var(--fg);
+    margin-bottom: .4em;
+    margin-top: 1.8em;
+}
+
+.ingredientes {
+    grid-row-start: 1;
+    position: relative;
+    border-radius: 1rem;
+    border: .16em solid var(--yellow);
+    margin-bottom: .4em;
+    margin-top: 1.8em;
+    padding: .4em .6em .6em;
+    background-color: var(--bg-light);
+}
+
+.ingredientes::before {
+    content: "Ingredientes";
+    position: absolute;
+    bottom: 102%;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.ingredientes ul {
+    list-style: revert;
+    list-style-type: cjk-decimal;
+    list-style-type: armenian;
+    list-style-position: outside;
+    margin-left: 2.0em;
+}
+
+.ingredientes li {
+}
+
+.ingredientes h4 {
+    line-height: 1.2;
+}
+

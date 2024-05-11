@@ -1,0 +1,78 @@
+.splash {
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.8em;
+
+    font-size: 1.24em;
+}
+
+.splash > .splash-nav,
+.splash > .splash-header {
+    margin-bottom: 5em;
+}
+
+.splash-header {
+}
+
+.splash-nav {
+    font-size: 1.20em;
+    text-align: right;
+    padding: 1em;
+    border-right: .40rem solid;
+}
+
+hr {
+    margin: .4em 0 .6em;
+}
+
+a {
+    display: block;
+}
+
+a:not(.fa) {
+    transition: 200ms;
+}
+
+a:not(.fa):hover,
+a:not(.fa):focus {
+    transform: translate(-0.6em);
+}
+
+.fa {
+    font-size: 1.2em;
+    opacity: .4;
+    transition: 200ms;
+}
+
+.fa:hover,
+.fa:focus {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 50em) {
+    .splash {
+        flex-direction: column-reverse;
+        gap: 10em;
+    }
+
+    .splash > .splash-nav,
+    .splash > .splash-header {
+        margin-bottom: 0;
+    }
+
+    .splash-nav {
+        align-self: flex-end;
+        margin-right: 0.6em;
+        font-size: 1.40em;
+    }
+
+}
+
+.not-yet, .not-yet:hover, .not-yet:focus {
+    text-decoration: line-through;
+    color: var(--sutil);
+}
+

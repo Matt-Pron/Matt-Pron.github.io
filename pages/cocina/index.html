@@ -1,137 +1,231 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title>Pagina Efeba - Cocina</title>
-	<link rel="icon" type="image/x-icon" href="../../resources/img/icon-b.png">
-	<link rel="stylesheet" href="../../resources/css/reset.css">
-	<link rel="stylesheet" href="../../resources/css/palette.css">
-	<link rel="stylesheet" href="../../resources/css/main.css">
-	<link rel="stylesheet" href="../../resources/css/grid.css">
-	<link rel="stylesheet" href="resources/css/headings.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../../resources/css/reset.css" rel="stylesheet">
+    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link href="../../resources/css/grid.css" rel="stylesheet">
+
+    <title>Bizantino Bizarro - Cocina</title>
+    <link rel="icon" href="../../resources/img/favicon.png" type="image/x-icon" />
+
 </head>
 <body>
-	<header>
-		<div class="header-container">
-			<div class="header-logo">
-				<a href="../../"><img src="../../resources/img/icon-b.png"></a>
-				<nav class="header-nav">
-					<ul>
-						<li><a href="#">cocina</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-		<div id="separador"></div>
-		<div id="sombra"></div>
-	</header>
-	<div id='wrapper'>
-		<div class="basic-grid">
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/bianca.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">topping</p>
-				  <h2 class="card-title">Bianca de Papa</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/biga.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">receta</p>
-				  <h2 class="card-title">Biga</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/calabresa.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">topping</p>
-				  <h2 class="card-title">Calabresa</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/cebollas.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">receta</p>
-				  <h2 class="card-title">Pickles de Cebolla</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/jamon.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">topping</p>
-				  <h2 class="card-title">De Jamón</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/papitas.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">receta</p>
-				  <h2 class="card-title">Papitas</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/pizza.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">receta</p>
-				  <h2 class="card-title">Masa de Pizza</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/pollo.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">receta</p>
-				  <h2 class="card-title">Pollo a la Plancha</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/poolish.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">receta</p>
-				  <h2 class="card-title">Poolish</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/smash.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">receta</p>
-				  <h2 class="card-title">Smash Burguers</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/placeholder.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">técnica</p>
-				  <h2 class="card-title">Arroz</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/placeholder.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">topping</p>
-				  <h2 class="card-title">Margherita</h2>
-				</div>
-			</div>
-		
-			<div class="card">
-				<a href="#" class="card-img"><img src="../../resources/img/cocina/placeholder.jpg"></a>
-				<div class="card-tag">
-				  <p class="card-desc">topping</p>
-				  <h2 class="card-title">Rúcula y Jamón Crudo</h2>
-				</div>
-			</div>
-			
-		</div>
-	</div>
+
+    <header class="main-header wrapper">
+        <nav class="main-nav"> 
+            <div class="logo"><a href="../../"><img src="../../resources/img/icon.png" alt="Home"></a></div>
+            <a href="../../"><h1>Hall</h1></a>
+        </nav>
+    </header>	
+
+    <main class="main-base wrapper">
+
+        <section class="texto">
+            <h2>Recetas y técnicas</h2>
+            <hr>
+            <p>Cosas que me gusta cocinar, algunas recetas completas pero, más que nada, técnicas que utilizo en la cocina.</p>
+        </section>
+
+        <section class="basic-grid">
+
+            <div class="card">
+                <a href="cebollas">
+                    <div class="card-img">
+                        <img src="img/cebollas.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">receta</p>
+                        <h2 class="card-title">Pickles de Cebolla</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/papitas.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">receta</p>
+                        <h2 class="card-title">Papitas</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/smash.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">receta</p>
+                        <h2 class="card-title">Hamburguesas Smash</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="https://unsplash.it/512" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">técnica</p>
+                        <h2 class="card-title">Arroz</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/pizza.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">técnica</p>
+                        <h2 class="card-title">Pizza</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/pollo.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">técnica</p>
+                        <h2 class="card-title">Pollo a la Plancha</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/biga.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">prefermento</p>
+                        <h2 class="card-title">Biga</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/poolish.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">prefermento</p>
+                        <h2 class="card-title">Poolish</h2>
+                    </div>
+                </a>
+            </div>
+
+        </section>
+
+        <section class="texto">
+            <h2>Ideas varias</h2>
+            <hr>
+            <p>Algunas ideas como toppings para pizzas, rellenos de empanada y cosas por el estilo.</p>
+        </section>
+
+        <section class="basic-grid">
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/bianca.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">topping</p>
+                        <h2 class="card-title">Bianca de Papa</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/calabresa.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">topping</p>
+                        <h2 class="card-title">Calabresa</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="img/jamon.jpg" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">topping</p>
+                        <h2 class="card-title">De Jamón</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="https://unsplash.it/512" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">topping</p>
+                        <h2 class="card-title">Margherita</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="https://unsplash.it/512" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">topping</p>
+                        <h2 class="card-title">Rúcula y Jamón Crudo</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="https://unsplash.it/512" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">empanada</p>
+                        <h2 class="card-title">De Carne</h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#">
+                    <div class="card-img">
+                        <img src="https://unsplash.it/512" alt="">
+                    </div>
+                    <div class="card-tag">
+                        <p class="card-desc">empanada</p>
+                        <h2 class="card-title">Morcilla, Roquefort y Nueces</h2>
+                    </div>
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
 </body>
 </html>
+
