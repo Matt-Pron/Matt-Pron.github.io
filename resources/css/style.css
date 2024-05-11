@@ -35,6 +35,7 @@ body {
     background-color: var(--bg);
     border-bottom: 0.20rem solid var(--fg);
     box-shadow: 0 1rem 0.8rem var(--bg);
+    z-index: 100;
 }
 
 .main-base {
