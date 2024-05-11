@@ -1,0 +1,41 @@
+.diccionario {
+    text-indent: 0;
+    position: relative;
+    display: inline-block;
+    color: var(--yellow);
+}
+
+.diccionario .def {
+    width: 30em;
+    color: var(--yellow);
+    text-indent: 2em;
+    background-color: #282828;
+    padding: .40em .60em;
+    margin-left: auto;
+    margin-right: auto;
+    border: .02em solid var(--fg);
+    border-radius: .34em;
+
+    position: fixed;
+    bottom: -5em;
+    right: 2em;
+    left: 2em;
+    z-index: 200;
+
+    visibility: hidden;
+    transition: 200ms;
+    opacity: 0;
+}
+
+.diccionario:hover .def {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, -8rem);
+}
+
+@media only screen and (max-width: 50em) {
+    .diccionario .def {
+        width: auto;
+    }
+}
+
