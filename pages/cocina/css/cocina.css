@@ -21,7 +21,7 @@
     border-radius: 1rem;
     border: .16em solid var(--fg);
     margin-bottom: .4em;
-    margin-top: 1.8em;
+    margin-top: 3.4em;
 }
 
 .ingredientes {
@@ -30,17 +30,13 @@
     border-radius: 1rem;
     border: .16em solid var(--yellow);
     margin-bottom: .4em;
-    margin-top: 1.8em;
-    padding: .4em .6em .6em;
+    margin-top: 3.4em;
+    padding: 0 .6em .6em;
     background-color: var(--bg-light);
 }
 
 .ingredientes::before {
     content: "Ingredientes";
-    position: absolute;
-    bottom: 102%;
-    font-size: 1.2em;
-    font-weight: 600;
 }
 
 .ingredientes ul {
@@ -51,10 +47,38 @@
     margin-left: 2.0em;
 }
 
-.ingredientes li {
-}
-
 .ingredientes h4 {
     line-height: 1.2;
+}
+
+.pasos {
+    position: relative;
+    margin-bottom: .4em;
+    margin-top: 3.4em;
+    max-width: clamp(45ch, 100%, 60ch);
+}
+
+.pasos::before {
+    content: "Pasos";
+    padding-left: .8em;
+}
+
+.pasos ul {
+    list-style-type: armenian;
+    list-style-position: outside;
+    text-align: justify;
+    margin-left: 2.0em;
+}
+
+.ingredientes li, .pasos li {
+    padding-bottom: 1.2em;
+}
+
+.ingredientes::before,
+.pasos::before {
+    position: absolute;
+    bottom: 102%;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 

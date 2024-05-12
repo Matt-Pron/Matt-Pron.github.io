@@ -15,6 +15,7 @@
     --red: hsl(3, 76%, 65%);
 
     --bg-yellow: hsl(38, 27%, 22%);
+    --bg-red: hsl(2, 33%, 18%);
 }
 
 @media only screen and (max-width: 50em) {
@@ -117,6 +118,15 @@ hr {
 
 .logo a:hover, .logo a:focus {
     filter: brightness(130%);
+}
+
+.advertencia {
+    border-top: .3em solid;
+    border-bottom: .6em solid;
+    border-color: var(--red);
+    border-radius: 1em;
+    padding: .8em;
+    margin: .8em 0;
 }
 
 .wrapper {
