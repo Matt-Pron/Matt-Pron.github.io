@@ -8,7 +8,7 @@
 .diccionario .def {
     width: 30em;
     color: var(--yellow);
-    text-indent: 2em;
+    text-indent: 1.4em;
     background-color: #282828;
     padding: .40em .60em;
     margin-left: auto;
