@@ -27,6 +27,19 @@ body {
     background-color: var(--bg);
 }
 
+::-webkit-scrollbar {
+    width: 1.1em;
+}
+
+::-webkit-scrollbar-track {
+    margin: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--fg);
+    border: .34em solid var(--bg);
+}
+
 .main-header {
     height: var(--header-height);
     position: fixed;

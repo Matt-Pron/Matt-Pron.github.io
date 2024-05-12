@@ -19,9 +19,10 @@
 
 .foto {
     border-radius: 1rem;
-    border: .16em solid var(--fg);
     margin-bottom: .4em;
     margin-top: 3.4em;
+    height: auto;
+    object-fit: cover;
 }
 
 .ingredientes {
@@ -48,7 +49,7 @@
 }
 
 .ingredientes h4 {
-    line-height: 1.2;
+    margin-block: .4em .2em;
 }
 
 .pasos {
