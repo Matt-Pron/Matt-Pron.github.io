@@ -1,20 +1,14 @@
 .diccionario {
     text-indent: 0;
-    position: relative;
     display: inline-block;
     color: var(--yellow);
 }
 
 .diccionario .def {
-    width: 30em;
-    color: var(--yellow);
-    text-indent: 1.4em;
-    background-color: #282828;
-    padding: .40em .60em;
-    margin-left: auto;
-    margin-right: auto;
-    border: .02em solid var(--fg);
-    border-radius: .34em;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     position: fixed;
     bottom: -5em;
@@ -33,9 +27,56 @@
     transform: translate(0, -8rem);
 }
 
+.diccionario .middle {
+    max-width: 30rem;
+    text-indent: .6rem;
+    color: var(--yellow);
+    background-color: #282828;
+    padding: .40em .60em;
+    margin-inline: auto;
+    border: .02em solid var(--fg);
+    border-radius: .34em;
+}
+
 @media only screen and (max-width: 50em) {
     .diccionario .def {
         width: auto;
     }
+}
+
+.hdp-nav {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.hdp-nav-btn::after {
+    display: block;
+    height: 2.4rem;
+    width: fit-content;
+    text-align: center;
+    line-height: 2.4rem;
+    padding-inline: .8rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: .3rem;
+    box-shadow: .2rem .2rem .1rem #000;
+    background-color: var(--bg-light);
+    vertical-align: center;
+    content: "";
+    transition: 200ms;
+    color: var(--fg);
+}
+
+.hdp-nav-btn:hover::after,
+.hdp-nav-btn:focus::after {
+    transform: scale(1.08);
+}
+
+.previous::after {
+    content: "anterior";
+}
+
+.next::after {
+    content: "siguiente";
 }
 
