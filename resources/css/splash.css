@@ -73,6 +73,6 @@ a:not(.fa):focus {
 
 .not-yet, .not-yet:hover, .not-yet:focus {
     text-decoration: line-through;
-    color: var(--sutil);
+    color: var(--grey0);
 }
 

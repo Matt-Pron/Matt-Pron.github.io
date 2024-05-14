@@ -7,12 +7,15 @@
     --fg: hsl(38, 41%, 71%);
     --bg: hsl(195, 6%, 12%);
 
-    --sutil: hsl(28, 11%, 44%);
-
     --bg-light: hsl(0, 0%, 16%);
+    --bg5: hsl(22, 7%, 29%);
 
     --yellow: hsl(37, 62%, 59%);
     --red: hsl(3, 76%, 65%);
+
+    --grey0: hsl(28, 11%, 44%);
+    --grey1: hsl(30, 12%, 51%);
+    --grey2: hsl(35, 17%, 59%);
 
     --bg-yellow: hsl(38, 27%, 22%);
     --bg-red: hsl(2, 33%, 18%);
@@ -96,7 +99,7 @@ h4 {
     text-indent: .8em;
     font-size: 0.90em;
     line-height: 1.75;
-    color: var(--sutil);
+    color: var(--grey0);
 }
 
 p {
@@ -140,6 +143,10 @@ hr {
     border-radius: 1em;
     padding: .8em;
     margin: .8em 0;
+}
+
+.notyet {
+    color: var(--bg5);
 }
 
 .wrapper {
