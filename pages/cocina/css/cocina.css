@@ -33,7 +33,7 @@
     margin-bottom: .4em;
     margin-top: 3.4em;
     padding: 0 .6em .6em;
-    background-color: var(--bg-light);
+    background-color: var(--bg1);
 }
 
 .ingredientes::before {
@@ -41,7 +41,6 @@
 }
 
 .ingredientes ul {
-    list-style: revert;
     list-style-type: cjk-decimal;
     list-style-type: armenian;
     list-style-position: outside;
@@ -72,6 +71,7 @@
 }
 
 .ingredientes li, .pasos li {
+    hyphens: auto;
     padding-bottom: 1.2em;
 }
 

@@ -7,8 +7,10 @@
     --fg: hsl(38, 41%, 71%);
     --bg: hsl(195, 6%, 12%);
 
-    --bg-light: hsl(0, 0%, 16%);
-    --bg5: hsl(22, 7%, 29%);
+    --bg-light: #ff00ff;
+    --bg1: hsl(0, 0%, 16%);
+    --bg2: hsl(20, 5%, 22%);
+    --bg3: hsl(22, 7%, 29%);
 
     --yellow: hsl(37, 62%, 59%);
     --red: hsl(3, 76%, 65%);
@@ -106,6 +108,7 @@ p {
     text-indent: 2.4rem;
     text-align: justify;
     padding: .6rem 0;
+    hyphens: auto;
 }
 
 hr {
@@ -146,7 +149,8 @@ hr {
 }
 
 .notyet {
-    color: var(--bg5);
+    color: var(--bg3);
+    opacity: .1;
 }
 
 .wrapper {
