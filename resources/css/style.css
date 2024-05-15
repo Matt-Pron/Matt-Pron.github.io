@@ -1,13 +1,12 @@
 :root {
     --header-height: 4rem;
     font-family: "Courier New", monospace;
-    font-size: 1.00rem;
-    line-height: 1.32;
+    font-size: 1.06rem;
+    line-height: 1.28;
 
     --fg: hsl(38, 41%, 71%);
     --bg: hsl(195, 6%, 12%);
 
-    --bg-light: #ff00ff;
     --bg1: hsl(0, 0%, 16%);
     --bg2: hsl(20, 5%, 22%);
     --bg3: hsl(22, 7%, 29%);
@@ -107,17 +106,20 @@ h4 {
 p {
     text-indent: 2.4rem;
     text-align: justify;
-    padding: .6rem 0;
     hyphens: auto;
+    padding-block: .1rem;
 }
 
 hr {
     border-bottom: 1px solid;
 }
 
+section {
+    padding-block: .4rem;
+}
+
 .texto {
-    margin: auto;
-    padding-bottom: 1.4rem;
+    margin-inline: auto;
     max-width: clamp(45ch, 100%, 75ch);
 }
 
@@ -145,7 +147,8 @@ hr {
     border-color: var(--red);
     border-radius: 1em;
     padding: .8em;
-    margin: .8em 0;
+    margin-top: .6rem;
+    margin-bottom: 2.8rem;
 }
 
 .notyet {
@@ -156,9 +159,7 @@ hr {
 .wrapper {
     width: 100%;
     max-width: 60em;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 2em;
-    padding-right: 2em;
+    margin-inline: auto;
+    padding-inline: 2em;
 }
 

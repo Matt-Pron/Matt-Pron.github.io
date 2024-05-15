@@ -47,6 +47,7 @@
 .hdp-nav {
     display: flex;
     justify-content: space-evenly;
+    margin-top: 1.4rem;
 }
 
 .hdp-nav-btn::after {
@@ -78,5 +79,13 @@
 
 .next::after {
     content: "siguiente";
+}
+
+q::before {
+    content: "―";
+}
+
+q:after {
+    content: "";
 }
 

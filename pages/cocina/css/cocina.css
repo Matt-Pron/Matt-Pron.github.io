@@ -4,25 +4,24 @@
     gap: .6em;
 }
 
+.foto {
+    border-radius: 1rem;
+    object-fit: cover;
+    margin-top: 2.4rem;
+}
+
 @media only screen and (max-width: 50em) {
     .start {
         display: revert;
+
     }
 
     .foto {
         max-height: 12em;
         width: 100%;
-        object-fit: cover;
+        margin-block: auto;
     }
 
-}
-
-.foto {
-    border-radius: 1rem;
-    margin-bottom: .4em;
-    margin-top: 3.4em;
-    height: auto;
-    object-fit: cover;
 }
 
 .ingredientes {
@@ -30,8 +29,7 @@
     position: relative;
     border-radius: 1rem;
     border: .16em solid var(--yellow);
-    margin-bottom: .4em;
-    margin-top: 3.4em;
+    margin-top: 2.4rem;
     padding: 0 .6em .6em;
     background-color: var(--bg1);
 }
@@ -54,7 +52,7 @@
 .pasos {
     position: relative;
     margin-bottom: .4em;
-    margin-top: 3.4em;
+    margin-top: 2.4rem;
     max-width: clamp(45ch, 100%, 60ch);
 }
 
