@@ -1,3 +1,49 @@
+.diccionario {
+    text-indent: 0;
+    display: inline-block;
+    color: var(--yellow);
+}
+
+.diccionario .def {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    bottom: -5em;
+    right: 2em;
+    left: 2em;
+    z-index: 200;
+
+    visibility: hidden;
+    transition: 200ms;
+    opacity: 0;
+}
+
+.diccionario:hover .def {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, -8rem);
+}
+
+.diccionario .middle {
+    max-width: 30rem;
+    text-indent: .6rem;
+    color: var(--yellow);
+    background-color: #282828;
+    padding: .40em .60em;
+    margin-inline: auto;
+    border: .02em solid var(--fg);
+    border-radius: .34em;
+}
+
+@media only screen and (max-width: 50em) {
+    .diccionario .def {
+        width: auto;
+    }
+}
+
 .hdp-nav {
     display: flex;
     justify-content: space-evenly;
@@ -44,15 +90,10 @@ q:after {
     content: "";
 }
 
-.def {
+.yellow {
     color: var(--yellow);
     text-indent: 0;
     display: inline-block;
-}
-
-.def:hover {
-    color: var(--green);
-    font-weight: 900;
 }
 
 #dicc {
@@ -69,8 +110,8 @@ q:after {
     align-items: center;
     color: var(--fg);
     background-color: var(--bg1);
-    border: 1px solid var(--yellow);
-    border-radius: .24em;
+    border: .02rem solid var(--yellow);
+    border-radius: .34em;
 
     z-index: 200;
 
@@ -93,8 +134,6 @@ q:after {
 
 #close {
     display: block;
-    position: relative;
-    bottom: 0.26rem;
     width: 2.4rem;
     height: 1.2rem;
     margin-right: 1.6rem;
@@ -103,7 +142,7 @@ q:after {
     color: var(--bg);
     background-color: var(--yellow);
     border: .02rem solid var(--yellow);
-    border-radius: .12rem .12rem .2rem .2rem;
+    border-radius: 0 0 .2rem .2rem;
 }
 
 #close::after {

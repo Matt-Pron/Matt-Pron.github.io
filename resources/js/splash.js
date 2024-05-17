@@ -18,3 +18,4 @@ const list = [
 document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById("greeting").innerHTML = list[Math.floor(Math.random() * list.length)]
 });
+

@@ -9,6 +9,7 @@
     <link href="../../../resources/css/style.css" rel="stylesheet">
 
     <link href="../css/hdp.css" rel="stylesheet">
+    <script src="../js/hdp.js"></script>
 
     <title>Bizantino Bizarro - Capítulo II</title>
     <link rel="icon" href="../../../resources/img/favicon.png" type="image/x-icon" />
@@ -32,97 +33,89 @@
 
         <section class="texto">
 
-            <p>Entonces noté que el barbiponiente chasqui me había seguido. Lo miré 
+            <p>Entonces noté que el
 
-            <span class="diccionario">insípido
-                <span class="def"><span class="middle">Falto de espíritu o gracia.</span></span>
-            </span>
+            <span onclick="getDef('Barbiponiente')" class="def">barbiponiente</span>
+
+            <span onclick="getDef('Chasqui')" class="def">chasqui</span>
+
+            me había seguido. Lo miré 
+
+            <span onclick="getDef('Insípido')" class="def">insípido</span>
 
             y me escondí. De un golpe lo dejé 
 
-            <span class="diccionario">síncope
-                <span class="def"><span class="middle">Sin conocimiento.</span></span>
-            </span>
+            <span onclick="getDef('Síncope')" class="def">síncope</span>
 
             y lo 
 
-            <span class="diccionario">maniaté
-                <span class="def"><span class="middle">Atar las manos.</span></span>
-            </span>
+            <span onclick="getDef('Maniatar')" class="def">maniaté</span>
 
-            al litre más cercano. Cuando 
+            al
 
-            <span class="diccionario">espabiló
-                <span class="def"><span class="middle">Salir del sueño.</span></span>
-            </span>
+            <span onclick="getDef('Litre')" class="def">litre</span>
+
+            más cercano. Cuando 
+
+            <span onclick="getDef('Espabilar')" class="def">espabiló</span>
 
             lo 
 
-            <span class="diccionario">despatarré
-                <span class="def"><span class="middle">Llenar de miedo.</span></span>
-            </span>
+            <span onclick="getDef('Despatarrar')" class="def">despatarré</span>
 
-            y lo interrogué. El barbiponiente chasqui me contó que había 
+            y lo interrogué. El
 
-            <span class="diccionario">gurguciado
-                <span class="def"><span class="middle">Averiguar.</span></span>
-            </span>
+            <span onclick="getDef('Barbiponiente')" class="def">barbiponiente</span>
 
-            sobre los personajes de las lobas negras. Luego de que 
+            <span onclick="getDef('Chasqui')" class="def">chasqui</span>
 
-            <span class="diccionario">gargajeara
-                <span class="def"><span class="middle">Largar algo por la boca.</span></span>
-            </span>
+            me contó que había 
+
+            <span onclick="getDef('Gurguciar')" class="def">gurguciado</span>
+
+            sobre los personajes de las
+
+            <span onclick="getDef('Loba')" class="def">lobas</span>
+
+            negras. Luego de que 
+
+            <span onclick="getDef('Gargajear')" class="def">gargajeara</span>
 
             lo que sabía, decidí 
 
-            <span class="diccionario">conchabarme
-                <span class="def"><span class="middle">Ponerse de acuerdo para un fin.</span></span>
-            </span>
+            <span onclick="getDef('Conchabarse')" class="def">conchabarme</span>
 
             con él. Parecía ser que aquellos personajes eran dos 
 
-            <span class="diccionario">rufianes
-                <span class="def"><span class="middle">Hombre sin honor, perverso, despreciable.</span></span>
-            </span>
+            <span onclick="getDef('Rufián')" class="def">rufianes</span>
 
-            <span class="diccionario">gigolós,
-                <span class="def"><span class="middle">Jóven amante de una mujer rica y madura que le protege económicamente.</span></span>
-            </span>
+            <span onclick="getDef('Gigoló')" class="def">gigolós,</span>
 
             sucios como la 
 
-            <span class="diccionario">hidropesía.
-                <span class="def"><span class="middle">Acumulación anormal de cera.</span></span>
-            </span>
+            <span onclick="getDef('Hidropesía')" class="def">hidropesía.</span>
 
             Nos colocamos unos 
 
-            <span class="diccionario">feces
-                <span class="def"><span class="middle">Gorro de fieltro rojo y de forma de cubilete.</span></span>
-            </span>
+            <span onclick="getDef('Fez')" class="def">feces</span>
 
-            <span class="diccionario">dicromáticos
-                <span class="def"><span class="middle">De dos colores.</span></span>
-            </span>
+            <span onclick="getDef('Dicromático')" class="def">dicromáticos</span>
 
-            y el chasqui me dijo: debemos hablar con el 
+            y el
 
-            <span class="diccionario">patizambo
-                <span class="def"><span class="middle">Que tiene las piernas hacia afuera y las rodillas juntas.</span></span>
-            </span>
+            <span onclick="getDef('Chasqui')" class="def">chasqui</span>
+
+            me dijo: debemos hablar con el 
+
+            <span onclick="getDef('Patizambo')" class="def">patizambo</span>
 
             de la 
 
-            <span class="diccionario">ínsula
-                <span class="def"><span class="middle">Isla.</span></span>
-            </span>
+            <span onclick="getDef('Ínsula')" class="def">ínsula</span>
 
             del sudeste, donde los animales dan 
 
-            <span class="diccionario">machincuepas.
-                <span class="def"><span class="middle">Voltereta, pirueta.</span></span>
-            </span>
+            <span onclick="getDef('Machincuepa')" class="def">machincuepas.</span>
 
             Sólo él puede revelarnos la verdad.</p>
 
@@ -132,6 +125,14 @@
             <a href="../capitulo-i/" class="hdp-nav-btn previous" tabindex="0"></a>
             <a href="../capitulo-iii/" class="hdp-nav-btn next" tabindex="0"></a>
         </section>
+
+        <div id="dicc">
+            <div class="repelh">
+                <h2 id="significante"></h2>
+                <button id="close" onclick="closeDef()"></button>
+            </div>
+            <p id="significado"></p>
+        </div>
 
     </main>
 

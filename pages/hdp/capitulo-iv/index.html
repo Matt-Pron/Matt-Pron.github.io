@@ -9,6 +9,7 @@
     <link href="../../../resources/css/style.css" rel="stylesheet">
 
     <link href="../css/hdp.css" rel="stylesheet">
+    <script src="../js/hdp.js"></script>
 
     <title>Bizantino Bizarro - Capítulo IV</title>
     <link rel="icon" href="../../../resources/img/favicon.png" type="image/x-icon" />
@@ -34,105 +35,99 @@
 
             <p>En el primer
             
-            <span class="diccionario">conato
-                <span class="def"><span class="middle">Intento.</span></span>
-            </span>
-            
+            <span onclick="getDef('Conato')" class="def">conato</span>           
+
             no
             
-            <span class="diccionario">culminamos
-                <span class="def"><span class="middle">Lograr.</span></span>
-            </span>
+            <span onclick="getDef('Culminar')" class="def">culminamos</span>
 
-            con la tarea de poner la balandra en la
+            con la tarea de poner la
             
-            <span class="diccionario">albufera.
-                <span class="def"><span class="middle">Lago.</span></span>
-            </span>
+            <span onclick="getDef('Balandra')" class="def">balandra</span>
+
+            en la
+            
+            <span onclick="getDef('Albufera')" class="def">albufera.</span>
 
             La
             
-            <span class="diccionario">lontananza
-                <span class="def"><span class="middle">Lejanía.</span></span>
-            </span>
+            <span onclick="getDef('Lontananza')" class="def">lontananza</span>
 
             igualmente no era mucha y volvimos a
             
-            <span class="diccionario">tantear,
-                <span class="def"><span class="middle">Intentar.</span></span>
-            </span>
+            <span onclick="getDef('Tantear')" class="def">tantear,</span>
 
-            esta vez con éxito. El chasqui
+            esta vez con éxito. El
             
-            <span class="diccionario">oteó
-                <span class="def"><span class="middle">Divisar.</span></span>
-            </span>
+            <span onclick="getDef('Chasqui')" class="def">chasqui</span>
+            
+            <span onclick="getDef('Otear')" class="def">oteó</span>
 
             una persona acercándose. Me dije que era un
             
-            <span class="diccionario">gazmoño
-                <span class="def"><span class="middle">Santurrón.</span></span>
-            </span>
+            <span onclick="getDef('Gazmoño')" class="def">gazmoño</span>
 
             por la túnica que llevaba. El
             
-            <span class="diccionario">mojigato
-                <span class="def"><span class="middle">Santurrón.</span></span>
-            </span>
+            <span onclick="getDef('Mojigato')" class="def">mojigato</span>
 
             daba
             
-            <span class="diccionario">melopeas
-                <span class="def"><span class="middle">Cántico, salmo.</span></span>
-            </span>
+            <span onclick="getDef('Melopea')" class="def">melopeas</span>
 
             cuando nos vió y se acercó a
             
-            <span class="diccionario">departir
-                <span class="def"><span class="middle">Hablar.</span></span>
-            </span>
+            <span onclick="getDef('Departir')" class="def">departir</span>
 
             con nosotros. Nos
             
-            <span class="diccionario">develó
-                <span class="def"><span class="middle">Revelar.</span></span>
-            </span>
+            <span onclick="getDef('Develar')" class="def">develó</span>
 
-            que en la ínsula del sudeste había que tener
+            que en la
             
-            <span class="diccionario">tiento,
-                <span class="def"><span class="middle">Cuidado.</span></span>
-            </span>
+            <span onclick="getDef('Ínsula')" class="def">ínsula</span>
+
+            del sudeste había que tener
+            
+            <span onclick="getDef('Tiento')" class="def">tiento,</span>
 
             ya que las
             
-            <span class="diccionario">alimañas
-                <span class="def"><span class="middle">Animal.</span></span>
-            </span>
+            <span onclick="getDef('Alimaña')" class="def">alimañas</span>
 
-            podían cascarnos en una de sus machincuepas. Una vez que la balandra estuvo en el agua partimos, no sin antes ser
+            podían
             
-            <span class="diccionario">impretados
-                <span class="def"><span class="middle">Bendecir.</span></span>
-            </span>
+            <span onclick="getDef('Cascar')" class="def">cascarnos</span>           
 
-            por el gazmoño, quién
+            en una de sus
             
-            <span class="diccionario">iteró.
-                <span class="def"><span class="middle">Insistir.</span></span>
-            </span>
+            <span onclick="getDef('Machincuepa')" class="def">machincuepas.</span>           
+
+            Una vez que la
+            
+            <span onclick="getDef('Balandra')" class="def">balandra</span>           
+
+            estuvo en el agua partimos, no sin antes ser
+            
+            <span onclick="getDef('Impretar')" class="def">impretados</span>
+           
+            por el
+            
+            <span onclick="getDef('Gazmoño')" class="def">gazmoño,</span>           
+
+            quién
+            
+            <span onclick="getDef('Iterar')" class="def">iteró.</span>
 
             Era una
             
-            <span class="diccionario">luenga
-                <span class="def"><span class="middle">Largo.</span></span>
-            </span>
+            <span onclick="getDef('Luengo')" class="def">luenga</span>
 
-            <span class="diccionario">vereda,
-                <span class="def"><span class="middle">Camino.</span></span>
-            </span>
+            <span onclick="getDef('Vereda')" class="def">vereda,</span>
 
-            mariscaríamos por el camino.</p>
+            <span onclick="getDef('Mariscar')" class="def">mariscaríamos</span>           
+
+            por el camino.</p>
 
         </section>
 
@@ -140,6 +135,14 @@
             <a href="../capitulo-iii/" class="hdp-nav-btn previous" tabindex="0"></a>
             <a href="../capitulo-v/" class="hdp-nav-btn next" tabindex="0"></a>
         </section>
+
+        <div id="dicc">
+            <div class="repelh">
+                <h2 id="significante"></h2>
+                <button id="close" onclick="closeDef()"></button>
+            </div>
+            <p id="significado"></p>
+        </div>
 
     </main>
 

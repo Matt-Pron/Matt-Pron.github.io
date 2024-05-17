@@ -9,8 +9,9 @@
     <link href="../../../resources/css/style.css" rel="stylesheet">
 
     <link href="../css/hdp.css" rel="stylesheet">
+    <script src="../js/hdp.js"></script>
 
-    <title>Bizantino Bizarro - Capítulo II</title>
+    <title>Bizantino Bizarro - Capítulo VIII</title>
     <link rel="icon" href="../../../resources/img/favicon.png" type="image/x-icon" />
 
 </head>
@@ -24,26 +25,181 @@
     </header>	
 
     <main class="main-base wrapper">
+
+        <section class="texto">
+            <h2>Capítulo VIII</h2>
+            <hr>
+        </section>
+
         <section class="texto">
 
-            <h2>Capítulo II</h2>
+            <p>Al llegar a la
 
-            <hr>
-
-            <p>
-
-            <span class="diccionario">
-                <span class="def"><span class="middle"></span></span>
+            <span onclick="getDef('Albufera')" class="def">albufera
             </span>
 
-            </p>
+            <span onclick="getDef('Desarrebozar')" class="def">desarrebozamos
+            </span>
+
+            que no
+
+            <span onclick="getDef('Obrar')" class="def">obraba
+            </span>
+
+            la
+
+            <span onclick="getDef('Balandra')" class="def">balandra.
+            </span>
+
+            El
+
+            <span onclick="getDef('Nagual')" class="def">nagual
+            </span>
+
+            tomó su esfera mágica
+
+            <span onclick="getDef('Vidrio')" class="def">incolora
+            </span>
+
+            y transparente compuesta por sílice, óxido de plomo y potasa para
+
+            <span onclick="getDef('Pesquisar')" class="def">pesquisar
+            </span>
+
+            su ubicación.</p>
+
+            <p><q>La
+
+                <span onclick="getDef('Lontananza')" class="def">lontananza
+            </span>
+
+                es
+
+                <span onclick="getDef('Plétora')" class="def">pletórica.
+            </span>
+
+                La han
+
+                <span onclick="getDef('Hurtar')" class="def">hurtado
+            </span>
+
+                los
+
+                <span onclick="getDef('Liliputiense')" class="def">liliputienses 
+            </span>
+
+            </q><q>dijo el
+
+                <span onclick="getDef('Nagual')" class="def">nagual,
+            </span>
+
+                a lo que el
+
+                <span onclick="getDef('Hético')" class="def">hético
+            </span>
+
+                <span onclick="getDef('Efebo')" class="def">efebo
+            </span>
+
+                respondió</q><q> Para llegar a su
+
+                <span onclick="getDef('Blocao')" class="def">blocao
+            </span>
+
+                debemos vencer un
+
+                <span onclick="getDef('Vasto')" class="def">vasto
+            </span>
+
+                <span onclick="getDef('Soto')" class="def">soto,
+            </span>
+
+                por el
+
+                <span onclick="getDef('Trillo')" class="def">trillo
+            </span>
+
+                de los montes.</q></p> 
+
+            <p>El
+
+            <span onclick="getDef('Patizambo')" class="def">patizambo
+            </span>
+
+            nos dijo que podía convocar seres
+
+            <span onclick="getDef('Didáctilo')" class="def">didáctilos,
+            </span>
+
+            unos
+
+            <span onclick="getDef('Ente')" class="def">entes
+            </span>
+
+            vivientes que solo él conocía.
+
+            <span onclick="getDef('Asir')" class="def">Asimos
+            </span>
+
+            nuevamente la
+
+            <span onclick="getDef('Oriflama')" class="def">oriflama
+            </span>
+
+            y el
+
+            <span onclick="getDef('Efebo')" class="def">efebo
+            </span>
+
+            <span onclick="getDef('Montaraz')" class="def">montaraz
+            </span>
+
+            tomó la delantera. Nos adentramos en el
+
+            <span onclick="getDef('Soto')" class="def">soto,
+            </span>
+
+            siguiendo una
+
+            <span onclick="getDef('Trocha')" class="def">trocha
+            </span>
+
+            de tierra ladeando un
+
+            <span onclick="getDef('Valladar')" class="def">valladar
+            </span>
+
+            de madera de
+
+            <span onclick="getDef('Litre')" class="def">litre,
+            </span>
+
+            tan
+
+            <span onclick="getDef('Roqueño')" class="def">roqueño
+            </span>
+
+            que había resistido la caída de
+
+            <span onclick="getDef('Morro')" class="def">morros
+            </span>
+
+            desde la cima de los montes.</p>
 
         </section>
 
         <section class="texto hdp-nav">
-            <a href="../capitulo-i/" class="hdp-nav-btn previous" tabindex="0"></a>
-            <a href="../capitulo-iii/" class="hdp-nav-btn next" tabindex="0"></a>
+            <a href="../capitulo-vii/" class="hdp-nav-btn previous" tabindex="0"></a>
+            <a style="visibility: hidden;" href="../capitulo-ix/" class="hdp-nav-btn next" tabindex="0"></a>
         </section>
+
+        <div id="dicc">
+            <div class="repelh">
+                <h2 id="significante"></h2>
+                <button id="close" onclick="closeDef()"></button>
+            </div>
+            <p id="significado"></p>
+        </div>
 
     </main>
 

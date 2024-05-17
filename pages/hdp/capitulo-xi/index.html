@@ -9,8 +9,9 @@
     <link href="../../../resources/css/style.css" rel="stylesheet">
 
     <link href="../css/hdp.css" rel="stylesheet">
+    <script src="../js/hdp.js"></script>
 
-    <title>Bizantino Bizarro - Capítulo II</title>
+    <title>Bizantino Bizarro - Capítulo VIII</title>
     <link rel="icon" href="../../../resources/img/favicon.png" type="image/x-icon" />
 
 </head>
@@ -24,26 +25,33 @@
     </header>	
 
     <main class="main-base wrapper">
+
+        <section class="texto">
+            <h2>Capítulo VIII</h2>
+            <hr>
+        </section>
+
         <section class="texto">
 
-            <h2>Capítulo II</h2>
-
-            <hr>
+            <span onclick="getDef('')" class="def"></span>
 
             <p>
-
-            <span class="diccionario">
-                <span class="def"><span class="middle"></span></span>
-            </span>
-
             </p>
 
         </section>
 
         <section class="texto hdp-nav">
-            <a href="../capitulo-i/" class="hdp-nav-btn previous" tabindex="0"></a>
-            <a href="../capitulo-iii/" class="hdp-nav-btn next" tabindex="0"></a>
+            <a href="../capitulo-vii/" class="hdp-nav-btn previous" tabindex="0"></a>
+            <a style="visibility: hidden;" href="../capitulo-ix/" class="hdp-nav-btn next" tabindex="0"></a>
         </section>
+
+        <div id="dicc">
+            <div class="repelh">
+                <h2 id="significante"></h2>
+                <button id="close" onclick="closeDef()"></button>
+            </div>
+            <p id="significado"></p>
+        </div>
 
     </main>
 
