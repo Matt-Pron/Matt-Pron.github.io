@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=Alegreya:ital,wght@0,400..900;1,400..900&family=Merienda:wght@300..900&display=swap');
+
+body {
+    height: 100vh;
+    height: 100svh;
+    background-image: url(../img/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+
+    font-family: "Alegreya", 'Trebuchet MS', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+.wrapper {
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1.4rem;
+}
+
+.stacked {
+    display: grid;
+}
+
+.stacked > * {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.baraja {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    padding-block: 1rem;
+    gap: 1rem;
+}
+
+.card {
+    max-width: 16rem;
+    margin-inline: auto;
+    aspect-ratio: 1 / 1.75;
+    border-radius: 20px;
+    overflow: hidden;
+    border-top: .5px solid hsla(32, 50%, 95%, .8);
+    border-left: .5px solid hsla(32, 50%, 80%, .8);
+    box-shadow: .4rem .4rem 1rem .1rem hsla(32, 20%, 5%, .8);
+    transition: 120ms;
+}
+
+.card:hover, .card:focus {
+    transform: translateY(-.4rem) scale(1.08);
+}
+
+.card_content {
+    background: hsla(32, 50%, 80%, .8);
+    align-self: end;
+    padding-bottom: .6rem;
+    z-index: 10;
+}
+
+.card_img {
+    width: 100%;
+    aspect-ratio: 1 / 1.75;
+    object-fit: cover;
+}
+
+.card_title {
+    font-family: "Merienda", cursive;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding-inline: .6rem;
+    padding-top: .14rem;
+}
+
+.card_desc {
+    padding: .05rem .6rem;
+    line-height: 1.1;
+}
+
+.owned {
+    font-family: "Merienda", cursive;
+    font-weight: 600;
+    background-color: hsla(22, 60%, 45%, .8);
+    text-align: center;
+    line-height: 1.2rem;
+    margin-top: 1.4rem;
+    font-size: 1.00rem;
+    height: 1.2rem;
+    transform: rotate(-8deg) scaleX(1.1);
+}
+
+.session {
+    font-weight: 700;
+    margin-top: 1.4rem;
+    margin-right: 1.4rem;
+    margin-left: auto;
+    font-size: 2.2rem;
+    color: hsl(32, 95%, 6%);
+    filter: drop-shadow(0 0.2rem 0.60rem hsla(160, 100%, 64%, 0.8));
+}
+
+@media only screen and (min-width: 40em) {
+    .crono > .card_img {
+        filter: saturate(.5) blur(.07rem);
+        transition: 180ms;
+
+        &:hover {
+            filter: saturate(1) blur(0);
+        }
+    }
+}
+
+.card--base, .card--places, .card--pc, .card--npc, .card--sessions {
+    display: none;
+}
+
+.pick {
+    display: grid;
+}
+

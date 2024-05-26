@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rol</title>
+        <link href="../../resources/css/reset.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="js/script.js"></script>
+    </head>
+    <body>
+
+        <main class="wrapper">
+
+            <div class="baraja">
+
+                <div onclick="showCards('card--places')" class="card stacked card--base pick">
+                    <img src="img/places/1.jpg" alt="mundo" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Mundo</h2> 
+                        <p class="card_desc">Lugares conocidos.</p> 
+                    </div>
+                </div>
+
+                <div onclick="barajar()" class="card stacked card--places crono">
+                    <img src="img/return.jpg" alt="mundo" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Volver</h2> 
+                    </div>
+                </div>
+
+                <div class="card stacked card--places">
+                    <img src="img/places/2.jpg" alt="taverna" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Taverna</h2> 
+                        <p class="card_desc">Te recomiendo las medialunas.</p> 
+                    </div>
+                </div>
+
+                <div class="card stacked card--places">
+                    <img src="img/places/3.jpg" alt="bacia" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Bacia</h2> 
+                        <p class="card_desc">Reino delimitado por la cordillera Gedrosia y el macizo de Bacia.</p> 
+                    </div>
+                </div>
+
+                <div onclick="showCards('card--pc')" class="card stacked card--base pick">
+                    <img src="img/pc/1.jpg" alt="personajes" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Personajes</h2> 
+                        <p class="card_desc">Personajes de los jugadores.</p> 
+                    </div>
+                </div>
+
+                <div onclick="barajar()" class="card stacked card--pc crono">
+                    <img src="img/return.jpg" alt="mundo" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Volver</h2> 
+                    </div>
+                </div>
+
+                <div class="card stacked card--pc">
+                    <img src="img/pc/1.jpg" alt="personajes" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Natalya</h2> 
+                        <p class="card_desc">Espía °3 humana</p> 
+                    </div>
+                    <h2 class="owned">Matt el Loco</h2>
+                </div>
+
+                <div class="card stacked card--pc">
+                    <img src="img/pc/2.jpg" alt="personajes" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Lirian</h2> 
+                        <p class="card_desc">Exploradora °3 semielfa.</p> 
+                    </div>
+                    <h2 class="owned">Cata la velocirraptor</h2>
+                </div>
+
+                <div class="card stacked card--pc">
+                    <img src="img/pc/3.jpg" alt="personajes" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Luisa</h2> 
+                        <p class="card_desc">Maga °3 elfa.</p> 
+                    </div>
+                    <h2 class="owned">Aylu la alquimista</h2>
+                </div>
+
+                <div class="card stacked card--pc">
+                    <img src="img/pc/4.jpg" alt="personajes" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Toldir</h2> 
+                        <p class="card_desc">Barbaro °3 enano.</p> 
+                    </div>
+                    <h2 class="owned">Ani la iracunda</h2>
+                </div>
+
+                <div onclick="showCards('card--npc')" class="card stacked card--base pick">
+                    <img src="img/npc/1.jpg" alt="población" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Población</h2> 
+                        <p class="card_desc">Habitantes del mundo.</p> 
+                    </div>
+                </div>
+
+                <div onclick="barajar()" class="card stacked card--npc crono">
+                    <img src="img/return.jpg" alt="mundo" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Volver</h2> 
+                    </div>
+                </div>
+
+                <div class="card stacked card--npc">
+                    <img src="img/npc/1.jpg" alt="población" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Trondar el Avaricioso</h2> 
+                        <p class="card_desc">Comerciante enano de Ullathorpe.</p> 
+                    </div>
+                </div>
+
+                <div class="card stacked card--npc">
+                    <img src="img/npc/2.jpg" alt="población" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Kobold</h2> 
+                        <p class="card_desc">No secuestrar.</p> 
+                    </div>
+                </div>
+
+                <div class="card stacked card--npc">
+                    <img src="img/npc/3.jpg" alt="población" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Diplomático</h2> 
+                        <p class="card_desc">Elfo diplomático de Nix.</p> 
+                    </div>
+                </div>
+
+                <div onclick="showCards('card--sessions')" class="card stacked card--base pick">
+                    <img src="img/sessions/1.jpg" alt="historia" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Historia</h2> 
+                        <p class="card_desc">Sucesos que se dieron o están dando en el mundo.</p> 
+                    </div>
+                </div>
+
+                <div onclick="barajar()" class="card stacked card--sessions crono">
+                    <img src="img/return.jpg" alt="mundo" class="card_img">
+                    <div class="card_content">
+                        <h2 class="card_title">Volver</h2> 
+                    </div>
+                </div>
+
+                <div class="card stacked card--sessions">
+                    <img src="img/sessions/2.jpg" alt="historia" class="card_img">
+                    <div class="card_content">
+                        <p class="card_desc">Mayo 3 del 2024</p> 
+                    </div>
+                    <h2 class="session">I</h2>
+                </div>
+
+                <div class="card stacked card--sessions">
+                    <img src="img/sessions/2.jpg" alt="historia" class="card_img">
+                    <div class="card_content">
+                        <p class="card_desc">Junio 21 del 2024</p> 
+                    </div>
+                    <h2 class="session">II</h2>
+                </div>
+
+                <div class="card stacked card--sessions">
+                    <img src="img/sessions/2.jpg" alt="historia" class="card_img">
+                    <div class="card_content">
+                        <p class="card_desc">Octubre 17 del 2072</p> 
+                    </div>
+                    <h2 class="session">DCCLXXXII</h2>
+                </div>
+
+            </div>
+
+        </main>
+
+    </body>
+</html>
