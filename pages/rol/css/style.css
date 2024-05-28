@@ -68,6 +68,8 @@ p {
     aspect-ratio: 1 / 1.75;
     object-fit: cover;
     background-image: linear-gradient(150deg, hsla(32, 50%, 80%, .4), hsla(32, 50%, 40%, .5));
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .card_title {

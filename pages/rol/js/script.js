@@ -59,7 +59,7 @@ let barajar = function() {
         newCard.id = data.base.indexOf(item);
         newCard.innerHTML =
             `
-            <img src="img/base/${ item.img }.jpg" class="card_img">
+            <img src="img/base/${ item.img }.jpg" style="background-image:url('img/base/${ item.img }-lr.jpg');" class="card_img">
             <div class="card_content">
                 <h2 class="card_title">${ item.name }</h2> 
                 <p class="card_desc">${ item.desc }</p> 
