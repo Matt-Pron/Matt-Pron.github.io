@@ -36,7 +36,7 @@ let pickCrono = function() {
         newCard.classList.add("crono");
         newCard.innerHTML =
             `
-            <img src="img/base/5.jpg" class="card_img">
+            <img src="img/base/5.jpg" style="background-image:url('img/base/5-lr.jpg');" class="card_img">
             <div class="card_content">
                 <h2 class="card_title">Volver</h2> 
             </div>
@@ -90,7 +90,7 @@ let pickPlace = function() {
         newCard.id = data.place.indexOf(item);
         newCard.innerHTML =
             `
-            <img src="img/places/${ item.img }.jpg" class="card_img">
+            <img src="img/places/${ item.img }.jpg" style="background-image:url('img/places/${ item.img }-lr.jpg');" class="card_img">
             <div class="card_content">
                 <h2 class="card_title">${ item.name }</h2> 
                 <p class="card_desc">${ item.desc }</p> 
@@ -116,7 +116,7 @@ let pickPC = function() {
         newCard.id = data.pc.indexOf(item);
         newCard.innerHTML =
             `
-                <img src="img/pc/${ item.img }.jpg" class="card_img">
+                <img src="img/pc/${ item.img }.jpg" style="background-image:url('img/pc/${ item.img }-lr.jpg');" class="card_img">
                 <div class="card_content">
                     <h2 class="card_title">${ item.name }</h2> 
                     <p class="card_desc">${ item.desc }</p> 
@@ -143,7 +143,7 @@ let pickNPC = function() {
         newCard.id = data.npc.indexOf(item);
         newCard.innerHTML =
             `
-                <img src="img/npc/${ item.img }.jpg" class="card_img">
+                <img src="img/npc/${ item.img }.jpg" style="background-image:url('img/npc/${ item.img }-lr.jpg');" class="card_img">
                 <div class="card_content">
                     <h2 class="card_title">${ item.name }</h2> 
                     <p class="card_desc">${ item.desc }</p> 
@@ -169,7 +169,7 @@ let pickSession = function() {
         newCard.id = data.session.indexOf(item);
         newCard.innerHTML =
             `
-                <img src="img/sessions/${ item.img }.jpg" class="card_img">
+                <img src="img/sessions/${ item.img }.jpg" style="background-image:url('img/sessions/${ item.img }-lr.jpg');" class="card_img">
                 <div class="card_content">
                     <p class="card_desc">${ item.date }</p> 
                 </div>

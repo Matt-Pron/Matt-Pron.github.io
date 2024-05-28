@@ -3,6 +3,7 @@
 body {
     height: 100vh;
     height: 100svh;
+    background-color: hsl(32, 30%, 20%);
     background-image: url(../img/background.jpg);
     background-size: cover;
     background-attachment: fixed;
