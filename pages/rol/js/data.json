@@ -1,0 +1,103 @@
+{
+	"base": [
+        {
+            "name": "Mundo",
+            "desc": "Lugares conocidos.",
+			"img": "1"
+        },
+        {
+            "name": "Personajes",
+            "desc": "Personajes de los jugadores.",
+			"img": "2"
+        },
+        {
+            "name": "Población",
+            "desc": "Habitantes del mundo.",
+			"img": "3"
+        },
+        {
+            "name": "Historia",
+            "desc": "Sucesos que se dieron o están dando en el mundo.",
+			"img": "4"
+        }
+	],
+    "place": [
+        {
+            "name": "Taverna",
+            "desc": "Te recomiendo las medialunas.",
+			"img": "1"
+        },
+        {
+            "name": "Bacia",
+            "desc": "Reino delimitado por la cordillera Gedrosia y el macizo de Bacia.",
+			"img": "2"
+        }
+    ],
+    "pc": [
+        {
+            "name": "Natalya",
+            "desc": "Espía °3 humana",
+            "owner": "Matt el Loco",
+			"img": "1"
+        },
+        {
+            "name": "Lirian",
+            "desc": "Exploradora °3 semielfa.",
+            "owner": "Cata la velocirraptor",
+			"img": "2"
+        },
+        {
+            "name": "Luisa",
+            "desc": "Maga °3 elfa.",
+            "owner": "Aylu la alquimista",
+			"img": "3"
+        },
+        {
+            "name": "Toldir",
+            "desc": "Barbaro °3 enano.",
+            "owner": "Ani la iracunda",
+			"img": "4"
+        },
+        {
+            "name": "Fidelio Figgins",
+            "desc": "Bardo °3 gnomo.",
+            "owner": "Sir Gabriel",
+			"img": "5"
+        }
+    ],
+    "npc": [
+        {
+            "name": "Trondar el Avaricioso",
+            "desc": "Comerciante enano de Ullathorpe.",
+			"img": "1"
+        },
+        {
+            "name": "Kobold",
+            "desc": "Por favor, no secuestrar.",
+			"img": "2"
+        },
+        {
+            "name": "Diplomático",
+            "desc": "Elfo diplomático de Nix.",
+			"img": "3"
+        }
+    ],
+    "session": [
+        {
+            "count": "I",
+            "date": "Mayo 3 del 2024",
+			"img": "1"
+        },
+        {
+            "count": "II",
+            "date": "Junio 21 del 2024",
+			"img": "1"
+        },
+        {
+            "count": "DCCLXXXII",
+            "date": "Octubre 17 del 2072",
+			"img": "1"
+        }
+    ]
+}
+
