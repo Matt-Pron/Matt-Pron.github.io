@@ -67,6 +67,7 @@ p {
     width: 100%;
     aspect-ratio: 1 / 1.75;
     object-fit: cover;
+    background-image: linear-gradient(150deg, hsla(32, 50%, 80%, .4), hsla(32, 50%, 40%, .5));
 }
 
 .card_title {
@@ -114,12 +115,4 @@ p {
         filter: saturate(1) blur(0);
     }
 }
-
-/* .card--base, .card--places, .card--pc, .card--npc, .card--sessions {
-    display: none;
-}
-
-.pick {
-    display: grid;
-} */
 
