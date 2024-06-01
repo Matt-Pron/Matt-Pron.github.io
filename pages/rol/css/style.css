@@ -202,8 +202,8 @@ p {
     width: 100%;
     object-fit: cover;
     object-position: top;
-    mask-image: url('../img/maskImg.png');
-    mask-size: 115%;
+    mask-image: url('../img/maskImgb.png');
+    mask-size: 100% 100%;
     mask-position: center;
     mask-repeat: no-repeat;
 }
@@ -429,9 +429,8 @@ p {
         grid-row: pic;
     }
     .info__img {
-        aspect-ratio: 1.2 / 1;
-        mask-image: url('../img/maskImglandscape.png');
-        mask-size: 100%;
+        aspect-ratio: 1.4 / 1;
+        mask-image: url('../img/maskImgb.png');
         object-position: center 10%;
     }
 
