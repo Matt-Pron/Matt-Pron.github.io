@@ -429,7 +429,7 @@ p {
         grid-row: pic;
     }
     .info__img {
-        aspect-ratio: 1.6 / 1;
+        aspect-ratio: 1.2 / 1;
         mask-image: url('../img/maskImglandscape.png');
         mask-size: 100%;
         object-position: center 10%;
