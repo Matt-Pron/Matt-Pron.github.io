@@ -152,6 +152,7 @@ p {
     row-gap: .4rem;
     position: relative;
     height: 100%;
+    z-index: 60;
 
     display: grid;
     grid-template-columns:
@@ -175,21 +176,25 @@ p {
     [last-end borde-bot-start] minmax(2rem, auto)
     [borde-bot-end];
 
-    #bg-fill {
-        background-color: #666;
-        background-blend-mode: screen;
-        background-image: url('../img/papel.jpg');
-        mask-image: url('../img/maskmiddle.png');
-        mask-position: center;
-        mask-size: 100%;
-        mask-repeat: no-repeat round;
-
-        grid-column-start: borde-l-start;
-        grid-column-end: borde-r-end;
-        grid-row-start: borde-top-start;
-        grid-row-end: borde-bot-end;
-        z-index: -1;
+    > * {
+        z-index: 5;
     }
+}
+
+#bg-fill {
+    background-color: #666;
+    background-blend-mode: screen;
+    background-image: url('../img/papel.jpg');
+    mask-image: url('../img/maskmiddle.png');
+    mask-position: center;
+    mask-size: 100%;
+    mask-repeat: no-repeat round;
+
+    grid-column-start: borde-l-start;
+    grid-column-end: borde-r-end;
+    grid-row-start: borde-top-start;
+    grid-row-end: borde-bot-end;
+    z-index: 1;
 }
 
 #portrait {
