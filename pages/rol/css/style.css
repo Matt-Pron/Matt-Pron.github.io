@@ -153,22 +153,6 @@ p {
     position: relative;
     height: 100%;
 
-    #bg-fill {
-        background-color: #666;
-        background-blend-mode: screen;
-        background-image: url('../img/papel.jpg');
-        mask-image: url('../img/maskmiddle.png');
-        mask-position: center;
-        mask-size: 100%;
-        mask-repeat: no-repeat round;
-
-        grid-column-start: borde-l-start;
-        grid-column-end: borde-r-end;
-        grid-row-start: borde-top-start;
-        grid-row-end: borde-bot-end;
-        z-index: -1;
-    }
-
     display: grid;
     grid-template-columns:
     [borde-l-start] clamp(1rem, 8vw, 4rem)
@@ -190,6 +174,22 @@ p {
     [content-end last-start] auto
     [last-end borde-bot-start] minmax(2rem, auto)
     [borde-bot-end];
+
+    #bg-fill {
+        background-color: #666;
+        background-blend-mode: screen;
+        background-image: url('../img/papel.jpg');
+        mask-image: url('../img/maskmiddle.png');
+        mask-position: center;
+        mask-size: 100%;
+        mask-repeat: no-repeat round;
+
+        grid-column-start: borde-l-start;
+        grid-column-end: borde-r-end;
+        grid-row-start: borde-top-start;
+        grid-row-end: borde-bot-end;
+        z-index: -1;
+    }
 }
 
 #portrait {
