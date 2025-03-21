@@ -229,7 +229,7 @@ p {
     align-items: center;
     justify-content: center;
 
-    .info__stat__modifier {
+    .info__stat__value {
         display: block;
         width: 100%;
         text-align: center;
@@ -238,7 +238,7 @@ p {
         font-weight: 600;
     }
 
-    .info__stat__tag, .info__stat__value {
+    .info__stat__tag {
         width: 100%;
         text-align: center;
         background-color: hsla(32, 30%, 20%, .5);
@@ -252,11 +252,6 @@ p {
         text-transform: uppercase;
     }
 
-    .info__stat__value {
-        display: block;
-        padding-bottom: .3rem;
-        line-height: .6rem;
-    }
 }
 
 #info__name {
@@ -440,10 +435,6 @@ p {
     }
 
     .info__stats {justify-content: end;}
-
-    .info__stats > div {
-        .info__stat__value { display: none;}
-    }
 
     #info__desc, #portrait, #left, #right, #side-left, #side-right {
         grid-column: full;

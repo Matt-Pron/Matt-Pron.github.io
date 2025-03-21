@@ -1,0 +1,169 @@
+{
+	"base": [
+        {
+            "name": "Mundo",
+            "desc": "Lugares conocidos.",
+			"img": "1"
+        },
+        {
+            "name": "Personajes",
+            "desc": "Personajes de los jugadores.",
+			"img": "2"
+        },
+        {
+            "name": "Población",
+            "desc": "Habitantes del mundo.",
+			"img": "3"
+        },
+        {
+            "name": "Historia",
+            "desc": "Sucesos que se dieron o están dando en el mundo.",
+			"img": "4"
+        }
+	],
+    "place": [
+        {
+            "name": "Taberna",
+            "desc": "Te recomiendo las medialunas.",
+			"img": "1",
+            "fullDesc": "Taberna ubicada en la capital de Bacia, sobre la calle principal. Es el lugar de encuentro de gente de alta alcurnia. En el sótano se consumen estupefacientes y se realizan orgías rituales."
+        },
+        {
+            "name": "Bacia",
+            "desc": "Reino delimitado por la cordillera Gedrosia y el macizo de Bacia.",
+			"img": "2"
+        }
+    ],
+    "pc": [
+        {
+            "name": "Fidelio Figgins",
+            "desc": "Bardo °3 gnomo.",
+            "owner": "Sir Gabriel",
+            "img": "5"
+        },
+        {
+            "name": "Lirian",
+            "desc": "Exploradora °3 semielfa.",
+            "owner": "Cata la velocirraptor",
+			"img": "2"
+        },
+        {
+            "name": "Luisa",
+            "desc": "Maga °3 elfa.",
+            "owner": "Aylu la alquimista",
+			"img": "3"
+        },
+        {
+            "name": "Natalya",
+            "desc": "Espía °3 humana",
+            "owner": "Matt el Loco",
+            "img": "1"
+        },
+        {
+            "name": "Ranciotormenta",
+            "desc": "Espía °3 humana",
+            "owner": "Fulgencio Batista",
+            "img": "6",
+            "clase": "Bárbaro °3",
+            "raza": "Humano",
+            "alin": "CN",
+            "fullDesc": "Personaje que no le importa nada y toma tereré.",
+            "hp": "04%",
+            "ca": "16",
+            "stats": [
+                {"name": "str",
+                 "value": 18,
+                 "mod": "+4"},
+                {"name": "dex",
+                 "value": 16,
+                 "mod": "+3"},
+                {"name": "con",
+                 "value": 10,
+                 "mod": "-"},
+                {"name": "wis",
+                 "value": 12,
+                 "mod": "+1"},
+                {"name": "int",
+                 "value": 8,
+                 "mod": "-1"},
+                {"name": "car",
+                 "value": 14,
+                 "mod": "+2"}
+            ],
+            "skills": [
+                {"name": "Acrobacias",
+                 "value": 4},
+                {"name": "Engañar",
+                 "value": 6},
+                {"name": "Trepar",
+                 "value": 0},
+                {"name": "Artesanía",
+                 "value": 2},
+                {"name": "Hacer tereré",
+                 "value": 2},
+                {"name": "Diplomacia",
+                 "value": 2}
+            ],
+            "hist": "Nació, vivió, tomó tereré, le gustó. </p><p>Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+            "vyd": [
+                "No le importa nada, pero nada.",
+                "Es hincha de Newells.",
+                "Ama el frío."
+            ]
+        },
+        {
+            "name": "Toldir",
+            "desc": "Barbaro °3 enano.",
+            "owner": "Ani la iracunda",
+            "img": "4"
+        }
+    ],
+    "npc": [
+        {
+            "name": "Trondar el Avaricioso",
+            "desc": "Comerciante enano de Ullathorpe.",
+			"img": "1",
+            "clase": "Comerciante",
+            "raza": "Enano",
+            "fullDesc": "Oriundo de la ciudad subterránea de Noria. Su avaricia no conoce límites, pero los objetos que vende hacen que comerciar con él valga la pena.",
+            "hp": "100%",
+			"hist": "Se separó de su familia en busca de grandes fortunas como mercader, pasando por varias ciudades. Luego de alrededor de dos décadas llegó a Bacia capital donde se asentó, ya que era una posición clave para el comercio. Su familia en Noria está en peligro por la inminente invasión de trasgos.",
+            "vyd": [
+                "MUY avaricioso.",
+                "En serio, muy.",
+                "Le encantan los mariscos.",
+                "Se enoja con facilidad.",
+                "Siempre mueve su puesto a la calle con mayor probabilidad de ventas."
+            ]
+        },
+        {
+            "name": "Kobold",
+            "desc": "Por favor, no secuestrar.",
+			"img": "2"
+        },
+        {
+            "name": "Diplomático",
+            "desc": "Elfo diplomático de Nix.",
+			"img": "3"
+        }
+    ],
+    "session": [
+        {
+            "count": "I",
+            "date": "Mayo 3 del 2024",
+			"img": "1"
+        },
+        {
+            "count": "II",
+            "date": "Junio 21 del 2024",
+			"img": "1"
+        },
+        {
+            "count": "DCCLXXXII",
+            "date": "Octubre 17 del 2072",
+			"img": "1",
+            "info": "Los personajes mataron al malo malote, rescataron a la doncella en apuros y fueron felices para siempre."
+        }
+    ]
+}
+

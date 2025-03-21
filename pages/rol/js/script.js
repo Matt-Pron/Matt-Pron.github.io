@@ -274,9 +274,8 @@ let pickPC = function(id) {
             stat.id = e.name;
             stat.innerHTML =
                 `
-                <p class="info__stat__modifier">${e.mod}</p>
-                <p class="info__stat__tag">${e.name}</p>
                 <p class="info__stat__value">${e.value}</p>
+                <p class="info__stat__tag">${e.name}</p>
                 `;
             stats.appendChild(stat);
         });
@@ -368,7 +367,7 @@ let pickPC = function(id) {
     if (data.pc[id].vyd != undefined) {
         document.getElementById('left').insertAdjacentHTML('beforeend',
             `
-            <h2 class="info__title">Virtudes y Defectos</h2>
+            <h2 class="info__title">Info Extra</h2>
             `);
         let vyd = document.createElement('ul');
         vyd.id = "vyd";
