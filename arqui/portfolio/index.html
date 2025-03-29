@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CV - Matías Pronzati</title>
+        <link href="./resources/css/reset.css" rel="stylesheet">
+        <link href="./resources/css/style.css" rel="stylesheet">
+        <link rel="icon" href="./resources/img/favicon.svg" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&family=Roboto+Mono:wght@100..700&family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <div class='wrapper'>
+            <div class="shadow"></div>
+            <main>
+
+                <p class="name">Matías Pronzati</p>
+                <h1 class="title c-resumen">Resumen</h1>
+                <h1 class="title c-habilidades hidden">Habilidades</h1>
+                <h1 class="title c-portfolio hidden">Portfolio</h1>
+                <h1 class="title c-contacto hidden">Contacto</h1>
+                <p class="intro c-resumen">Hombre, 32 años.<br>Mar del Plata.</p>
+
+                <div class="cardList">
+
+                    <div class="card c-resumen">
+                        <p class="card-year">En Curso</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Carrera Universitaria</h2>
+                            <span class="card-place">FAUD UNMdP</span>
+                        </div>
+                        <p>Estudiante avanzado de Arquitectura y Urbanismo.<br>Para finalizar: 2 finales, jury, pasantía.</p>
+                    </div>
+
+                    <div class="card c-resumen">
+                        <p class="card-year">2010</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Bachillerato</h2>
+                            <span class="card-place">Colegio del Libertador</span>
+                        </div>
+                        <p>Orientación en Humanidades</p>
+                    </div>
+
+                    <div class="card c-resumen">
+                        <p class="card-year">Actual</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Movilidad</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Colectivo. Bicicleta.<br>Sin carnet de conductor.<br>Residencia en zona centro.</p>
+                    </div>
+
+                    <div class="card c-resumen">
+                        <p class="card-year">Actual</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Idiomas</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Español: nativo.<br>Inglés: intermedio.<br>Italiano: principiante.</p>
+                    </div>
+
+                    <div class="card c-resumen">
+                        <p class="card-year">Actual</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Programación</h2>
+                            <span class="card-place">Autodidacta</span>
+                        </div>
+                        <p>Básico: HTML, CSS, C++, GDScript.<br>Principiante: JS, C#, OpenGL.</p>
+                    </div>
+
+                </div>
+                <div class="contacto-datos c-contacto hidden">
+                    <div>
+                        <p>Dirección:</p><p>Brown 3181 10º E</p><p>Teléfono:</p><p>2235-019870</p><p>E-Mail:</p><p>matiaspronzati@gmail.com</p>
+                    </div>
+                </div>
+            </main>
+
+            <aside>
+                <ul class="cat">
+                    <li onclick="toggle('.c-resumen')">
+                        <h1>🎓</h1>
+                        <h3>Resumen</h3>
+                    </li>
+                    <li onclick="toggle('.c-habilidades')">
+                        <h1>✨</h1>
+                        <h3>Habilidades</h3>
+                    </li>
+                    <li onclick="toggle('.c-portfolio')">
+                        <h1>📄</h1>
+                        <h3>Portfolio</h3>
+                    </li>
+                    <li onclick="toggle('.c-contacto')">
+                        <h1>✉</h1>
+                        <h3>Contacto</h3>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+
+        <script>
+            function toggle(categoriaActiva) {
+                categorias = ['.c-resumen', '.c-habilidades', '.c-portfolio', '.c-contacto'];
+                categorias.forEach(categoria => {
+                    if (categoria != categoriaActiva) {
+                        document.querySelectorAll(categoria).forEach(i => {
+                            i.classList.add('hidden')
+                        });
+                    } else {
+                        document.querySelectorAll(categoria).forEach(i => {
+                            i.classList.remove('hidden')
+                        });
+                    }
+                })
+            }
+        </script>
+
+    </body>
+</html>
+

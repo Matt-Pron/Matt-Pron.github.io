@@ -1,0 +1,39 @@
+{
+	"tags": [
+        "fijado",
+        "arquitectura",
+        "rol",
+        "bajo",
+        "brutalismo",
+        "dev",
+        "webdev",
+        "linux"
+	],
+    "links": [
+        {
+            "name": "Opeth - Moonlapse Vertigo",
+            "tags": ["bajo", "fijado"],
+            "id": "",
+            "link": "https://www.youtube.com/watch?v=cHgOeWUZjug"
+        },
+        {
+            "name": "Juliaan Lampens - Van Wassenhove House",
+            "tags": ["arquitectura", "brutalismo", "fijado"],
+            "id": "",
+            "link": "https://divisare.com/projects/373601-juliaan-lampens-jeroen-verrecht-van-wassenhove-house"
+        },
+        {
+            "name": "Lazy Loaded Images, ffmpeg command",
+            "tags": ["webdev", "dev"],
+            "id": "",
+            "link": "https://blog.webdevsimplified.com/2023-05/lazy-load-images/"
+        },
+        {
+            "name": "Dua Lipa - Break My Heart",
+            "tags": ["bajo"],
+            "id": "",
+            "link": "https://www.youtube.com/watch?v=xofba_ZCv5s"
+        }
+    ]
+}
+

@@ -1,0 +1,45 @@
+.basic-grid {
+	display: grid;
+	gap: 2rem;
+	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    padding-block: 1.6rem;
+}
+
+.basic-grid p{
+	align-self: auto;
+}
+
+.card {
+	aspect-ratio: 1 / 1.5;
+}
+
+.card-tag{
+	padding: .4em;
+}
+
+.card-img {
+	display: block;
+	border: .4em solid;
+	padding:22%;
+	width:100%;
+	aspect-ratio: 1 / 1;
+	
+	transition: 200ms;
+}
+
+.card-img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card:hover .card-img,
+.card a:focus .card-img {
+	padding:0;
+}
+
+.card-title{
+    text-indent: 0;
+	font-size:1.1em;
+}
+

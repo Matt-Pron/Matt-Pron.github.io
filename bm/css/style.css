@@ -1,0 +1,95 @@
+body{
+    height: 100vh;
+    height: 100svh;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+#title{
+    white-space: pre;
+    margin-bottom: 1rem;
+    border: double var(--yellow);
+    padding: .6rem;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns:
+    [borde-l-start] clamp(1rem, 8vw, 4rem)
+    [borde-l-end full-start main-left-start side-left-start]
+    1fr
+    [side-left-end main-right-start]
+    1fr
+    [main-left-end side-right-start]
+    1fr
+    [main-right-end side-right-end full-end borde-r-start]
+    clamp(1rem, 8vw, 4rem) [borde-r-end];
+    grid-template-rows:
+    [borde-top-start] 2rem
+    [borde-top-end header-start] min-content
+    [header-end content-start] 1fr
+    [content-end footer-start] min-content
+    [footer-end borde-bottom-start] 2rem
+    [borde-bottom-end];
+
+    margin-inline: auto;
+    align-self: center;
+    column-gap: 1rem;
+    row-gap: .4rem;
+    position: relative;
+    height: 100%;
+}
+
+.left{
+    grid-row: content;
+    grid-column: side-left;
+}
+
+.main-right{
+    grid-row: content;
+    grid-column: main-right;
+}
+
+#lista, #listaTags{
+    display: flex;
+    flex-direction: column;
+}
+
+#listaTags{
+    margin-right: auto;
+    gap: .1em;
+}
+
+.hidden{
+    display: none;
+}
+
+
+/*            TAGS              */
+
+.tag{
+    font-size: .8em;
+    display: inline-block;
+    padding-inline: .3em;
+    background-color: var(--bg2);
+    border: 1px solid var(--yellow);
+    border-radius: 1em;
+    cursor: pointer;
+    user-select: none;
+
+    transition: all 120ms ease;
+}
+
+.activo{
+    border: 1px solid var(--fg);
+    box-shadow: 0 0 .2em 0 var(--fg);
+    transform: translateX(1.4em);
+}
+
+.enlace::before{
+    content: "./";
+}
+
+@media only screen and (max-width: 50em) {
+}
+
