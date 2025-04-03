@@ -19,6 +19,7 @@
 
                 <p class="name">Matías Pronzati</p>
                 <h1 class="title c-resumen">Resumen</h1>
+                <h1 class="title c-experiencia hidden">Experiencia</h1>
                 <h1 class="title c-habilidades hidden">Habilidades</h1>
                 <h1 class="title c-portfolio hidden">Portfolio</h1>
                 <h1 class="title c-contacto hidden">Contacto</h1>
@@ -71,12 +72,86 @@
                         <p>Básico: HTML, CSS, C++, GDScript.<br>Principiante: JS, C#, OpenGL.</p>
                     </div>
 
+                    <div class="card c-experiencia hidden">
+                        <p class="card-year">Actual</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Pasantía</h2>
+                            <span class="card-place">Lugar asignado</span>
+                        </div>
+                        <p>Realizo determinada función.</p>
+                    </div>
+
+                    <div class="card c-experiencia hidden">
+                        <p class="card-year">Encargos</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Informe de Fachada</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Confección de croquis de fachadas, medianeras y vista de techos para informes de fachada.<br>Maquetación del informe.</p>
+                    </div>
+
+                    <div class="card c-experiencia hidden">
+                        <p class="card-year">Encargos</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Esquemático de Estructura</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Confección de planos esquemáticos de estructura.</p>
+                    </div>
+
+                    <div class="card c-experiencia hidden">
+                        <p class="card-year">Encargos</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Medición de Iluminación</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Relevamiento de datos de iluminación para profesional de Higiene y Seguridad.</p>
+                    </div>
+
+                    <div class="card c-experiencia hidden">
+                        <p class="card-year">Encargos</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Planillas RAR</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Armado de planillas de nómina de personal expuesto a riesgos del trabajo.</p>
+                    </div>
+
+                    <div class="card c-experiencia hidden">
+                        <p class="card-year">Encargos</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Replanteo de Estructura</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Confección de planos de replanteo de estructura.</p>
+                    </div>
+
+                    <div class="card c-experiencia hidden">
+                        <p class="card-year">2009 - 2010</p>
+                        <div class="card-info">
+                            <h2 class="card-name">Peón de Albañil</h2>
+                            <span class="card-place"></span>
+                        </div>
+                        <p>Aproximadamente 6 meses en diferentes obras. Ampliación en edificio institucional, obra nueva de edificio de oficinas, remodelación de vivienda unifamiliar, tareas en taller.</p>
+                    </div>
+
                 </div>
                 <div class="contacto-datos c-contacto hidden">
                     <div>
                         <p>Dirección:</p><p>Brown 3181 10º E</p><p>Teléfono:</p><p>2235-019870</p><p>E-Mail:</p><p>matiaspronzati@gmail.com</p>
                     </div>
                 </div>
+
+                <div class="skillList c-habilidades hidden">
+
+                    <div class="skill">
+                        <img src="" />
+                        <h2>AutoCAD</h2>
+                        <div class="barra 5"></div>
+                    </div>
+
+                </div>
+
             </main>
 
             <aside>
@@ -84,6 +159,10 @@
                     <li onclick="toggle('.c-resumen')">
                         <h1>🎓</h1>
                         <h3>Resumen</h3>
+                    </li>
+                    <li onclick="toggle('.c-experiencia')">
+                        <h1>🔧</h1>
+                        <h3>Experiencia</h3>
                     </li>
                     <li onclick="toggle('.c-habilidades')">
                         <h1>✨</h1>
@@ -103,7 +182,7 @@
 
         <script>
             function toggle(categoriaActiva) {
-                categorias = ['.c-resumen', '.c-habilidades', '.c-portfolio', '.c-contacto'];
+                categorias = ['.c-resumen', '.c-experiencia', '.c-habilidades', '.c-portfolio', '.c-contacto'];
                 categorias.forEach(categoria => {
                     if (categoria != categoriaActiva) {
                         document.querySelectorAll(categoria).forEach(i => {
