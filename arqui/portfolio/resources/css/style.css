@@ -269,27 +269,71 @@ main {
 
 .skillList {
     display: grid;
+    grid-template-columns:
+    repeat(auto-fit, 6rem);
+    justify-items: start;
     gap: .8rem;
     justify-content: start;
     padding-bottom: 1rem;
     grid-row: content;
     grid-column: full;
     animation: appear 800ms;
-
-    img {
-        width: 3.5rem;
-        aspect-ratio: 1/1;
-        background-color: var(--bg-yellow);
-    }
+    overflow-y: auto;
+    max-height: auto;
 }
 
 .skill {
     display: block;
-    width: 5.4rem;
+    width: 6.0rem;
     aspect-ratio: 1/1.3;
-    border: 2px solid var(--yellow);
+    background: var(--bg1);
+    border: 2px solid var(--bg2);
     padding: .4rem;
-    border-radius: 1rem;
+    border-radius: .25rem;
+    justify-items: center;
+
+    img {
+        width: 3.4rem;
+        aspect-ratio: 1/1;
+        margin-bottom: .6rem;
+        margin-top: .3rem;
+    }
+}
+
+.barra {
+    justify-self: center;
+    transform: skew(-20deg);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 1.2rem;
+    width: 90%;
+    gap: 2px;
+    margin-inline: auto;
+}
+
+.barra > p {
+    display: block;
+    background-color: var(--bg-yellow);
+}
+
+.lvl1 > p:nth-child(-n + 1) {
+    background-color: var(--yellow);
+}
+
+.lvl2 > p:nth-child(-n + 2) {
+    background-color: var(--yellow);
+}
+
+.lvl3 > p:nth-child(-n + 3) {
+    background-color: var(--yellow);
+}
+
+.lvl4 > p:nth-child(-n + 4) {
+    background-color: var(--yellow);
+}
+
+.lvl5 > p:nth-child(-n + 5) {
+    background-color: var(--yellow);
 }
 
 .contacto-datos {
