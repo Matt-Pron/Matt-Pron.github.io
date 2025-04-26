@@ -36,6 +36,7 @@
 
     --bg-yellow: hsl(38, 27%, 22%);
     --bg-red: hsl(2, 33%, 18%);
+    user-select: none;
 }
 
 html {
@@ -291,6 +292,7 @@ main {
     padding: .4rem;
     border-radius: .25rem;
     justify-items: center;
+    user-select: none;
 
     img {
         width: 3.4rem;
@@ -344,6 +346,7 @@ main {
     grid-column: full;
     animation: appear 800ms;
     animation: appear 800ms;
+    user-select: text;
 }
 
 .contacto-datos > div {
