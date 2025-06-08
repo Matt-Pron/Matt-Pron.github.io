@@ -25,14 +25,14 @@
     ],
     "pc": [
         {
-            "name": "V. Wideck",
+            "name": "Näila Wideck",
             "desc": "Druida °1 gnoma.",
             "owner": "Ani",
             "img": "1",
             "clase": "Druida °1",
             "raza": "Gnoma",
             "alin": "",
-            "fullDesc": "Gnoma tocada por las hadas. herborista.",
+            "fullDesc": "Gnoma tocada por las hadas. Cazarrecompensas.",
             "hp": "100%",
             "ca": "10",
             "stats": [
@@ -82,12 +82,12 @@
             "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
         },
         {
-            "name": "Nombre",
-            "desc": "Clase °1 raza.",
+            "name": "Laurean",
+            "desc": "Alquimista °1 humana.",
             "owner": "Aylu",
             "img": "2",
-            "clase": "Clase °1",
-            "raza": "Raza",
+            "clase": "Alquimista °1",
+            "raza": "Humana",
             "alin": "",
             "fullDesc": "Descripción.",
             "hp": "100%",
@@ -140,11 +140,11 @@
         },
         {
             "name": "Nombre",
-            "desc": "Clase °1 raza.",
+            "desc": "Barbara °1 Semiorco.",
             "owner": "Cata",
             "img": "3",
-            "clase": "Clase °1",
-            "raza": "Raza",
+            "clase": "Barbara °1",
+            "raza": "Semiorco",
             "alin": "",
             "fullDesc": "Descripción.",
             "hp": "100%",
@@ -196,7 +196,7 @@
             "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
         },
         {
-            "name": "Nombre",
+            "name": "Sarorin Quiray",
             "desc": "Clérigo °1 semielfo.",
             "owner": "Jose",
             "img": "4",
@@ -367,7 +367,7 @@
             "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
         },
         {
-            "name": "Drake Stone",
+            "name": "Drake",
             "desc": "Invocador °1 humano.",
             "owner": "Vodo",
             "img": "7",
