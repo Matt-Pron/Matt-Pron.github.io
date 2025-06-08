@@ -22,6 +22,18 @@
         }
 	],
     "place": [
+        {
+            "name": "Balcarce",
+            "desc": "Te recomiendo la torta Balcarce.",
+			"img": "2",
+            "fullDesc": "Hogar de la torta Balcarce, Juan Manuel Fangio y las papas fritas precocidas."
+        },
+        {
+            "name": "Biblioteca Pablo Pizzurno",
+            "desc": "Biblioteca Municipal de Balcarce.",
+            "fullDesc": "Biblioteca Pablo Pizzurno. Sí, averigüé y ese es el nombre.",
+			"img": "1"
+        }
     ],
     "pc": [
         {
