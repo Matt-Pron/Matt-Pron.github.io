@@ -215,7 +215,7 @@
             "clase": "Clérigo °1",
             "raza": "Semielfo",
             "alin": "",
-            "fullDesc": "Descripción.",
+            "fullDesc": "Acólito de Farasma. Ronda los 60 años.",
             "hp": "100%",
             "ca": "10",
             "stats": [
@@ -262,7 +262,7 @@
                 {"name": "Supervivencia",
                  "value": 0}
             ],
-            "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
+            "hist": "<p>La historia de Sarorin arranca cuando su padre, un elfo de media cuna cuya familia tenía injerencia en el gobierno de la Ciudad de Kyonin, se enamora perdidamente de una aventurera Humana que estaba explorando esa ciudad, siendo amor a primera vista.</p><p>Como fruto de ese amor acaba naciendo Sarorin un semielfo, pero su nacimiento trajo inconvenientes a su padre, ya que había manchado a su familia con ese hijo.</p><p>Trataron de vivir en ese pueblo pero, ante la amenazas y descriminacion que sufrían, se trasladaron a otra ciudad</p><p>Diversos motivos lo llevaron a entender y conectar con la religión de la Diosa Farasma y comprendiendo el delicado equilibrio que ella realiza, como diosa de la vida y la muerte, como él se siente estando entre los mundos de los elfos y humanos, decidió ser clérigo de su religion.</p>"
         },
         {
             "name": "Esther Efail",
