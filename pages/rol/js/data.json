@@ -23,10 +23,22 @@
 	],
     "place": [
         {
-            "name": "Balcarce",
-            "desc": "Te recomiendo la torta Balcarce.",
+            "name": "Cenagal Rojo",
+            "desc": "Feudo en tierras pantanosas.",
 			"img": "2",
-            "fullDesc": "Hogar de la torta Balcarce, Juan Manuel Fangio y las papas fritas precocidas."
+            "fullDesc": "<p>Feudo ubicado en tierras pantanosas, sus aguas tienen un tinte rojizo, similar al ladrillo. La tierra es rojiza y grisácea, con algun charco ocasional. La vegetación es densa pero separada en parches, de color verde, tambien grisáceo, con algunas pocas flores cerca del suelo, pequeñas, de color blanco. Los troncos, delgados, se elevan al menos la altura de cinco hombres y sus hojas se entrelazan, casi ocultando el cielo.</p><p>En este territorio se encuentran lugares como Claro del Reposo y Tentempié.</p><p>Es escenario de una guerra civil entre humanos y elfos.</p>"
+        },
+        {
+            "name": "Tentempié",
+            "desc": "Paraje en un camino de Cenagal Rojo, a minutos de Claro del Reposo.",
+			"img": "2",
+            "fullDesc": "<p>Tentempié no llega ni a ser un pueblo. En un principio era tan sólo una taverna, de la que toma el nombre el lugar, a pocos minutos de Claro del Reposo, un pequeño pueblo agrícola.</p><p>Hace no muchos años era una ruta más activa, pero la plaga en el reino vecino (nombre) mermó el comercio y la guerra civil terminó de ahuyentar a los pocos que aún viajaban.</p><p>Además de la taberna Tentempié hay dos casas de dos niveles y una última de sólo uno. Estan dispuestas de manera que se forma una pequeña plaza en el centro, donde se ubica un aljibe. Las construcciones son de piedra hasta más o menos un metro de altura, para continuar en madera y rematar con techos de paja. Pese al aparente abandono, no estan en mal estado.</p><p>Las casas están cerradas, sus dueños se ganan la vida en Claro del Reposo y solo vuelven para dormir.</p>"
+        },
+        {
+            "name": "Posada Tentempié",
+            "desc": "La posada que da nombre al paraje.",
+            "fullDesc": "<p>Atendida por un viejito frustrado, no dispone de muchas provisiones.</p><p>Hasta hace unos años era una taberna, pero tuvo una pequeña ampliación y ahora es una posada con apenas dos dormitorios.</p>",
+			"img": "1"
         },
         {
             "name": "Biblioteca Pablo Pizzurno",
