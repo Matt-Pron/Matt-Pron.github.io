@@ -91,7 +91,7 @@
                 {"name": "Supervivencia",
                  "value": 0}
             ],
-            "hist": "Su primer recuerdo es del día en que despertó, en la casa de un anciano médico boticario.<br>No recuerda su pasado, no sabe de dónde venía ni hacia dónde iba.</p><p>Ronda entre los 30 y 40 años de edad.</p><p>Por cinco años acompañó al médico, aprendiendo herbolaria y medicina. Una filiación con la naturaleza la hizo, naturalmente, una druida.</p><p>Luego decidió marcharse en busca de respuestas, sin mucha suerte. Para subsistir, trabajó como cazarrecompensas, para poder así seguir recorriendo tierras y rastrear su pasado.</p>"
+            "hist": "<p>Su primer recuerdo es del día en que despertó, en la casa de un anciano médico boticario.<br>No recuerda su pasado, no sabe de dónde venía ni hacia dónde iba.</p><p>Ronda entre los 30 y 40 años de edad.</p><p>Por cinco años acompañó al médico, aprendiendo herbolaria y medicina. Una filiación con la naturaleza la hizo, naturalmente, una druida.</p><p>Luego decidió marcharse en busca de respuestas, sin mucha suerte. Para subsistir, trabajó como cazarrecompensas, para poder así seguir recorriendo tierras y rastrear su pasado.</p>"
         },
         {
             "name": "Laurean",
@@ -148,7 +148,7 @@
                 {"name": "Supervivencia",
                  "value": 0}
             ],
-            "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
+            "hist": "<p>Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
         },
         {
             "name": "Val Temiki Ubeg",
@@ -205,7 +205,7 @@
                 {"name": "Supervivencia",
                  "value": 0}
             ],
-            "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
+            "hist": "<p>Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
         },
         {
             "name": "Sarorin Quiray",
@@ -272,7 +272,7 @@
             "clase": "Maga °1",
             "raza": "Humana",
             "alin": "",
-            "fullDesc": "Descripción.",
+            "fullDesc": "Anciana de pelo casi blanco, peinado en un rodete de trenzas, con un pañuelo en la cabeza. Viste sencillo pero pulcra.",
             "hp": "100%",
             "ca": "10",
             "stats": [
@@ -319,7 +319,7 @@
                 {"name": "Supervivencia",
                  "value": 0}
             ],
-            "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
+            "hist": "<p>Era panadera hasta que comenzó a experimentar con la comida, intentando replicar platos de la cocina enana y creando sus propias recetas y variaciones.</p><p>Un descubrimiento la lleva a empacar sus cosas y salir de su pueblo, recorriendo lugares arcanos en busca de aprender más al respecto.</p>"
         },
         {
             "name": "Nombre",
@@ -386,7 +386,7 @@
             "clase": "Invocador °1",
             "raza": "Humano",
             "alin": "",
-            "fullDesc": "Descripción.",
+            "fullDesc": "Jóven rubio, de unos 25 años. De presencia imponente, con una cicatriz que cruza toda su mejilla y una marca en su pecho.",
             "hp": "100%",
             "ca": "10",
             "stats": [
@@ -433,7 +433,7 @@
                 {"name": "Supervivencia",
                  "value": 0}
             ],
-            "hist": "Acá iría la historia.</p><p>Si tan solo tuviera una.</p>"
+            "hist": "Acá iría la historia.</p><p>¡Pero es un secreto!</p>"
         }
     ],
     "npc": [
