@@ -30,7 +30,7 @@
         },
         {
             "name": "Tentempié",
-            "desc": "Paraje en un camino de Cenagal Rojo, a minutos de Claro del Reposo.",
+            "desc": "Paraje a minutos de Claro del Reposo.",
 			"img": "2",
             "fullDesc": "<p>Tentempié no llega ni a ser un pueblo. En un principio era tan sólo una taverna, de la que toma el nombre el lugar, a pocos minutos de Claro del Reposo, un pequeño pueblo agrícola.</p><p>Hace no muchos años era una ruta más activa, pero la plaga en el reino vecino (nombre) mermó el comercio y la guerra civil terminó de ahuyentar a los pocos que aún viajaban.</p><p>Además de la taberna Tentempié hay dos casas de dos niveles y una última de sólo uno. Estan dispuestas de manera que se forma una pequeña plaza en el centro, donde se ubica un aljibe. Las construcciones son de piedra hasta más o menos un metro de altura, para continuar en madera y rematar con techos de paja. Pese al aparente abandono, no estan en mal estado.</p><p>Las casas están cerradas, sus dueños se ganan la vida en Claro del Reposo y solo vuelven para dormir.</p>"
         },
@@ -41,9 +41,15 @@
 			"img": "1"
         },
         {
-            "name": "Biblioteca Pablo Pizzurno",
-            "desc": "Biblioteca Municipal de Balcarce.",
-            "fullDesc": "Biblioteca Pablo Pizzurno. Sí, averigüé y ese es el nombre.",
+            "name": "Bastión del Pinar",
+            "desc": "Pequeño pueblo",
+            "fullDesc": "<p>Pequeño pueblo a pocos días de Claro del Reposo.</p><p>Alberga una sede del Gremio de la Ilustración.</p>",
+			"img": "2"
+        },
+        {
+            "name": "Gremio de la Ilustración",
+            "desc": "Sede de Bastión del Pinar",
+            "fullDesc": "Sede del gremio de eruditos, escribas y bibliotecarios que tiene como misión recopilar los saberes del mundo.",
 			"img": "1"
         }
     ],
