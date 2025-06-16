@@ -431,6 +431,12 @@
     "npc": [
     ],
     "session": [
+	    {
+            "count": "I",
+            "date": "Junio 7 del 2025",
+			"img": "1",
+            "info": "<p>Esther recogía ingredientes en el bosque cuando se encontró con Laurean y Näila en la misma actividad.</p><p>Mientras se conocían fueron interrumpidas por Val Temiki. Notando un clima tenso en el bosque, se dirigieron a Tentempié para ponerse a resguardo.</p><br><p>En Tentempié llegan Drake y Sarorin, en busca de un monje de Farasma errante.</p><p>Entran a averigüar a la posada y pronto llega el grupo de Esther.</p><p>Laurean ofrece ayuda a Näila y Val Temiki, en busca de conocimientos.</p><p>Mientras comen, notan la llegada de un grupo numeroso de rebeldes elfos.</p><p>Deciden marchar juntos en busca del monje y de una biblioteca.</p>"
+        }
     ]
 }
 
