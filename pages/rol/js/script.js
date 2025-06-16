@@ -341,15 +341,28 @@ let pickPC = function(id) {
     }
 
     if (data.pc[id].hp != undefined) {
-        let e = document.createElement('div');
-        e.classList.add('vida');
-        e.classList.add('full');
-        e.style.setProperty('--vida', data.pc[id].hp);
-        e.innerHTML =
-            `
+        if (data.pc[id].hpm != undefined) {
+            let e = document.createElement('div');
+            e.classList.add('vida');
+            e.classList.add('full');
+            e.style.setProperty('--vida', (data.pc[id].hp / data.pc[id].hpm) * 100 + "%");
+            e.innerHTML =
+                `
             <p>HP: </p><div class="hp"></div>
             `;
-        desc.appendChild(e);
+            desc.appendChild(e);
+        }
+        else {
+            let e = document.createElement('div');
+            e.classList.add('vida');
+            e.classList.add('full');
+            e.style.setProperty('--vida', data.pc[id].hp);
+            e.innerHTML =
+                `
+            <p>HP: </p><div class="hp"></div>
+            `;
+            desc.appendChild(e);
+        }
     }
 
     seccion = document.createElement('div');
@@ -463,15 +476,28 @@ let pickNPC = function(id) {
     }
 
     if (data.npc[id].hp != undefined) {
-        let e = document.createElement('div');
-        e.classList.add('vida');
-        e.classList.add('full');
-        e.style.setProperty('--vida', data.npc[id].hp);
-        e.innerHTML =
-            `
+        if (data.npc[id].hpm != undefined) {
+            let e = document.createElement('div');
+            e.classList.add('vida');
+            e.classList.add('full');
+            e.style.setProperty('--vida', (data.npc[id].hp / data.npc[id].hpm) * 100 + "%");
+            e.innerHTML =
+                `
             <p>HP: </p><div class="hp"></div>
             `;
-        desc.appendChild(e);
+            desc.appendChild(e);
+        }
+        else {
+            let e = document.createElement('div');
+            e.classList.add('vida');
+            e.classList.add('full');
+            e.style.setProperty('--vida', data.npc[id].hp);
+            e.innerHTML =
+                `
+            <p>HP: </p><div class="hp"></div>
+            `;
+            desc.appendChild(e);
+        }
     }
 
     seccion = document.createElement('div');
@@ -492,7 +518,7 @@ let pickNPC = function(id) {
         document.getElementById('top').appendChild(seccion);
         document.getElementById('side-left').innerHTML =
             `
-            <h2 class="info__title">Virtudes y Defectos</h2>
+            <h2 class="info__title">Datos</h2>
             `;
         let vyd = document.createElement('ul');
         vyd.id = "vyd";
