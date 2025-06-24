@@ -108,7 +108,7 @@
                 {"name": "AC",
                  "value": 15},
                 {"name": "PER",
-                 "value": 10}
+                 "value": 5}
             ],
             "skills": [
                 {"name": "Arcanos",
