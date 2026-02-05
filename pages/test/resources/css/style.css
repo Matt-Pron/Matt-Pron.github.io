@@ -1,23 +1,33 @@
 :root {
-	--cols: 60ch;
-	--rows: 25lh;
+	--cols: 55;
+	--rows: 23;
 }
 
 #game {
 	margin:auto;
 	display:grid;
 	place-items:center;
-	width: calc(var(--cols) + 20px);
-	height: calc(var(--rows) + 20px);
+	width: calc(var(--cols) * 1ch);
+	height: calc(var(--rows) * 1lh);
 	overflow:hidden;
 	background-color:black;
 	border:1px solid white;
-	border-radius:4px;
+	border-radius:4px 4px 0 0;
 	justify-content:center;
 	text-align:center;
 
 	user-select:none;
 }
 
-#ui {
+#log {
+	margin:auto;
+	display:grid;
+	place-items:bottom-left;
+	width: calc(var(--cols) * 1ch);
+	height: 4lh;
+	background-color:black;
+	border:1px solid white;
+	border-top:none;
+	border-radius:0 0 4px 4px;
+	overflow:auto;
 }

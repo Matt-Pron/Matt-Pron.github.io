@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ASCII Rogue - Ciudad con Goblins y Orc</title>
+<style>
+  body { background:#0a0503; color:#d4a373; margin:0; padding:20px; font-family:'Courier New',monospace; font-size:18px; line-height:1.0; }
+  #screen { background:#0a0503; padding:10px; border:1px solid #3a2a1a; display:inline-block; white-space:pre; }
+  #log { margin-top:12px; color:#8b7355; font-size:16px; min-height:1.5em; }
+  #status { margin-top:8px; color:#aaa; font-size:14px; }
+</style>
+</head>
+<body>
+
+<div id="screen"></div>
+<div id="log"></div>
+<div id="status">HP: 10/10</div>
+
+<script>
+// CONFIG
+const VIEW_WIDTH   = 60;
+const VIEW_HEIGHT  = 30;
+const WORLD_WIDTH  = 200;
+const WORLD_HEIGHT = 150;
+const TOWN_WIDTH   = 40;
+const TOWN_HEIGHT  = 25;
+const TOWN_X = Math.floor((WORLD_WIDTH  - TOWN_WIDTH)  / 2);
+const TOWN_Y = Math.floor((WORLD_HEIGHT - TOWN_HEIGHT) / 2);
+
+// Palette
+const COLOR_PLAYER     = '#ffffff';
+const COLOR_WALL       = '#8b7355';
+const COLOR_LOW_WALL   = '#9c7d5a';
+const COLOR_FLOOR      = '#d4a373';
+const COLOR_WATER      = '#6ab0de';
+const COLOR_FOUNTAIN   = '#a0d8ef';
+const COLOR_ENTRANCE   = '#e0c070';
+const COLOR_TOWNFOLK   = '#c19a6b';
+const COLOR_GOBLIN     = '#7cfc00';
+const COLOR_ORC        = '#228b22';
+const COLOR_MEMORY     = '#6b5a3e';
+
+// STATE
+let player = { x: 0, y: 0, hp: 10, maxHp: 10 };
+let map    = Array(WORLD_HEIGHT).fill().map(() => Array(WORLD_WIDTH).fill(0));
+let seen   = Array(WORLD_HEIGHT).fill().map(() => Array(WORLD_WIDTH).fill(false));
+let visible= Array(WORLD_HEIGHT).fill().map(() => Array(WORLD_WIDTH).fill(false));
+let entities = [];
+let animationTime = 0;
+let noiseSeeds = {};
+
+// Tile types
+// 0 = floor
+// 1 = solid wall '#'
+// 2 = low wall 'n'
+// 3 = water 'w'
+// 4 = dungeon entrance '>'
+// 5 = fountain center 'W'
+
+const townLayout = [
+  "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+  "n......................................n",
+  "n......................................n",
+  "n......................................n",
+  "n......#####...........................n",
+  "n......#...#.............#####.........n",
+  "n......#.S.#.............#.>.#.........n",
+  "n......#...#.............#...#.........n",
+  "n......##.##.............##.##.........n",
+  "n......................................n",
+  "n.................www..................n",
+  "n................wwwww.................n",
+  "n...............wwWww..................n",
+  "n................wwwww.................n",
+  "n.................www..................n",
+  "n......................................n",
+  "n...####.###................####.......n",
+  "n...#......#.............####..#.......n",
+  "n...#.T..................#....I#.......n",
+  "n...#......#...................#.......n",
+  "n...########.............#######.......n",
+  "n......................................n",
+  "n......................................n",
+  "n......................................n",
+  "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+];
+
+function generateMap() {
+  entities = [];
+
+  for (let ty = 0; ty < TOWN_HEIGHT; ty++) {
+    const row = townLayout[ty];
+    for (let tx = 0; tx < TOWN_WIDTH; tx++) {
+      const ch = row[tx];
+      const wx = TOWN_X + tx;
+      const wy = TOWN_Y + ty;
+
+      if (ch === '#') map[wy][wx] = 1;
+      else if (ch === 'n') map[wy][wx] = 2;
+      else if (ch === 'S' || ch === 'T' || ch === 'I') {
+        entities.push({x:wx, y:wy, char:ch, type:'townfolk', alive:true, hp:999});
+        map[wy][wx] = 0;
+      }
+      else if (ch === 'w') map[wy][wx] = 3;
+      else if (ch === 'W') map[wy][wx] = 5;
+      else if (ch === '>') map[wy][wx] = 4;
+      else map[wy][wx] = 0;
+    }
+  }
+
+  addMonsters();
+
+  for (let i = 0; i < 400; i++) {
+    const x = 5 + (Math.random() * (WORLD_WIDTH-10))|0;
+    const y = 5 + (Math.random() * (WORLD_HEIGHT-10))|0;
+    if (x < TOWN_X || x >= TOWN_X+TOWN_WIDTH || y < TOWN_Y || y >= TOWN_Y+TOWN_HEIGHT)
+      map[y][x] = 1;
+  }
+}
+
+function addMonsters() {
+  for (let i = 0; i < 5; i++) {
+    let x = TOWN_X + 5 + Math.floor(Math.random() * (TOWN_WIDTH - 10));
+    let y = TOWN_Y + 5 + Math.floor(Math.random() * (TOWN_HEIGHT - 10));
+    while (map[y][x] !== 0 || getEntityAt(x, y)) {
+      x = TOWN_X + 5 + Math.floor(Math.random() * (TOWN_WIDTH - 10));
+      y = TOWN_Y + 5 + Math.floor(Math.random() * (TOWN_HEIGHT - 10));
+    }
+    entities.push({
+      x, y,
+      char: 'g',
+      type: 'goblin',
+      alive: true,
+      hp: 2,
+      maxHp: 2,
+      dmg: 1,
+      detectRange: 8
+    });
+  }
+
+  let ox = TOWN_X + 20 + Math.floor(Math.random() * 10);
+  let oy = TOWN_Y + 10 + Math.floor(Math.random() * 10);
+  while (map[oy][ox] !== 0 || getEntityAt(ox, oy)) {
+    ox = TOWN_X + 20 + Math.floor(Math.random() * 10);
+    oy = TOWN_Y + 10 + Math.floor(Math.random() * 10);
+  }
+  entities.push({
+    x: ox, y: oy,
+    char: 'O',
+    type: 'orc',
+    alive: true,
+    hp: 8,
+    maxHp: 8,
+    dmg: 1,
+    detectRange: 10
+  });
+}
+
+function getEntityAt(x, y) {
+  return entities.find(e => e.x === x && e.y === y && e.alive);
+}
+
+function findSpawnPoint() {
+  const cx = TOWN_X + 19, cy = TOWN_Y + 13;
+  const cands = [{x:cx,y:cy-5},{x:cx,y:cy+5},{x:cx-6,y:cy},{x:cx+6,y:cy}];
+  for (const c of cands) if (map[c.y]?.[c.x]===0 && !getEntityAt(c.x,c.y)) return c;
+
+  for (let r=1; r<=15; r++) {
+    for (let dy=-r; dy<=r; dy++) for (let dx=-r; dx<=r; dx++) {
+      if (Math.abs(dx)+Math.abs(dy) !== r) continue;
+      const tx=cx+dx, ty=cy+dy;
+      if (tx>=0&&tx<WORLD_WIDTH&&ty>=0&&ty<WORLD_HEIGHT&&map[ty][tx]===0&&!getEntityAt(tx,ty))
+        return {x:tx,y:ty};
+    }
+  }
+  return {x: WORLD_WIDTH>>1, y: WORLD_HEIGHT>>1};
+}
+
+function getNoise(x, y) {
+  const key = `${x},${y}`;
+  if (noiseSeeds[key] === undefined) {
+    const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+    noiseSeeds[key] = n - Math.floor(n);
+  }
+  return noiseSeeds[key];
+}
+
+function distance(x1, y1, x2, y2) {
+  const dx = x1 - x2;
+  const dy = y1 - y2;
+  return Math.sqrt(dx*dx + dy*dy);
+}
+
+function isLightBlocker(x, y) {
+  if (x<0||x>=WORLD_WIDTH||y<0||y>=WORLD_HEIGHT) return true;
+  return map[y][x] === 1;
+}
+
+function computeFOV() {
+  visible = Array.from({length:WORLD_HEIGHT},()=>Array(WORLD_WIDTH).fill(false));
+  const RADIUS = 8;
+  const STEP_DEG = 5;
+  const RAY_COUNT = Math.floor(360 / STEP_DEG);
+
+  visible[player.y][player.x] = true;
+  seen[player.y][player.x] = true;
+
+  for (let i = 0; i < RAY_COUNT; i++) {
+    const angle = (i * STEP_DEG) * Math.PI / 180;
+    const dx = Math.cos(angle);
+    const dy = Math.sin(angle);
+    let cx = player.x, cy = player.y, dist = 0;
+
+    while (dist < RADIUS) {
+      cx += dx * 0.6;
+      cy += dy * 0.6;
+      dist += 0.6;
+      const ix = Math.round(cx);
+      const iy = Math.round(cy);
+      if (ix < 0 || ix >= WORLD_WIDTH || iy < 0 || iy >= WORLD_HEIGHT) break;
+      visible[iy][ix] = true;
+      seen[iy][ix] = true;
+      if (isLightBlocker(ix, iy)) break;
+    }
+  }
+}
+
+function moveEnemies() {
+  entities.forEach(ent => {
+    if (!ent.alive || (ent.type !== 'goblin' && ent.type !== 'orc')) return;
+
+    const distToPlayer = distance(ent.x, ent.y, player.x, player.y);
+    const range = ent.detectRange || 8;
+
+    if (distToPlayer <= range) {
+      const dx = Math.sign(player.x - ent.x);
+      const dy = Math.sign(player.y - ent.y);
+
+      const nx = ent.x + dx;
+      const ny = ent.y + dy;
+
+      if (nx >= 0 && nx < WORLD_WIDTH && ny >= 0 && ny < WORLD_HEIGHT) {
+        const tile = map[ny][nx];
+        if (tile !== 1 && tile !== 2 && tile !== 3 && tile !== 5 && !getEntityAt(nx, ny)) {
+          ent.x = nx;
+          ent.y = ny;
+        }
+      }
+    }
+  });
+}
+
+function tryAttack(targetEnt) {
+  if (!targetEnt || !targetEnt.alive) return;
+
+  targetEnt.hp -= 1;
+  log(`Golpeas al ${targetEnt.type} por 1 daño! (${targetEnt.hp}/${targetEnt.maxHp})`);
+
+  if (targetEnt.hp <= 0) {
+    targetEnt.alive = false;
+    log(`¡El ${targetEnt.type} muere!`);
+  } else {
+    player.hp -= targetEnt.dmg || 1;
+    log(`El ${targetEnt.type} te golpea por 1 daño! (HP: ${player.hp}/${player.maxHp})`);
+
+    if (player.hp <= 0) {
+      log("¡Has muerto! Reiniciando...");
+      player.hp = player.maxHp;
+      const spawn = findSpawnPoint();
+      player.x = spawn.x;
+      player.y = spawn.y;
+    }
+  }
+
+  updateStatus();
+}
+
+function updateStatus() {
+  document.getElementById('status').textContent = `HP: ${player.hp}/${player.maxHp}`;
+}
+
+function getTileColor(wx, wy, pulseTime) {
+  if (wx === player.x && wy === player.y) return COLOR_PLAYER;
+
+  const ent = getEntityAt(wx, wy);
+  const isNpc = ent && ent.type === 'townfolk';
+  const isMonster = ent && (ent.type === 'goblin' || ent.type === 'orc');
+
+  if (!seen[wy][wx]) return '#0a0503';
+
+  const dist = distance(player.x, player.y, wx, wy);
+  const radius = 8;
+
+  let bright;
+  if (visible[wy][wx]) {
+    bright = Math.max(0.12, 1 - (dist / radius));
+    if (dist < 4) bright = Math.min(1.0, bright * 1.65);
+  } else {
+    bright = 0.04;
+  }
+
+  const tile = map[wy][wx];
+  if (tile === 3 || tile === 5) {
+    const phaseOffset = getNoise(wx, wy) * Math.PI * 2;
+    const speed = tile === 5 ? 0.003 : 0.0025;
+    const amp = tile === 5 ? 0.12 : 0.08;
+    const pulse = Math.sin(pulseTime * speed + phaseOffset) * amp;
+    bright = Math.max(0.08, Math.min(1.0, bright + pulse));
+  }
+
+  let baseColor;
+  if (isNpc) {
+    baseColor = COLOR_TOWNFOLK;
+    bright = Math.min(1.0, bright + 0.1);
+  } else if (isMonster) {
+    baseColor = ent.type === 'goblin' ? COLOR_GOBLIN : COLOR_ORC;
+    bright = Math.min(1.0, bright + 0.1);
+  } else if (tile === 1) baseColor = COLOR_WALL;
+  else if (tile === 2) baseColor = COLOR_LOW_WALL;
+  else if (tile === 3) baseColor = COLOR_WATER;
+  else if (tile === 5) baseColor = COLOR_FOUNTAIN;
+  else if (tile === 4) baseColor = COLOR_ENTRANCE;
+  else baseColor = COLOR_FLOOR;
+
+  const [r, g, b] = hexToRgb(baseColor);
+  return `rgba(${r},${g},${b},${bright})`;
+}
+
+function hexToRgb(hex) {
+  const n = parseInt(hex.slice(1),16);
+  return [(n>>16)&255, (n>>8)&255, n&255];
+}
+
+function getDisplayChar(wx, wy) {
+  if (wx === player.x && wy === player.y) return '@';
+  const ent = getEntityAt(wx, wy);
+  if (ent) return ent.char;
+  const t = map[wy][wx];
+  if (t===1) return '#';
+  if (t===2) return 'n';
+  if (t===3) return 'w';
+  if (t===5) return 'W';
+  if (t===4) return '>';
+  return '.';
+}
+
+let lastTime = 0;
+function animate(time) {
+  if (!lastTime) lastTime = time;
+  animationTime = time - lastTime;
+
+  computeFOV();
+
+  let html = '';
+  const camX = Math.max(0, Math.min(player.x - (VIEW_WIDTH>>1), WORLD_WIDTH - VIEW_WIDTH));
+  const camY = Math.max(0, Math.min(player.y - (VIEW_HEIGHT>>1), WORLD_HEIGHT - VIEW_HEIGHT));
+
+  for (let vy=0; vy<VIEW_HEIGHT; vy++) {
+    for (let vx=0; vx<VIEW_WIDTH; vx++) {
+      const wx = camX + vx, wy = camY + vy;
+      if (wx<0||wx>=WORLD_WIDTH||wy<0||wy>=WORLD_HEIGHT) { html += ' '; continue; }
+      const ch = getDisplayChar(wx, wy);
+      const col = getTileColor(wx, wy, animationTime);
+      html += `<span style="color:${col}">${ch}</span>`;
+    }
+    html += '\n';
+  }
+  document.getElementById('screen').innerHTML = html;
+
+  requestAnimationFrame(animate);
+}
+
+function log(msg) { document.getElementById('log').textContent = msg || ''; }
+
+// INPUT
+document.addEventListener('keydown', e => {
+  let dx=0, dy=0;
+  switch (e.key.toLowerCase()) {
+    case 'a': case 'arrowleft':  case 'h': dx=-1; break;
+    case 'd': case 'arrowright': case 'l': dx= 1; break;
+    case 'w': case 'arrowup':    case 'k': dy=-1; break;
+    case 's': case 'arrowdown':  case 'j': dy= 1; break;
+  }
+  if (!dx && !dy) return;
+
+  const nx = player.x + dx, ny = player.y + dy;
+  if (nx<0||nx>=WORLD_WIDTH||ny<0||ny>=WORLD_HEIGHT) return;
+
+  const tile = map[ny][nx];
+  if (tile===1 || tile===2 || tile===3 || tile===5) { log("¡Te chocás!"); return; }
+
+  const targetEnt = getEntityAt(nx, ny);
+  if (targetEnt) {
+    if (targetEnt.type === 'townfolk') {
+      if (targetEnt.char === 'T') {
+        player.hp = player.maxHp;
+        log("El tabernero te cura completamente.");
+        updateStatus();
+      } else {
+        log(`Te chocás con el ${targetEnt.char}...`);
+      }
+      return;
+    }
+
+    tryAttack(targetEnt);
+    return;
+  }
+
+  player.x = nx;
+  player.y = ny;
+
+  moveEnemies();
+
+  if (tile === 4) log("¡Entrás al dungeon!");
+  else log('');
+});
+
+// INIT
+generateMap();
+const spawn = findSpawnPoint();
+player.x = spawn.x; player.y = spawn.y;
+updateStatus();
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>
