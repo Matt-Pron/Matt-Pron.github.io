@@ -1,0 +1,23 @@
+:root {
+	--cols: 60ch;
+	--rows: 25lh;
+}
+
+#game {
+	margin:auto;
+	display:grid;
+	place-items:center;
+	width: calc(var(--cols) + 20px);
+	height: calc(var(--rows) + 20px);
+	overflow:hidden;
+	background-color:black;
+	border:1px solid white;
+	border-radius:4px;
+	justify-content:center;
+	text-align:center;
+
+	user-select:none;
+}
+
+#ui {
+}
