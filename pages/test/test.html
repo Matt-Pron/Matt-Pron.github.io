@@ -4,10 +4,66 @@
 <meta charset="utf-8">
 <title>ASCII Rogue - Ciudad con Goblins y Orc</title>
 <style>
-  body { background:#0a0503; color:#d4a373; margin:0; padding:20px; font-family:'Courier New',monospace; font-size:18px; line-height:1.0; }
-  #screen { background:#0a0503; padding:10px; border:1px solid #3a2a1a; display:inline-block; white-space:pre; }
-  #log { margin-top:12px; color:#8b7355; font-size:16px; min-height:1.5em; }
-  #status { margin-top:8px; color:#aaa; font-size:14px; }
+  body { 
+    background:#0a0503; 
+    color:#d4a373; 
+    margin:0; 
+    padding:20px; 
+    font-family:'Courier New',monospace; 
+    font-size:18px; 
+    line-height:1.0; 
+    touch-action: manipulation; /* better mobile feel */
+  }
+  #screen { 
+    background:#0a0503; 
+    padding:10px; 
+    border:1px solid #3a2a1a; 
+    display:inline-block; 
+    white-space:pre; 
+    font-size:18px;
+  }
+  #log { 
+    margin-top:12px; 
+    color:#8b7355; 
+    font-size:16px; 
+    min-height:1.5em; 
+  }
+  #status { 
+    margin-top:8px; 
+    color:#aaa; 
+    font-size:14px; 
+  }
+  #controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .arrow-row {
+    display: flex;
+    gap: 60px;
+  }
+  .arrow-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    background: #2a1a0a;
+    color: #d4a373;
+    border: 2px solid #8b7355;
+    border-radius: 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+  }
+  .arrow-btn:active {
+    background: #3a2a1a;
+  }
+  .center-btn {
+    width: 60px;
+    height: 60px;
+    visibility: hidden; /* placeholder for grid alignment */
+  }
 </style>
 </head>
 <body>
@@ -15,6 +71,24 @@
 <div id="screen"></div>
 <div id="log"></div>
 <div id="status">HP: 10/10</div>
+
+<div id="controls">
+  <div class="arrow-row">
+    <div class="center-btn"></div>
+    <button class="arrow-btn" data-dir="up">↑</button>
+    <div class="center-btn"></div>
+  </div>
+  <div class="arrow-row">
+    <button class="arrow-btn" data-dir="left">←</button>
+    <div class="center-btn"></div>
+    <button class="arrow-btn" data-dir="right">→</button>
+  </div>
+  <div class="arrow-row">
+    <div class="center-btn"></div>
+    <button class="arrow-btn" data-dir="down">↓</button>
+    <div class="center-btn"></div>
+  </div>
+</div>
 
 <script>
 // CONFIG
@@ -50,12 +124,12 @@ let animationTime = 0;
 let noiseSeeds = {};
 
 // Tile types
-// 0 = floor
-// 1 = solid wall '#'
-// 2 = low wall 'n'
-// 3 = water 'w'
-// 4 = dungeon entrance '>'
-// 5 = fountain center 'W'
+const T_FLOOR = 0;
+const T_WALL  = 1;
+const T_LOW   = 2;
+const T_WATER = 3;
+const T_ENTR  = 4;
+const T_FOUNT = 5;
 
 const townLayout = [
   "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
@@ -95,16 +169,16 @@ function generateMap() {
       const wx = TOWN_X + tx;
       const wy = TOWN_Y + ty;
 
-      if (ch === '#') map[wy][wx] = 1;
-      else if (ch === 'n') map[wy][wx] = 2;
+      if (ch === '#') map[wy][wx] = T_WALL;
+      else if (ch === 'n') map[wy][wx] = T_LOW;
       else if (ch === 'S' || ch === 'T' || ch === 'I') {
         entities.push({x:wx, y:wy, char:ch, type:'townfolk', alive:true, hp:999});
-        map[wy][wx] = 0;
+        map[wy][wx] = T_FLOOR;
       }
-      else if (ch === 'w') map[wy][wx] = 3;
-      else if (ch === 'W') map[wy][wx] = 5;
-      else if (ch === '>') map[wy][wx] = 4;
-      else map[wy][wx] = 0;
+      else if (ch === 'w') map[wy][wx] = T_WATER;
+      else if (ch === 'W') map[wy][wx] = T_FOUNT;
+      else if (ch === '>') map[wy][wx] = T_ENTR;
+      else map[wy][wx] = T_FLOOR;
     }
   }
 
@@ -114,7 +188,7 @@ function generateMap() {
     const x = 5 + (Math.random() * (WORLD_WIDTH-10))|0;
     const y = 5 + (Math.random() * (WORLD_HEIGHT-10))|0;
     if (x < TOWN_X || x >= TOWN_X+TOWN_WIDTH || y < TOWN_Y || y >= TOWN_Y+TOWN_HEIGHT)
-      map[y][x] = 1;
+      map[y][x] = T_WALL;
   }
 }
 
@@ -122,7 +196,7 @@ function addMonsters() {
   for (let i = 0; i < 5; i++) {
     let x = TOWN_X + 5 + Math.floor(Math.random() * (TOWN_WIDTH - 10));
     let y = TOWN_Y + 5 + Math.floor(Math.random() * (TOWN_HEIGHT - 10));
-    while (map[y][x] !== 0 || getEntityAt(x, y)) {
+    while (map[y][x] !== T_FLOOR || getEntityAt(x, y)) {
       x = TOWN_X + 5 + Math.floor(Math.random() * (TOWN_WIDTH - 10));
       y = TOWN_Y + 5 + Math.floor(Math.random() * (TOWN_HEIGHT - 10));
     }
@@ -140,7 +214,7 @@ function addMonsters() {
 
   let ox = TOWN_X + 20 + Math.floor(Math.random() * 10);
   let oy = TOWN_Y + 10 + Math.floor(Math.random() * 10);
-  while (map[oy][ox] !== 0 || getEntityAt(ox, oy)) {
+  while (map[oy][ox] !== T_FLOOR || getEntityAt(ox, oy)) {
     ox = TOWN_X + 20 + Math.floor(Math.random() * 10);
     oy = TOWN_Y + 10 + Math.floor(Math.random() * 10);
   }
@@ -163,13 +237,13 @@ function getEntityAt(x, y) {
 function findSpawnPoint() {
   const cx = TOWN_X + 19, cy = TOWN_Y + 13;
   const cands = [{x:cx,y:cy-5},{x:cx,y:cy+5},{x:cx-6,y:cy},{x:cx+6,y:cy}];
-  for (const c of cands) if (map[c.y]?.[c.x]===0 && !getEntityAt(c.x,c.y)) return c;
+  for (const c of cands) if (map[c.y]?.[c.x]===T_FLOOR && !getEntityAt(c.x,c.y)) return c;
 
   for (let r=1; r<=15; r++) {
     for (let dy=-r; dy<=r; dy++) for (let dx=-r; dx<=r; dx++) {
       if (Math.abs(dx)+Math.abs(dy) !== r) continue;
       const tx=cx+dx, ty=cy+dy;
-      if (tx>=0&&tx<WORLD_WIDTH&&ty>=0&&ty<WORLD_HEIGHT&&map[ty][tx]===0&&!getEntityAt(tx,ty))
+      if (tx>=0&&tx<WORLD_WIDTH&&ty>=0&&ty<WORLD_HEIGHT&&map[ty][tx]===T_FLOOR&&!getEntityAt(tx,ty))
         return {x:tx,y:ty};
     }
   }
@@ -275,6 +349,30 @@ function tryAttack(targetEnt) {
   updateStatus();
 }
 
+function enemyTurnAttacks() {
+  const touchingEnemies = entities.filter(ent => 
+    ent.alive && 
+    (ent.type === 'goblin' || ent.type === 'orc') &&
+    Math.abs(ent.x - player.x) <= 1 &&
+    Math.abs(ent.y - player.y) <= 1
+  );
+
+  touchingEnemies.forEach(enemy => {
+    player.hp -= enemy.dmg || 1;
+    log(`¡El ${enemy.type} te ataca por 1 daño! (HP: ${player.hp}/${player.maxHp})`);
+  });
+
+  if (player.hp <= 0) {
+    log("¡Has muerto! Reiniciando...");
+    player.hp = player.maxHp;
+    const spawn = findSpawnPoint();
+    player.x = spawn.x;
+    player.y = spawn.y;
+  }
+
+  updateStatus();
+}
+
 function updateStatus() {
   document.getElementById('status').textContent = `HP: ${player.hp}/${player.maxHp}`;
 }
@@ -372,22 +470,17 @@ function animate(time) {
 
 function log(msg) { document.getElementById('log').textContent = msg || ''; }
 
-// INPUT
-document.addEventListener('keydown', e => {
-  let dx=0, dy=0;
-  switch (e.key.toLowerCase()) {
-    case 'a': case 'arrowleft':  case 'h': dx=-1; break;
-    case 'd': case 'arrowright': case 'l': dx= 1; break;
-    case 'w': case 'arrowup':    case 'k': dy=-1; break;
-    case 's': case 'arrowdown':  case 'j': dy= 1; break;
-  }
-  if (!dx && !dy) return;
-
-  const nx = player.x + dx, ny = player.y + dy;
-  if (nx<0||nx>=WORLD_WIDTH||ny<0||ny>=WORLD_HEIGHT) return;
+// ───── MOVEMENT (keyboard + buttons) ─────
+function move(dx, dy) {
+  const nx = player.x + dx;
+  const ny = player.y + dy;
+  if (nx < 0 || nx >= WORLD_WIDTH || ny < 0 || ny >= WORLD_HEIGHT) return;
 
   const tile = map[ny][nx];
-  if (tile===1 || tile===2 || tile===3 || tile===5) { log("¡Te chocás!"); return; }
+  if (tile === 1 || tile === 2 || tile === 3 || tile === 5) {
+    log("¡Te chocás!");
+    return;
+  }
 
   const targetEnt = getEntityAt(nx, ny);
   if (targetEnt) {
@@ -403,16 +496,45 @@ document.addEventListener('keydown', e => {
     }
 
     tryAttack(targetEnt);
-    return;
+  } else {
+    player.x = nx;
+    player.y = ny;
   }
 
-  player.x = nx;
-  player.y = ny;
-
+  // Enemy movement & multi-attack
   moveEnemies();
+  enemyTurnAttacks();
 
   if (tile === 4) log("¡Entrás al dungeon!");
   else log('');
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  let dx = 0, dy = 0;
+  switch (e.key.toLowerCase()) {
+    case 'a': case 'arrowleft':  case 'h': dx = -1; break;
+    case 'd': case 'arrowright': case 'l': dx =  1; break;
+    case 'w': case 'arrowup':    case 'k': dy = -1; break;
+    case 's': case 'arrowdown':  case 'j': dy =  1; break;
+  }
+  if (dx || dy) {
+    e.preventDefault();
+    move(dx, dy);
+  }
+});
+
+// On-screen buttons (mouse / touch)
+document.querySelectorAll('.arrow-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const dir = btn.dataset.dir;
+    let dx = 0, dy = 0;
+    if (dir === 'up')    dy = -1;
+    if (dir === 'down')  dy =  1;
+    if (dir === 'left')  dx = -1;
+    if (dir === 'right') dx =  1;
+    move(dx, dy);
+  });
 });
 
 // INIT
