@@ -1,7 +1,7 @@
 import Panel from './panel.js';
-import Vector2, { random }  from './math.js';
+import Vector2, { random, generateDijkstraMap }  from './math.js';
 import { generateTown } from './town.js';
-import { populateMap, checkAndRespawn, Player, Monster, Orc, Goblin } from './entities.js';
+import { populateMap, checkAndRespawn, Player, Monster, Orc, Goblin, Cleric } from './entities.js';
 
 const canvas = document.querySelector('canvas');
 const screen = canvas.getContext('2d');
@@ -10,13 +10,14 @@ const screen = canvas.getContext('2d');
 let mapWidth = 100;
 let mapHeight = 70;
 
-let map = [];
+let townData;
 do {
-	map = generateTown(mapWidth, mapHeight);
-} while (map === 0);
+	townData = generateTown(mapWidth, mapHeight);
+} while (townData === 0);
+const map = townData.map;
 
 let entities = [];
-populateMap(map, entities);
+populateMap(map, entities, townData.clericPos);
 let player = entities.find(e => e instanceof Player);
 
 function kill(entity) {
@@ -172,6 +173,10 @@ function drawMap() {
 					screen.fillStyle = SALMON;
 					screen.fillText('g', sx + fontX / 2, sy + fontY / 2);
 					continue;
+				} else if (entity instanceof Cleric) {
+					screen.fillStyle = YELLOW;
+					screen.fillText('C', sx + fontX / 2, sy + fontY / 2);
+					continue;
 				} else if (entity instanceof Orc) {
 					screen.fillStyle = BRICK;
 					screen.fillText('O', sx + fontX / 2, sy + fontY / 2);
@@ -326,6 +331,86 @@ function isInPanel(p,x,y) {
 	);
 }
 
+let isBusy = false;
+
+async function handleMonsterTurns() {
+	const dMap = generateDijkstraMap(map, player.x, player.y, 13);
+
+	for (let entity of entities) {
+		if (entity instanceof Monster) {
+			const report = entity.moveTowards(dMap, entities, player);
+			if (report) {
+				log += ` El ${report.attacker} te golpea por ${report.damage}.`;
+			}
+			if (player.hp <= 0) {
+				log += ` ¡Has muerto!`;
+				kill(player);
+			}
+		}
+	}
+}
+
+async function lookAt(x, y) {
+	if (isBusy) return;
+
+	let lx = player.x + x;
+	let ly = player.y + y;
+
+	//log = `Estás en x: ${ player.x }, y: ${ player.y }.`;
+	log = ``;
+
+	if (map[ly]?.[lx] === 1) {
+		const entity = entities.find(e => e.x === lx && e.y === ly);
+		if (entity && entity instanceof Monster) {
+			let hit = Math.max(1, Math.round(random(player.level - 1, player.level + 3)));
+			log = `Golpeas al ${ entity.name } por ${ hit }.`;
+			entity.hp -= hit;
+			if (entity.hp <= 0) {
+				kill(entity);
+				const xpAmount = (entity instanceof Orc) ? random(15,30) : random(5,12);
+				const leveling = player.gainXp(xpAmount);
+					log = `Matas al ${ entity.name }, ganas ${ xpAmount }xp.`;
+				if (leveling) {
+					log += ` Subes a nivel ${ leveling[1] }, ganas ${ leveling[0] }hp.`;
+				}
+			}
+		} else if (entity && entity instanceof Cleric) {
+			log = entity.interact(player);
+		} else {
+			player.x = lx;
+			player.y = ly;
+			log = ``;
+			updateCamera();
+		}
+	} else if (map[ly]?.[lx] === 2) {
+		log += `Un muro bloquea el camino.`;
+	} else if (map[ly]?.[lx] === 3) {
+		log += `Un árbol bloquea tu camino.`;
+	} else if (map[ly]?.[lx] === 4) {
+		log += `El agua refleja tu rostro.`;
+	} else {
+		log += ' Camino bloqueado.';
+	}
+	isBusy = true;
+	await handleMonsterTurns();
+	draw();
+	isBusy = false;
+}
+
+window.addEventListener('keydown', e => {
+	if (e === 'w' || e === 'a' || e === 's' || e === 'd') { e.preventDefault(); }
+	const keyMap = {
+		'w': {x:0, y:-1},
+		'a': {x:-1, y:0},
+		's': {x:0, y:1},
+		'd': {x:1, y:0}
+	};
+	let k = e.key.toLowerCase();
+	let move = keyMap[k];
+
+	if (move) lookAt(move.x, move.y);
+});
+
 window.addEventListener('click', (e) => {
 	let pos = new Vector2(0,0);
 	pos.x = e.clientX - canvas.getBoundingClientRect().left;
@@ -339,61 +424,6 @@ window.addEventListener('click', (e) => {
 		lookAt(0,1);
 	} else if (isInPanel(btnRight, pos.x, pos.y)) {
 		lookAt(1,0);
-	}
-});
-
-function lookAt(x, y) {
-	let lx = player.x + x;
-	let ly = player.y + y;
-
-	//log = `Estás en x: ${ player.x }, y: ${ player.y }.`;
-	log = ``;
-
-	if (map[ly]?.[lx] === 1) {
-		const entity = entities.find(e => e.x === lx && e.y === ly);
-		if (entity && entity instanceof Monster) {
-			let hit = Math.max(1, Math.round(random(player.level - 2, player.level + 2)));
-			log = `Golpeas al ${ entity.name } por ${ hit }.`;
-			entity.hp -= hit;
-			if (entity.hp <= 0) {
-				kill(entity)
-				const xpAmount = (entity instanceof Orc) ? random(15,30) : random(5,12);
-				const leveling = player.gainXp(xpAmount);
-					log = `Matas al ${ entity.name }, ganas ${ xpAmount }xp.`;
-				if (leveling) {
-					log += ` Subes a nivel ${ leveling[1] }, ganas ${ leveling[0] }hp.`;
-				}
-				drawMap();
-				drawInfo();
-			}
-		} else {
-			player.x = lx;
-			player.y = ly;
-			log = ``;
-			updateCamera();
-			drawMap();
-		}
-	} else if (map[ly]?.[lx] === 2) {
-		log += `Un muro bloquea el camino.`;
-	} else if (map[ly]?.[lx] === 3) {
-		log += `Un árbol bloquea tu camino.`;
-	} else if (map[ly]?.[lx] === 4) {
-		log += `El agua refleja tu rostro.`;
-	} else {
-		log += ' Camino bloqueado.';
-	}
-	drawLog();
-}
-
-window.addEventListener('keydown', e => {
-	let k = e.key.toLowerCase();
-	if (k === 'w' || k === 'a' || k === 's' || k === 'd') { e.preventDefault(); }
-
-	switch (e.key.toLowerCase()) {
-		case 'w': lookAt(0,-1); break;
-		case 's': lookAt(0,1); break;
-		case 'a': lookAt(-1,0); break;
-		case 'd': lookAt(1,0); break;
 	}
 });
 
