@@ -1,12 +1,29 @@
 import { random } from './math.js';
 export class Player {
 	constructor(x,y){
-		this.name = 'Glorfindel';
+		const heroes = [
+			{ name: 'Glorfindel', race: 'Elf', class: 'Warrior' },
+			{ name: 'Aragorn', race: 'Man', class: 'Ranger' },
+			{ name: 'Legolas', race: 'Elf', class: 'Archer' },
+			{ name: 'Gimli', race: 'Dwarf', class: 'Warrior' },
+			{ name: 'Gandalf', race: 'Istari', class: 'Mage' },
+			{ name: 'Faramir', race: 'Man', class: 'Captain' },
+			{ name: 'Galadriel', race: 'Elf', class: 'Warrior' },
+			{ name: 'Boromir', race: 'Man', class: 'Captain' },
+			{ name: 'Eowyn', race: 'Man', class: 'Shieldmaiden' },
+			{ name: 'Eomer', race: 'Man', class: 'Knight' },
+			{ name: 'Peregrin', race: 'Halfling', class: 'Squire' }
+		];
+
+		const template = heroes[random(0, heroes.length - 1)];
+
+		this.name = template.name;
+		this.race = template.race;
+		this.class = template.class;
+
 		this.hp = 15;
 		this.hpMax = 15;
 		this.char = '@';
-		this.race = 'Elf';
-		this.class = 'Warrior';
 		this.x = x;
 		this.y = y;
 		this.level = 1;
