@@ -2,6 +2,7 @@ import Panel from './panel.js';
 import Vector2, { random, generateDijkstraMap }  from './math.js';
 import { generateTown } from './town.js';
 import { populateMap, checkAndRespawn, Player, Monster, Orc, Goblin, Cleric } from './entities.js';
+import { startTheme } from './audio.js';
 
 const canvas = document.querySelector('canvas');
 const screen = canvas.getContext('2d');
@@ -397,6 +398,15 @@ async function lookAt(x, y) {
 	isBusy = false;
 }
 
+let musicIsPlaying = false;
+
+function startMusic() {
+	if (!musicIsPlaying) {
+		startTheme();
+		musicIsPlaying = true;
+	}
+}
+
 window.addEventListener('keydown', e => {
 	if (e === 'w' || e === 'a' || e === 's' || e === 'd') { e.preventDefault(); }
 	const keyMap = {
@@ -409,6 +419,8 @@ window.addEventListener('keydown', e => {
 	let move = keyMap[k];
 
 	if (move) lookAt(move.x, move.y);
+	
+	startMusic();
 });
 
 window.addEventListener('click', (e) => {
@@ -425,6 +437,7 @@ window.addEventListener('click', (e) => {
 	} else if (isInPanel(btnRight, pos.x, pos.y)) {
 		lookAt(1,0);
 	}
+	startMusic();
 });
 
 function draw() {
@@ -436,3 +449,4 @@ function draw() {
 
 updateScreenSize();
 draw();
+startTheme();
