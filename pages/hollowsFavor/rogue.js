@@ -1,5 +1,6 @@
 import Panel from './panel.js';
-import Vector2, { random, generateDijkstraMap }  from './math.js';
+import Vector2, { random }  from './math.js';
+import { generateDijkstraMap } from './dijkstraMap.js';
 import { generateTown } from './town.js';
 import { populateMap, checkAndRespawn, Player, Monster, Orc, Goblin, Cleric } from './entities.js';
 import { startTheme } from './audio.js';

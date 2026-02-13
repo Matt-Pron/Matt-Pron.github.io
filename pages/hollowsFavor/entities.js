@@ -1,4 +1,5 @@
-import { random, generateDijkstraMap } from './math.js';
+import { random } from './math.js';
+import { generateDijkstraMap } from './dijkstraMap.js';
 
 export class Player {
 	constructor(x,y){
