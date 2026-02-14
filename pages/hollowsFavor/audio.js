@@ -32,11 +32,9 @@ export async function startTheme() {
         source.loop = true;
 
         source.connect(gainNode);
-        if (source.start(0)) {
-            return true;
-        } else {
-            return false;
-        }
+        source.start(0)
+        return true;
     }
+    return false;
 }
 
