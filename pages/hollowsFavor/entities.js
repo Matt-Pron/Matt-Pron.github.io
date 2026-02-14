@@ -113,7 +113,7 @@ export class Monster {
                 const isOccupied = entities.some(e => e !== this && e.x === nx && e.y === ny);
 
                 if (isOccupied) {
-                    neighborVal += 2;
+                    neighborVal += 4;
                 }
 
                 if (neighborVal < bestMove.val) {
