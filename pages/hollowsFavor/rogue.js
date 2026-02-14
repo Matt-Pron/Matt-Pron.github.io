@@ -450,8 +450,8 @@ function draw() {
 
 updateScreenSize();
 draw();
-if (document.referrer === '' ||
-    performance.getEntriesByType('navigation').type === 'reload') {
+if (!document.referrer === '' &&
+    performance.getEntriesByType('navigation').type != 'reload') {
 	startMusic();
 }
 
