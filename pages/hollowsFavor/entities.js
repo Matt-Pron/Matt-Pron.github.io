@@ -93,7 +93,7 @@ export class Monster {
 	moveTowards(dMap, entities, player) {
 		const currentHeat = dMap[this.y][this.x];
 
-		if (currentHeat === Infinity || currentHeat > this.detectionRadius) return;
+		if (currentHeat === Infinity || currentHeat > (this.detectionRadius + random(0, 2)) return;
 
 		if (currentHeat === 1) {
 			return this.attack(player);
