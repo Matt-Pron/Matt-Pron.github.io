@@ -90,7 +90,7 @@ export class Monster {
 		};
 	}
 
-	moveTowards(dMap, entities, player) {
+	moveTowards(dMap, entities, player) { // Revisar A* (A* pathfinding e01 algorithm explanation sebastian lague)
 		const currentHeat = dMap[this.y][this.x];
 
 		if (currentHeat === Infinity || currentHeat > this.detectionRadius - random(0, 3)) return;
