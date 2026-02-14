@@ -93,41 +93,31 @@ export class Monster {
 	moveTowards(dMap, entities, player) {
 		const currentHeat = dMap[this.y][this.x];
 
-		if (currentHeat === Infinity || currentHeat > (this.detectionRadius - random(0, 3))) return;
+		if (currentHeat === Infinity || currentHeat > this.detectionRadius - random(0, 3)) return;
 
 		if (currentHeat === 1) {
 			return this.attack(player);
 		}
 
 		const dirs = [[0,1],[0,-1],[1,0],[-1,0]];
-		//let bestMove = { x: this.x, y: this.y, val: currentHeat };
-        let possibleMoves = [];
+		let bestMove = { x: this.x, y: this.y, val: currentHeat };
 
 		for (const [dx,dy] of dirs) {
 			const nx = this.x + dx;
 			const ny = this.y + dy;
 
-			//if (dMap[ny] && dMap[ny][nx] < bestMove.val) {
-            if (dMap[ny] && dMap[ny][nx] !== undefined) {
-                let moveVal = dMap[ny][nx];
+			if (dMap[ny] && dMap[ny][nx] < bestMove.val) {
+				const occupied = entities.some(e => e.x === nx && e.y === ny);
 
-                const isOccupied = entities.some(e => e !== this && e.x === nx && e.y === ny);
-
-                if (isOccupied) moveVal += 3;
-
-                possibleMoves.push({ x: nx, y: ny, val: moveVal });
+				if (!occupied) {
+					bestMove = { x: nx, y: ny, val: dMap[ny][nx] };
+				}
 			}
 		}
-
-        possibleMoves.sort((a, b) => a.val - b.val);
-        
-        const bestMove = possibleMoves[0];
-
-        if (bestMove && bestMove.val < currentHeat + 1.5) {
-            this.x = bestMove.x;
-            this.y = bestMove.y;
-        }
+		this.x = bestMove.x;
+		this.y = bestMove.y;
 	}
+
 }
 
 export class Goblin extends Monster {

@@ -1,4 +1,4 @@
-export function generateDijkstraMap(map, goalX, goalY, maxRange) {
+export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) {
 	const width = map[0].length;
 	const height = map.length;
 
@@ -17,11 +17,18 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange) {
 		for (const [dx, dy] of dirs) {
 			const nx = x + dx, ny = y + dy;
 
-			if (ny >= 0 && ny < height && nx < width &&
-				map[ny][nx] === 1 && dMap[ny][nx] === Infinity) {
-				dMap[ny][nx] = dist + 1;
-				qeue.push({ x: nx, y: ny, dist: dist + 1 });
-			}
+            if (ny >= 0 && ny < height && nx < width && map[ny][nx] === 1) {
+                const isOccupied = entities.some(e => e.x === nx && e.y === ny);
+                const stepCost = isOccupied ? 4 : 1;
+                const newDist = dist + stepCost;
+
+                if (newDist < dMap[ny][nx]) {
+                    dMap[ny][nx] = newDist;
+                    qeue.push({ x: nx, y: ny, dist: newDist });
+
+                    qeue.sort((a, b) => a.dist - b.dist);
+                }
+            }
 		}
 	}
 	return dMap;
