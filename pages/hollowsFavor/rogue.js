@@ -403,8 +403,7 @@ let musicIsPlaying = false;
 
 function startMusic() {
 	if (!musicIsPlaying) {
-		startTheme();
-		musicIsPlaying = true;
+		musicIsPlaying = startTheme();
 	}
 }
 
@@ -450,10 +449,6 @@ function draw() {
 
 updateScreenSize();
 draw();
-if (!document.referrer === '' &&
-    performance.getEntriesByType('navigation').type != 'reload') {
-	startMusic();
-}
 
 startMusic();
 

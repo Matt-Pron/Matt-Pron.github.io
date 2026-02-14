@@ -7,33 +7,36 @@ gainNode.connect(audioContext.destination);
 let themeBuffer;
 
 async function loadTheme() {
-	try {
-		const response = await fetch('./hollowsFavorTheme8.ogg');
-		const arrayBuffer = await response.arrayBuffer();
-		themeBuffer = await audioContext.decodeAudioData(arrayBuffer);
-	} catch (e) {}
+    try {
+        const response = await fetch('./hollowsFavorTheme8.ogg');
+        const arrayBuffer = await response.arrayBuffer();
+        themeBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    } catch (e) {}
 }
 
 export async function startTheme() {
-	if (audioContext.state === 'suspended') {
-		await audioContext.resume();
-	}
+    loadTheme();
 
-	if (!themeBuffer) {
-		await loadTheme();
-	}
+    if (audioContext.state === 'suspended') {
+        await audioContext.resume();
+    }
 
-	if (themeBuffer) {
-		const source = audioContext.createBufferSource();
-		source.buffer = themeBuffer;
+    if (!themeBuffer) {
+        await loadTheme();
+    }
 
-		source.loop = true;
+    if (themeBuffer) {
+        const source = audioContext.createBufferSource();
+        source.buffer = themeBuffer;
 
-		source.connect(gainNode);
-		source.start(0);
-	}
+        source.loop = true;
 
+        source.connect(gainNode);
+        if (source.start(0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
-
-loadTheme();
 
