@@ -13,7 +13,7 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) 
 
     const monsterTiles = new Set(
         entities
-        .filter(e => e instance of Monster)
+        .filter(e => (e instance of Monster))
         .map(e => `${e.x},${e.y}`)
     );
 
