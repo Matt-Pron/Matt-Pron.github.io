@@ -106,18 +106,24 @@ export class Monster {
 			const nx = this.x + dx;
 			const ny = this.y + dy;
 
-			if (dMap[ny] && dMap[ny][nx] < bestMove.val) {
-				const occupied = entities.some(e => e.x === nx && e.y === ny);
+			//if (dMap[ny] && dMap[ny][nx] < bestMove.val) {
+            if (dMap[ny] && dMap[ny][nx] !== undefined) {
+                let neighborVal = dMap[ny][nx];
 
-				if (!occupied) {
-					bestMove = { x: nx, y: ny, val: dMap[ny][nx] };
-				}
+                const isOccupied = entities.some(e => e !== this && e.x === nx && e.y === ny);
+
+                if (isOccupied) {
+                    neighborVal += 1;
+                }
+
+                if (neighborVal < bestMove.val) {
+                    bestMove = { x: nx, y: ny, val: neighborVal };
+                }
 			}
 		}
 		this.x = bestMove.x;
 		this.y = bestMove.y;
 	}
-
 }
 
 export class Goblin extends Monster {
