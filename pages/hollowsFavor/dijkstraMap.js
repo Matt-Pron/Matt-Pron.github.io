@@ -23,7 +23,7 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) 
 
             if (ny >= 0 && ny < height && nx < width && map[ny][nx] === 1) {
                 const isOccupied = monsters.some(e => e.x === nx && e.y === ny);
-                const stepCost = isOccupied ? 4 : 1;
+                const stepCost = isOccupied ? 2 : 1;
                 const newDist = dist + stepCost;
 
                 if (newDist < dMap[ny][nx]) {
