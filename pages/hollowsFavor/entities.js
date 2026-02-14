@@ -93,14 +93,15 @@ export class Monster {
 	moveTowards(dMap, entities, player) {
 		const currentHeat = dMap[this.y][this.x];
 
-		if (currentHeat === Infinity || currentHeat > (this.detectionRadius + random(0, 2))) return;
+		if (currentHeat === Infinity || currentHeat > (this.detectionRadius - random(0, 3))) return;
 
 		if (currentHeat === 1) {
 			return this.attack(player);
 		}
 
 		const dirs = [[0,1],[0,-1],[1,0],[-1,0]];
-		let bestMove = { x: this.x, y: this.y, val: currentHeat };
+		//let bestMove = { x: this.x, y: this.y, val: currentHeat };
+        let possibleMoves = [];
 
 		for (const [dx,dy] of dirs) {
 			const nx = this.x + dx;
@@ -108,21 +109,24 @@ export class Monster {
 
 			//if (dMap[ny] && dMap[ny][nx] < bestMove.val) {
             if (dMap[ny] && dMap[ny][nx] !== undefined) {
-                let neighborVal = dMap[ny][nx];
+                let moveVal = dMap[ny][nx];
 
                 const isOccupied = entities.some(e => e !== this && e.x === nx && e.y === ny);
 
-                if (isOccupied) {
-                    neighborVal += 4;
-                }
+                if (isOccupied) moveVal += 3;
 
-                if (neighborVal < bestMove.val) {
-                    bestMove = { x: nx, y: ny, val: neighborVal };
-                }
+                possibleMoves.push({ x: nx, y: ny, val: moveVal });
 			}
 		}
-		this.x = bestMove.x;
-		this.y = bestMove.y;
+
+        possibleMoves.sort((a, b) => a.val - b.val);
+        
+        const bestMove = possibleMoves[0];
+
+        if (bestMove && bestMove.val < currentHeat + 0.5) {
+            this.x = bestMove.x;
+            this.y = bestMove.y;
+        }
 	}
 }
 
