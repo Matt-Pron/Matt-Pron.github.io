@@ -1,4 +1,4 @@
-import { Player } from './entities.js';
+import { Monster } from './entities.js';
 
 export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) {
 	const width = map[0].length;
@@ -13,7 +13,7 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) 
 
     const monsterTiles = new Set(
         entities
-        .filter(e => (e instance of Monster))
+        .filter(e => e instanceof Monster)
         .map(e => `${e.x},${e.y}`)
     );
 
