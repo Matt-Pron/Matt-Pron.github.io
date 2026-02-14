@@ -455,3 +455,5 @@ if (!document.referrer === '' &&
 	startMusic();
 }
 
+startMusic();
+

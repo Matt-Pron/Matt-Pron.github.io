@@ -1,27 +1,24 @@
-// town.js
 export function generateTown(mapWidth = 100, mapHeight = 100) {
-	// ── 1. Forest everywhere (3 = trees) ──
+    // Mapa todo Trees
 	let map = Array.from({ length: mapHeight }, () => Array(mapWidth).fill(3));
+
+    // Parametros custom
+    let nBuildings = 5;
+
+    // Variables
+    const centerX = Math.floor(mapWidth / 2);
+    const centerY = Math.floor(mapHeight / 2);
+    const buildings = [];
 	let clericPos;
 
-	// Outer border = 2 (impassable wall/cliff)
-	for (let y = 0; y < mapHeight; y++) {
-		map[y][0] = map[y][mapWidth - 1] = 3;
-	}
-	for (let x = 0; x < mapWidth; x++) {
-		map[0][x] = map[mapHeight - 1][x] = 3;
-	}
+    // Centro del mapa libre, 5x5
 	for (let y = mapHeight / 2 - 2; y < mapHeight / 2 + 2; y++) {
 		for (let x = mapWidth / 2 - 2; x < mapWidth / 2 + 2; x++) {
 			map[y][x] = 1;
 		}
 	}
 
-	const centerX = Math.floor(mapWidth / 2);
-	const centerY = Math.floor(mapHeight / 2);
-
-	// Forbidden central 5×5 zone
-	const forbiddenRadius = 2; // 5 tiles = center ±2
+	const forbiddenRadius = 2;
 	function isInForbiddenZone(x, y, w, h) {
 		const left   = x;
 		const right  = x + w - 1;
@@ -35,17 +32,16 @@ export function generateTown(mapWidth = 100, mapHeight = 100) {
 		);
 	}
 
-	// ── Place 4 buildings ──
-	const buildings = [];
-
-	for (let i = 0; i < 5; i++) {
-		const w = 5 + Math.floor(Math.random() * 3); // 5..7
+    // Construcciones
+    // Posicion
+	for (let i = 0; i < nBuildings; i++) {
+		const w = 5 + Math.floor(Math.random() * 3);
 		const h = 5 + Math.floor(Math.random() * 3);
 
 		let x, y, placed = false;
-		for (let attempt = 0; attempt < 500; attempt++) {
+		for (let attempt = 0; attempt < 500; attempt++) { // Desiste con 500 fallos
 			const angle = Math.random() * Math.PI * 2;
-			const dist = 8 + Math.random() * 13; // outside central 5×5
+			const dist = 8 + Math.random() * 15;
 			x = Math.floor(centerX + Math.cos(angle) * dist - w / 2);
 			y = Math.floor(centerY + Math.sin(angle) * dist - h / 2);
 
@@ -54,7 +50,6 @@ export function generateTown(mapWidth = 100, mapHeight = 100) {
 
 			if (isInForbiddenZone(x, y, w, h)) continue;
 
-			// No overlap + minimum 2-tile separation
 			const tooClose = buildings.some(b => {
 				const sep = 2;
 				return !(
@@ -73,7 +68,7 @@ export function generateTown(mapWidth = 100, mapHeight = 100) {
 
 		if (!placed) continue;
 
-		// Draw building: border 2, inside 1
+		// Diseño
 		for (let yy = y; yy < y + h; yy++) {
 			for (let xx = x; xx < x + w; xx++) {
 				const isBorder = (
@@ -86,6 +81,7 @@ export function generateTown(mapWidth = 100, mapHeight = 100) {
 
 		buildings.push({ x, y, w, h, doorCarved: false });
 
+        // Clerigo en primer casa
 		const b = buildings[0];
 		clericPos = {
 			x: Math.floor(b.x + b.w / 2),
@@ -93,21 +89,22 @@ export function generateTown(mapWidth = 100, mapHeight = 100) {
 		};
 	}
 
-	// ── Central-ish plaza (4×4, mostly 4, corners 1) ──
-	const sw = 4, sh = 4;
+	// Fuente
+	const sw = 5, sh = 5;
 	let sx = centerX - 2;
 	let sy = centerY - 2;
 
-	let plazaPlaced = false;
-	for (let attempt = 0; attempt < 200; attempt++) {
+	let fountainPlaced = false;
+	for (let attempt = 0; attempt < 200; attempt++) { // 200 intentos
 		if (!isInForbiddenZone(sx, sy, sw, sh) &&
 			!buildings.some(b =>
 				!(sx + sw <= b.x || sx >= b.x + b.w || sy + sh <= b.y || sy >= b.y + b.h)
 			)) {
-			plazaPlaced = true;
+			fountainPlaced = true;
 			break;
 		}
 
+        // revisar sx, sy
 		const angle = Math.random() * Math.PI * 2;
 		const dist = 4 + Math.random() * 4;
 		sx = Math.floor(centerX + Math.cos(angle) * dist - sw / 2);
@@ -116,20 +113,19 @@ export function generateTown(mapWidth = 100, mapHeight = 100) {
 		sy = Math.max(5, Math.min(mapHeight - sh - 5, sy));
 	}
 
-	if (plazaPlaced) {
+	if (fountainPlaced) {
 		for (let yy = sy; yy < sy + sh; yy++) {
 			for (let xx = sx; xx < sx + sw; xx++) {
 				map[yy][xx] = 4;
 			}
 		}
-		// Open corners
+		// Redondear esquinas 1 tile
 		map[sy][sx]         = 1;
-		map[sy][sx + 3]     = 1;
-		map[sy + 3][sx]     = 1;
-		map[sy + 3][sx + 3] = 1;
+		map[sy][sx + sw - 1]     = 1;
+		map[sy + sh - 1][sx]     = 1;
+		map[sy + sh - 1][sx + sw - 1] = 1;
 	}
 
-	// ── Connectivity helpers ──
 	function isBuildingCorner(x, y, b) {
 		return (
 			(x === b.x || x === b.x + b.w - 1) &&
