@@ -109,11 +109,11 @@ export class Monster {
 			const ny = this.y + dy;
 
 			if (dMap[ny] && dMap[ny][nx] < bestMove.val) {
-				const occupied = entities.some(e => e.x === nx && e.y === ny);
+				//const occupied = entities.some(e => e.x === nx && e.y === ny);
 
-				if (!occupied) {
+				//if (!occupied) {
 					bestMove = { x: nx, y: ny, val: dMap[ny][nx] };
-				}
+				//}
 			}
 		}
 		this.x = bestMove.x;
