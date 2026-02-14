@@ -402,14 +402,16 @@ async function lookAt(x, y) {
 let musicIsPlaying = false;
 
 async function startMusic() {
-    if (!musicIsPlaying) {
-        musicIsPlaying = true;
-        const success = await startTheme();
+    if (musicIsPlaying) return;
 
-        if (!success) {
-            musicIsPlaying = false;
-        }
+    musicIsPlaying = true;
+
+    const success = await startTheme();
+
+    if (!success) {
+        musicIsPlaying = false;
     }
+}
 }
 
 window.addEventListener('keydown', e => {
