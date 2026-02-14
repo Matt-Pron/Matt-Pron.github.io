@@ -95,7 +95,9 @@ export class Monster {
 
 		if (currentHeat === Infinity || currentHeat > this.detectionRadius - random(0, 3)) return;
 
-		if (currentHeat === 1) {
+        const distToPlayer = Math.abs(this.x - player.x) + Math.abs(this.y - player.y)
+
+		if (distToPlayer === 1) {
 			return this.attack(player);
 		}
 
