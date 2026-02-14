@@ -412,7 +412,6 @@ async function startMusic() {
         musicIsPlaying = false;
     }
 }
-}
 
 window.addEventListener('keydown', e => {
     if (e === 'w' || e === 'a' || e === 's' || e === 'd') { e.preventDefault(); }
