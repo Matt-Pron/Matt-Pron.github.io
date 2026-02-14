@@ -11,11 +11,7 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) 
 
 	const dirs = [[0,1],[0,-1],[1,0],[-1,0]];
 
-    const monsterTiles = new Set(
-        entities
-        .filter(e => e instanceof Monster)
-        .map(e => `${e.x},${e.y}`)
-    );
+    const monsters = entities.filter(e => e instanceof Monster);
 
 	while (qeue.length > 0) {
 		const { x, y, dist } = qeue.shift();
@@ -26,7 +22,7 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) 
 			const nx = x + dx, ny = y + dy;
 
             if (ny >= 0 && ny < height && nx < width && map[ny][nx] === 1) {
-                const isOccupied = monsterTiles.has(`${nx},${ny}`);
+                const isOccupied = monsters.some(e => e.x === nx && e.y === ny);
                 const stepCost = isOccupied ? 4 : 1;
                 const newDist = dist + stepCost;
 
