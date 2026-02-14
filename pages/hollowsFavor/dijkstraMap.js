@@ -20,7 +20,7 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) 
 			const nx = x + dx, ny = y + dy;
 
             if (ny >= 0 && ny < height && nx < width && map[ny][nx] === 1) {
-                const isOccupied = entities.some(e => e.x === nx && e.y === ny && e !instanceof Player);
+                const isOccupied = entities.some(e => e.x === nx && e.y === ny && !(e instanceof Player));
                 const stepCost = isOccupied ? 4 : 1;
                 const newDist = dist + stepCost;
 
