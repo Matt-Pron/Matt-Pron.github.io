@@ -336,7 +336,7 @@ function isInPanel(p,x,y) {
 let isBusy = false;
 
 async function handleMonsterTurns() {
-    const dMap = generateDijkstraMap(map, player.x, player.y, 13);
+    const dMap = generateDijkstraMap(map, player.x, player.y, 13, entities);
 
     for (let entity of entities) {
         if (entity instanceof Monster) {
