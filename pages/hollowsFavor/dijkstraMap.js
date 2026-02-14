@@ -26,7 +26,7 @@ export function generateDijkstraMap(map, goalX, goalY, maxRange, entities = []) 
 			const nx = x + dx, ny = y + dy;
 
             if (ny >= 0 && ny < height && nx < width && map[ny][nx] === 1) {
-                const isOccupied = monsterTiles.has(`${e.x},${e.y}`);
+                const isOccupied = monsterTiles.has(`${nx},${ny}`);
                 const stepCost = isOccupied ? 4 : 1;
                 const newDist = dist + stepCost;
 
