@@ -401,17 +401,24 @@ async function lookAt(x, y) {
 
 let musicIsPlaying = false;
 
+window.addEventListener('click', startMusic);
+window.addEventListener('keydown', startMusic);
+
 async function startMusic() {
     if (musicIsPlaying) return;
 
-    musicIsPlaying = true;
 
     const success = await startTheme();
 
-    if (!success) {
-        musicIsPlaying = false;
+    if (success) {
+        musicIsPlaying = true;
+
+        window.removeEventListener('click', startMusic);
+        window.removeEventListener('keydown', startMusic);
     }
 }
+
+startMusic();
 
 window.addEventListener('keydown', e => {
     if (e === 'w' || e === 'a' || e === 's' || e === 'd') { e.preventDefault(); }
@@ -425,8 +432,6 @@ window.addEventListener('keydown', e => {
     let move = keyMap[k];
 
     if (move) lookAt(move.x, move.y);
-
-    startMusic();
 });
 
 window.addEventListener('click', (e) => {
@@ -443,7 +448,6 @@ window.addEventListener('click', (e) => {
     } else if (isInPanel(btnRight, pos.x, pos.y)) {
         lookAt(1,0);
     }
-    startMusic();
 });
 
 function draw() {
@@ -455,6 +459,4 @@ function draw() {
 
 updateScreenSize();
 draw();
-
-startMusic();
 
