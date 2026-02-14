@@ -450,4 +450,7 @@ function draw() {
 
 updateScreenSize();
 draw();
-startTheme();
+if (document.referrer === '' || entry.type === 'reload') {
+	startMusic();
+}
+
