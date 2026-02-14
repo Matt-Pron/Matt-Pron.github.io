@@ -5,16 +5,14 @@ gainNode.gain.value = 0.15;
 gainNode.connect(audioContext.destination);
 
 let themeBuffer;
+let themeSource;
 
 async function loadTheme() {
     if (themeBuffer) return themeBuffer;
-    try {
-        const response = await fetch('./hollowsFavorTheme8.ogg');
-        const arrayBuffer = await response.arrayBuffer();
-        themeBuffer = await audioContext.decodeAudioData(arrayBuffer);
-    } catch (e) {
-        return null;
-    }
+    const response = await fetch('./hollowsFavorTheme8.ogg');
+    const arrayBuffer = await response.arrayBuffer();
+    themeBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    return themeBuffer;
 }
 
 export async function startTheme() {
@@ -24,16 +22,16 @@ export async function startTheme() {
 
     const buffer = await loadTheme();
 
-    if (buffer) {
-        const source = audioContext.createBufferSource();
-        source.buffer = buffer;
+    if (buffer && !themeSource && audioContext.state === 'running') {
+        themeSource = audioContext.createBufferSource();
+        themeSource.buffer = buffer;
 
-        source.loop = true;
+        themeSource.loop = true;
 
-        source.connect(gainNode);
-        source.start(0)
+        themeSource.connect(gainNode);
+        themeSource.start(0)
         return true;
     }
-    return false;
+    return audioContext.state === 'running';
 }
 
