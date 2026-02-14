@@ -123,7 +123,7 @@ export class Monster {
         
         const bestMove = possibleMoves[0];
 
-        if (bestMove && bestMove.val < currentHeat + 0.5) {
+        if (bestMove && bestMove.val < currentHeat + 1.5) {
             this.x = bestMove.x;
             this.y = bestMove.y;
         }
