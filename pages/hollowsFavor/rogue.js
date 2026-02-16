@@ -32,16 +32,6 @@ function kill(entity) {
     player = entities.find(e => e instanceof Player);
 }
 
-//let map = Array.from({ length: mapHeight }, () => new Array(mapWidth).fill(1));
-
-//for (let i = 0; i < mapHeight; i++) {
-//	for (let j = 0; j < mapWidth; j++) {
-//		if (i === 0 || i === mapHeight - 1 || j === 0 || j === mapWidth - 1){
-//			map[i][j] = 2;
-//		}
-//	}
-//}
-
 // Pallete
 let BLACK = '#000000';
 let DGREY = '#626262';
@@ -336,7 +326,7 @@ function isInPanel(p,x,y) {
 let isBusy = false;
 
 async function handleMonsterTurns() {
-    const dMap = generateDijkstraMap(map, player.x, player.y, 13, entities);
+    const dMap = generateDijkstraMap(map, player.x, player.y, 10, entities);
 
     for (let entity of entities) {
         if (entity instanceof Monster) {

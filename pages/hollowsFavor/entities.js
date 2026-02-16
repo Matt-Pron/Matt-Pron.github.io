@@ -93,7 +93,7 @@ export class Monster {
 	moveTowards(dMap, entities, player) { // Revisar A* (A* pathfinding e01 algorithm explanation sebastian lague)
 		const currentHeat = dMap[this.y][this.x];
 
-		if (currentHeat === Infinity || currentHeat > this.detectionRadius - random(0, 3)) return;
+		if (currentHeat === Infinity || currentHeat > this.detectionRadius) return;
 
         const distToPlayer = Math.abs(this.x - player.x) + Math.abs(this.y - player.y)
 
@@ -109,11 +109,11 @@ export class Monster {
 			const ny = this.y + dy;
 
 			if (dMap[ny] && dMap[ny][nx] < bestMove.val) {
-				//const occupied = entities.some(e => e.x === nx && e.y === ny);
+				const occupied = entities.some(e => e.x === nx && e.y === ny && e !== this);
 
-				//if (!occupied) {
+				if (!occupied) {
 					bestMove = { x: nx, y: ny, val: dMap[ny][nx] };
-				//}
+				}
 			}
 		}
 		this.x = bestMove.x;
