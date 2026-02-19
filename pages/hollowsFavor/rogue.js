@@ -167,7 +167,7 @@ function drawMap() {
                     continue;
                 } else if (entity instanceof Hydra) {
                     screen.fillStyle = LGREEN;
-                    screen.fillText('g', sx + fontX / 2, sy + fontY / 2);
+                    screen.fillText('H', sx + fontX / 2, sy + fontY / 2);
                     continue;
                 } else if (entity instanceof Cleric) {
                     screen.fillStyle = YELLOW;
