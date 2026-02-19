@@ -2,7 +2,7 @@ import Panel from './panel.js';
 import Vector2, { random }  from './math.js';
 import { generateDijkstraMap } from './dijkstraMap.js';
 import { generateTown } from './town.js';
-import { populateMap, checkAndRespawn, Player, Monster, Orc, Goblin, Cleric } from './entities.js';
+import { populateMap, checkAndRespawn, Player, Monster, Orc, Goblin, Hydra, Cleric } from './entities.js';
 import { startTheme } from './audio.js';
 
 const canvas = document.querySelector('canvas');
@@ -163,6 +163,10 @@ function drawMap() {
                     continue;
                 } else if (entity instanceof Goblin) {
                     screen.fillStyle = SALMON;
+                    screen.fillText('g', sx + fontX / 2, sy + fontY / 2);
+                    continue;
+                } else if (entity instanceof Hydra) {
+                    screen.fillStyle = LGREEN;
                     screen.fillText('g', sx + fontX / 2, sy + fontY / 2);
                     continue;
                 } else if (entity instanceof Cleric) {
@@ -359,7 +363,10 @@ async function lookAt(x, y) {
             entity.hp -= hit;
             if (entity.hp <= 0) {
                 kill(entity);
-                const xpAmount = (entity instanceof Orc) ? random(15,30) : random(5,12);
+                let xpAmount = 0; // (entity instanceof Orc) ? random(15,30) : random(5,12);
+                if (entity instanceof Hydra) random (30,40);
+                if (entity instanceof Orc) random (10,20);
+                else if (entity instanceof Goblin) random (5,10);
                 const leveling = player.gainXp(xpAmount);
                 log = `Matas al ${ entity.name }, ganas ${ xpAmount }xp.`;
                 if (leveling) {

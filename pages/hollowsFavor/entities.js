@@ -125,12 +125,24 @@ export class Monster {
 export class Goblin extends Monster {
 	constructor(x, y) {
 		super('Goblin', 2, 14, 'g', x, y);
+		this.atkMin = 1;
+		this.atkMax = 2;
 	}
 }
 
 export class Orc extends Monster {
 	constructor(x, y) {
 		super('Orco', 8, 18, 'O', x, y);
+		this.atkMin = 2;
+		this.atkMax = 4;
+	}
+}
+
+export class Hydra extends Monster {
+	constructor(x, y) {
+		super('Hidra', 24, 9, 'H', x, y);
+		this.atkMin = 8;
+		this.atkMax = 14;
 	}
 }
 
