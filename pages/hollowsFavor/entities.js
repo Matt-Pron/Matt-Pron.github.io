@@ -140,7 +140,7 @@ export class Orc extends Monster {
 
 export class Hydra extends Monster {
 	constructor(x, y) {
-		super('Hidra', 24, 9, 'H', x, y);
+		super('Hidra', 24, 7, 'H', x, y);
 		this.atkMin = 8;
 		this.atkMax = 14;
 	}
