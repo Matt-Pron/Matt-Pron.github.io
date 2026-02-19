@@ -365,7 +365,7 @@ async function lookAt(x, y) {
                 kill(entity);
                 let xpAmount = 0; // (entity instanceof Orc) ? random(15,30) : random(5,12);
                 if (entity instanceof Hydra) xpAmount = random(30,40);
-                if (entity instanceof Orc) xpAmount = random(10,20);
+                else if (entity instanceof Orc) xpAmount = random(10,20);
                 else if (entity instanceof Goblin) xpAmount = random(5,10);
                 const leveling = player.gainXp(xpAmount);
                 log = `Matas al ${ entity.name }, ganas ${ xpAmount }xp.`;
