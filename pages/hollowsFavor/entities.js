@@ -180,12 +180,13 @@ export function populateMap(map, entities, clericPos) {
 
 	const player = entities.find(e => e instanceof Player);
 
-	const counts = { orc: 3, goblin: 14 };
+	const counts = { hydra: 1, orc: 3, goblin: 14 };
 
 	for (const [type, count] of Object.entries(counts)) {
 		for (let j = 0; j < count; j++) {
 			const pos = getValidSpawnPos(map, entities, player);
 			if (pos) {
+                if (type === 'hydra') entities.push(new Hydra(pos.x, pos.y));
 				if (type === 'orc') entities.push(new Orc(pos.x, pos.y));
 				if (type === 'goblin') entities.push(new Goblin(pos.x, pos.y));
 			}
@@ -204,9 +205,14 @@ export function checkAndRespawn(map, entities) {
 		}
 	}
 
+	const hydras = entities.filter(e => e instanceof Hydra).length;
 	const orcs = entities.filter(e => e instanceof Orc).length;
 	const goblins = entities.filter(e => e instanceof Goblin).length;
 
+	if (hydras < 1) {
+		const pos = getValidSpawnPos(map, entities, player);
+		if (pos) entities.push(new Orc(pos.x, pos.y));
+	}
 	if (orcs < 3) {
 		const pos = getValidSpawnPos(map, entities, player);
 		if (pos) entities.push(new Orc(pos.x, pos.y));
