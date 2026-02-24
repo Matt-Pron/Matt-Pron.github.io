@@ -13,3 +13,12 @@ export default class Panel {
 	}
 }
 
+export function isInPanel(p,x,y,font) {
+    return (
+        x >= p.x * font.x &&
+        x <= p.xx * font.x &&
+        y >= p.y * font.y &&
+        y <= p.yy * font.y
+    );
+}
+
