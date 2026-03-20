@@ -1,8 +1,8 @@
+import { Globals } from "./globals.js";
 import { Renderer } from "./renderer.js";
 import { update, viewportManager } from "./viewportManager.js";
 import { Input, processInput } from "./input.js";
 import { SplashScreen } from "./scenes/splash.js";
-import { Globals } from "./globals.js";
 import { PowerManager } from "./powerManager.js";
 
 Globals.input = ("ontouchstart" in window || navigator.maxTouchPoints > 0) ? "touch" : "none";
