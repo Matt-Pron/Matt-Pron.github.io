@@ -1,0 +1,57 @@
+{
+    "goblin": {
+        "level": 1,
+        "xp": [5, 10],
+        "char": "g",
+        "prefix": ["al", "El"],
+        "color": "SALMON",
+        "detection": 14,
+        "hp": 2,
+        "def": 20,
+        "atk": [1, 2],
+        "speed": 15,
+        "skill": 20,
+        "weapon": "dagger"
+    },
+    "orco": {
+        "level": 3,
+        "xp": [10, 15],
+        "char": "O",
+        "prefix": ["al", "El"],
+        "color": "BRICK",
+        "detection": 18,
+        "hp": 20,
+        "def": 15,
+        "atk": [2, 4],
+        "speed": 8,
+        "skill": 30,
+        "weapon": "axe"
+    },
+    "hidra": {
+        "level": 7,
+        "xp": [20, 35],
+        "char": "H",
+        "prefix": ["a la", "La"],
+        "color": "LGREEN",
+        "detection": 7,
+        "hp": 60,
+        "def": 45,
+        "atk": [8, 12],
+        "speed": 7,
+        "skill": 30
+    },
+    "minotauro": {
+        "level": 12,
+        "xp": [50, 80],
+        "char": "M",
+        "prefix": ["al", "El"],
+        "color": "BRICK",
+        "detection": 16,
+        "hp": 50,
+        "def": 30,
+        "atk": [12, 18],
+        "speed": 12,
+        "skill": 50
+    }
+}
+

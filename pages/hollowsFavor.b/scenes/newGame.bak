@@ -1,0 +1,216 @@
+import { Viewport } from "../viewport.js";
+import { Globals } from "../globals.js";
+import { colors } from "../palette.js";
+import { NameGen } from "../nameGen.js";
+import { changeScene } from "../main.js";
+import { MainMenu } from "./mainMenu.js";
+import { GameState } from "../game.js";
+import { World } from "./world.js";
+import { UIButton, UILabel, UISpinner } from "../ui/widgets.js";
+
+export class NewGame extends Viewport {
+    constructor() {
+        super(2, 2, 26, 18);
+        // this.name = "NewGameMenu";
+        this.index = 1;
+        this.elements = [
+            new UILabel("NUEVA PARTIDA", 6, 1, 13),
+            new UISpinner("NOMBRE", "Glorfindel", 4, 4, 18, "name"),
+            new UISpinner("CLASE", "Guerrero", 4, 6, 18, "class"),
+            new UISpinner("RAZA", "Humano", 4, 8, 18, "race"),
+            new UISpinner("ASPECTO", "@", 4, 10, 18, "char"),
+            new UISpinner("COLOR", " ", 4, 12, 18, "color"),
+            new UIButton("COMENZAR", 7, 15, 12, 1, "start"),
+            new UIButton("VOLVER", 7, 17, 12, 1, "back")
+        ];
+        this.updateFocus();
+
+        // Data
+        // this.classes = ["Guerrero", "Mago", "Constructo", "Pirata", "Arquero"];
+        // this.races = ["Humano", "Elfo", "Goblin", "Orco", "Enano"];
+        // this.chars = ["@", "&", "Ω", "Ψ"];
+        // this.availColors = [1, 5, 9, 10, 12, 14];
+
+        // { icon: "@", name: "Warrior", desc: "Strong and sturdy." },
+        // { icon: "&", name: "Mage", desc: "Fragile but deadly." },
+        // { icon: "Ω", name: "Construct", desc: "Ancient technology." },
+        // { icon: "Ψ", name: "Pirate", desc: "King of the seas." },
+        // { icon: "g", name: "Goblin", desc: "Nasty pillager." },
+        // { icon: "M", name: "Minotaur", desc: "Half man, half bull." }
+        
+        // this.charName = localStorage.getItem("charName") || NameGen.getRandom();
+        // this.classIdx = parseInt(localStorage.getItem("classIdx")) || 0;
+        // this.raceIdx = parseInt(localStorage.getItem("raceIdx")) || 0;
+        // this.charIdx = parseInt(localStorage.getItem("charIdx")) || 0;
+        // this.colorIdx = parseInt(localStorage.getItem("colorIdx")) || 0;
+        //
+        // this.options = [
+        //     `Nombre: ${this.charName}`,
+        //     `Clase: ${this.classes[this.classIdx]}`,
+        //     `Raza: ${this.races[this.raceIdx]}`,
+        //     "Aspecto", "Color",
+        //     "", "", "",
+        //     "COMENZAR", "VOLVER"
+        // ];
+        //
+        // this.sectionIndex = 0;
+    }
+
+    save() {
+        localStorage.setItem("charName", this.charName);
+        localStorage.setItem("classIdx", this.classIdx);
+        localStorage.setItem("raceIdx", this.raceIdx);
+        localStorage.setItem("charIdx", this.charIdx);
+        localStorage.setItem("colorIdx", this.colorIdx);
+    }
+
+    handleInput(data) {
+        const action = typeof data === "string" ? data : data.action;
+
+        switch (action) {
+            case "class_next":
+                this.classId = (this.classId - 1 + this.classes.length) % this.classes.length;
+                optText(this.sectionIndex, "Clase", this.classes[this.classIdx]);
+        if (a === "move_right") {
+            this.classIdx = (this.classIdx + 1) % this.classes.length;
+            optText(this.sectionIndex, "Clase", this.classes[this.classIdx]);
+            this.updateFocus();
+                break;
+        // const optText = (i, label, val) => {
+        //     this.options[i] = `${label}: ${val}`;
+        // };
+        //
+        // if (a === "move_up") {
+        //     this.sectionIndex = (this.sectionIndex - 1 + this.options.length) % this.options.length;
+        //     while (this.options[this.sectionIndex] === "") this.sectionIndex--;
+        // }
+        // if (a === "move_down") {
+        //     this.sectionIndex = (this.sectionIndex + 1) % this.options.length;
+        //     while (this.options[this.sectionIndex] === "") this.sectionIndex++;
+        // }
+        //
+        // switch(this.sectionIndex) {
+        //     case 0:
+        //         if (a === "confirm") {
+        //             let newName;
+        //             do (newName = NameGen.getRandom());
+        //             while (this.charName === newName);
+        //             this.charName = newName;
+        //             optText(this.sectionIndex, "Nombre", this.charName);
+        //         }
+        //         break;
+        //     case 1:
+        //         if (a === "move_left") {
+        //             this.classIdx = (this.classIdx - 1 + this.classes.length) % this.classes.length;
+        //             optText(this.sectionIndex, "Clase", this.classes[this.classIdx]);
+        //         }
+        //         if (a === "move_right") {
+        //             this.classIdx = (this.classIdx + 1) % this.classes.length;
+        //             optText(this.sectionIndex, "Clase", this.classes[this.classIdx]);
+        //         }
+        //         break;
+        //     case 2:
+        //         if (a === "move_left") {
+        //             this.raceIdx = (this.raceIdx - 1 + this.races.length) % this.races.length;
+        //             optText(this.sectionIndex, "Raza", this.races[this.raceIdx]);
+        //         }
+        //         if (a === "move_right") {
+        //             this.raceIdx = (this.raceIdx + 1) % this.races.length;
+        //             optText(this.sectionIndex, "Raza", this.races[this.raceIdx]);
+        //         }
+        //         break;
+        //     case 3:
+        //         if (a === "move_left") {
+        //             this.charIdx = (this.charIdx - 1 + this.chars.length) % this.chars.length;
+        //         }
+        //         if (a === "move_right") {
+        //             this.charIdx = (this.charIdx + 1) % this.chars.length;
+        //         }
+        //         break;
+        //     case 4:
+        //         if (a === "move_left") {
+        //             this.colorIdx = (this.colorIdx - 1 + this.availColors.length) % this.availColors.length;
+        //         }
+        //         if (a === "move_right") {
+        //             this.colorIdx = (this.colorIdx + 1) % this.availColors.length;
+        //         }
+        //         break;
+        //     case 8:
+        //         if (a === "confirm") this.startGame();
+        //         break;
+        //     case 9:
+        //         if (a === "confirm") changeScene(new MainMenu(0, 0, this.width, this.height, 0));
+        //         break;
+        // }
+        // this.save();
+        // if (a === "escape") {
+        //     changeScene(new MainMenu(0, 0, this.width, this.height, 0));
+        // }
+    }
+
+    handlePointer(type, gridX, gridY, localX, localY, event) {
+        const direction = gridX < this.width / 2 ? "move_left" : "move_right";
+
+        const centerX = Math.floor(this.width / 2);
+        const startY = Math.floor((this.height - this.options.length - 3) / 2);
+
+        this.options.forEach((opt, i) => {
+            const optionY = startY + i + 3;
+            const optionWidth = opt.length + 2;
+            const startX = centerX - Math.floor(optionWidth / 2);
+
+            if (gridY === optionY && gridX >= startX && gridX < startX + optionWidth) {
+                switch (type) {
+                    case "move":
+                        if (i !== 5 && i !== 6 && i !== 7) this.sectionIndex = i;
+                        break;
+                    case "down":
+                        this.sectionIndex = i;
+                        if (this.sectionIndex >= 1 || this.sectionIndex <= 4) {
+                            this.handleInput(direction);
+                        }
+                        this.handleInput("confirm");
+                        break;
+                }
+            }
+        });
+    }
+
+    drawContent(renderer) {
+        const text = "NUEVA PARTIDA";
+
+        let startX = Math.floor((this.width - text.length) / 2);
+        const startY = Math.floor((this.height - this.options.length - 3) / 2);
+
+        renderer.drawLocalText(text, startX, startY);
+
+        this.options.forEach((opt, i) => {
+            const color = i === this.sectionIndex ? 13 : 2;
+            const prefix = i === this.sectionIndex ? "[ " : "  ";
+            const suffix = i === this.sectionIndex ? " ]" : "  ";
+            const option = prefix + opt + suffix;
+            startX = Math.floor((this.width - option.length) / 2);
+            renderer.drawLocalText(option, startX, startY + 3 + i, { color: color });
+        });
+
+        // preview
+        renderer.drawLocalChar(this.chars[this.charIdx], (this.width - 1 >> 1), startY + 9, { color: this.availColors[this.colorIdx] });
+    }
+
+    async startGame() {
+        const player = {
+            name: this.charName,
+            class: this.classes[this.classIdx],
+            race: this.races[this.raceIdx],
+            char: this.chars[this.charIdx],
+            color: colors[this.availColors[this.colorIdx]]
+        };
+        Globals.player = player;
+        Globals.gameState = new GameState(Globals.player);
+
+        const worldViewport = new World(0, 0, this.width, this.height, 0);
+
+        changeScene(worldViewport);
+    }
+}
+

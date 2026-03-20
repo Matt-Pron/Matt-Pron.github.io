@@ -1,0 +1,134 @@
+import { MenuViewport } from "./menuViewport.js";
+import { UIButton, UIContainer, UIHBox, UILabel, UISlider, UISpacer, UISpinner, UIVBox } from "../ui/widgets.js";
+import { Globals } from "../globals.js";
+
+export class Test extends MenuViewport {
+    constructor(x, y, w, h, z, c) {
+        super(x, y, w, h, z, c);
+        this.index = 0;
+        this.spinner = ["a", "b", "c", "d", "e"];
+        this.spinnerId = 0;
+        this.slider = 50;
+        this.createUI();
+    }
+
+    createUI() {
+        super.createUI();
+
+        this.menu.setBackground(true, 8);
+
+        this.titleLabel = new UILabel("Test Menu")
+            .setWeight(600)
+            .setAlign("center")
+            .setOffset(0, 1);
+
+        this.speedSpinner = new UISpinner("Select", this.spinner[this.spinnerId], "test_spinner")
+            .setSize('expand')
+            .setBackground(true, 12);
+
+        this.volumeSlider = new UISlider("Vol", this.slider, 100, "test_slider", 1)
+            .setSize('expand', 2)
+            .setOffset(0,1);
+
+        this.exitBtn = new UIButton("EXIT", "exit")
+            .setSize(6, 1)
+            .setOffset(-1,0)
+            .setAlign('right')
+            .setBackground(true, 15);
+
+        this.menu.add(this.titleLabel);
+        this.menu.add(new UISpacer(0,2));
+        this.menu.add(this.speedSpinner);
+        this.menu.add(this.volumeSlider);
+
+        this.row = new UIHBox()
+        // this.row = new UIHBox('expand', 1, 1)
+            .setSize('expand', 1)
+            .setOffset(1, 0)
+            .setAlign("center")
+            .setBackground(true, 7);
+
+        this.rowY = new UIButton("Yes", "test_button")
+            .setSize('expand')
+            .setBackground(true, 15);
+
+        this.rowN = new UIButton("No", "test_button")
+            .setSize(6, 1)
+            .setBackground(true, 5);
+
+        this.row.add(this.rowY);
+        this.row.add(this.rowN);
+
+        this.menu.add(this.row);
+        //
+        // this.menu.add(new UISpacer(0,3));
+        this.menu.add(this.exitBtn);
+
+        // this.root.add(this.menu);
+        // this.root.measure();
+        // this.root.layout(0, 0, this.width, this.height);
+
+        this.sync();
+        this.elements = this.getNavigableElements(this.root);
+        this.onResize();
+    }
+
+    handleKey(key, isDown) {
+        if (!isDown) return;
+
+        const action = Globals.hotkeys[key];
+        const current = this.elements[this.index];
+
+        if (action === "move_left" || action === "move_right") {
+            const dir = action === "move_right" ? 1 : -1;
+
+            if (current?.handleKey) {
+                current.handleKey(dir, (act, val) => this.applyChange(act, val));
+                return;
+            }
+
+            this.navigate2D(dir, 0);
+            return;
+        }
+
+        if (action === "move_up" || action === "move_down") {
+            const dir = action === "move_down" ? 1 : -1;
+            this.navigate2D(0, dir);
+            return;
+        }
+
+        if (action === "confirm") {
+            this.applyChange(current.action);
+            return;
+        }
+    }
+
+    applyChange(action, payload = null) {
+        if (action === "test_spinner") {
+            const dir = payload || 0;
+            if (dir) {
+                this.spinnerId = (this.spinnerId + dir + this.spinner.length) % this.spinner.length;
+                console.log("spinner " + this.spinner[this.spinnerId]);
+            }
+            this.sync();
+            return;
+        }
+
+        if (action === "test_slider") {
+            this.slider = payload;
+            this.sync();
+            return;
+        }
+
+        if (action === "test_button") {
+            console.log("button");
+        }
+
+        if (action === "exit") {
+            console.log("exit pressed");
+        }
+
+        this.sync();
+    }
+}
+

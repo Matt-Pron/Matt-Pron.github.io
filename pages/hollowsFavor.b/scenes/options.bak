@@ -1,0 +1,110 @@
+import { MenuViewport } from "./menuViewport.js";
+import { UIButton, UILabel, UISlider, UISpacer, UISpinner } from "../ui/widgets.js";
+import { StageManager } from "../stateManager.js";
+import { Globals } from "../globals.js";
+import { palettes } from "../palette.js";
+import { Renderer } from "../renderer.js";
+import { AudioController } from "../audio.js";
+
+export class OptionsMenu extends MenuViewport {
+    constructor() {
+        super();
+        this.build();
+    }
+
+    build() {
+        this.elements = [
+            new UILabel("OPCIONES", 13),
+            new UISpacer(2),
+            new UISpinner("TEMA", palettes[Globals.paletteID].name, "theme"),
+            new UISlider("VOLUMEN", Globals.volume, 100, "volume"),
+            new UISpacer(1),
+            new UIButton("REINICIAR", "reset"),
+            new UISpacer(1),
+            new UIButton("VOLVER", "back"),
+        ];
+        this.layoutElements();
+    }
+
+    handleInput(data) {
+        let action, payload = null;
+        if (typeof data === "string") action = data;
+        else { action = data.action; payload = data; }
+
+        const current = this.elements[this.index];
+
+        // Nav
+        if (action ===  "move_up") return this.navigate(-1);
+        if (action ===  "move_down") return this.navigate(1);
+
+        // Selection
+        if (action ===  "move_left" || action ===  "move_right") {
+            const dir = action === "move_right" ? 1 : -1;
+
+            if (current.action === "theme") {
+                Globals.paletteID = (Globals.paletteID + dir + palettes.length) % palettes.length;
+                Renderer.setDOMBackground();
+                localStorage.setItem("paletteID", Globals.paletteID);
+                this.build();
+                return;
+            }
+
+            if (current.action === "volume") {
+                Globals.volume = Math.max(0, Math.min(100, Globals.volume + dir * 5));
+                AudioController.setVolume(Globals.volume);
+                localStorage.setItem("volume", Globals.volume);
+                this.build();
+                return;
+            }
+            return;
+        }
+
+        // Execution
+        if (action === "confirm") {
+            this.applyChange(current.action);
+            return;
+        }
+
+        if (action) {
+            if (payload) {
+                const idx = this.elements.findIndex(el => el.action === action);
+                if (idx !== -1) { this.index = idx; this.updateFocus(); }
+
+                if (action === "theme") {
+                    const dir = payload.dir || 0;
+                    if (dir) {
+                        Globals.paletteID = (Globals.paletteID + dir + palettes.length) % palettes.length;
+                        Renderer.setDOMBackground();
+                        localStorage.setItem("paletteID", Globals.paletteID);
+                        this.build();
+                    }
+                    return;
+                }
+
+                if (action === "volume") {
+                    const newVal = payload.value !== undefined ? payload.value : Globals.volume + (payload.dir || 0) * 5;
+                    Globals.volume = Math.max(0, Math.min(100, newVal));
+                    AudioController.setVolume(Globals.volume);
+                    localStorage.setItem("volume", Globals.volume);
+                    this.build();
+                    return;
+                }
+            } else {
+                this.applyChange(action);
+            }
+        }
+    }
+
+    applyChange(action) {
+        if (action ===  "reset") {
+            if (confirm("¿Borrar todo?")) {
+                localStorage.clear();
+                alert("Datos borrados.");
+                location.reload();
+            }
+            return;
+        }
+        if (action ===  "back") StageManager.popUI();
+    }
+}
+

@@ -1,0 +1,98 @@
+import { Globals } from "../globals.js";
+import { Viewport } from "../viewport.js";
+
+export class MenuViewport extends Viewport {
+    constructor(x = 0, y = 0, w = Globals.cols || 6, h = Globals.rows || 6, z = 0, c = 2) {
+        super(x, y, w, h, z);
+        this.index = 0;
+        this.elements = [];
+        this.c = c;
+    }
+
+    ensureValidFocus() {
+        if (this.elements.length === 0) return;
+        const start = this.index;
+        while (!this.elements[this.index].focusable) {
+            this.index = (this.index + 1) % this.elements.length;
+            if (this.index === start) break;
+        }
+        this.updateFocus();
+    }
+
+    navigate(dir) {
+        let attempts = 0;
+        do {
+            this.index = (this.index + dir + this.elements.length) % this.elements.length;
+            attempts++;
+        } while (!this.elements[this.index].focusable && attempts < this.elements.length);
+        this.updateFocus();
+    }
+
+    updateFocus() {
+        this.elements.forEach((el, i) => {
+            if (el.setFocus) el.setFocus(i === this.index);
+        });
+    }
+
+    getActionAt(lx, ly) {
+        if (this.root) return this.root.getActionAt(lx, ly);
+        return null;
+    }
+
+    setHoverFocus(lx, ly) {
+        for (let i = 0; i < this.elements.length; i++) {
+            const el = this.elements[i];
+            if (el.focusable && el.isHit(lx, ly)) {
+                if (this.index !== i) {
+                    this.index = i;
+                    this.updateFocus();
+                }
+                return;
+            }
+        }
+    }
+
+    handleInput(data) {
+        let action, payload = null;
+        if (typeof data === "string") action = data;
+        else if (data?.action) {action = data.action; payload = data; }
+
+        const current = this.elements[this.index];
+
+        if (action === "move_up") return this.navigate(-1);
+        if (action === "move_down") return this.navigate(1);
+        if (action === "move_left" || action === "move_right") {
+            const dir = action === "move_right" ? 1 : -1;
+            if (current?.handleKey) current.handleKey(dir, (act, val) => this.applyChange(act, val));
+            return;
+        }
+
+        if (action === "confirm") {
+            if (current?.action) this.applyChange(current.action);
+            return;
+        }
+
+        if (action) {
+            if (payload) {
+                const idx = this.elements.findIndex(el => el.action === action);
+                if (idx !== -1) {
+                    this.index = idx;
+                    this.updateFocus();
+                }
+
+                this.applyChange(action, payload);
+            } else {
+                this.applyChange(action);
+            }
+        }
+    }
+
+    drawContent(renderer) {
+        renderer.drawLocalRect(0, 0, this.width, this.height, this.c);
+
+        if (this.root) this.root.draw(renderer);
+    }
+
+    applyChange(action, payload = null) {}
+}
+

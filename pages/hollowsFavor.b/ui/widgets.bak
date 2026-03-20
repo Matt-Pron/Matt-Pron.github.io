@@ -1,0 +1,456 @@
+const C_FOCUS = 1;
+const C_TITLE = 13;
+const C_OPTION = 3;
+
+export class UIElement {
+    constructor(action = null) {
+        this.x = 0; this.y = 0;
+        this.w = 1; this.h = 1;
+        this.prefW = 1;
+        this.prefH = 1;
+
+        this.action = action;
+        this.focused = false;
+        this.focusable = true;
+
+        this.alignX = 'left';
+        this.alignY = 'top';
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.expandW = false;
+        this.expandH = false;
+
+        this.showBg = false;
+        this.bgColor = 0;
+    }
+
+    setSize(w, h) {
+        this.prefW = w;
+        this.prefH = h;
+        return this;
+    }
+
+    setPosition(x, y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    setAlign(xAlign, yAlign = "top") {
+        this.alignX = xAlign;
+        this.alignY = yAlign;
+        return this;
+    }
+
+    setOffset(x, y) {
+        this.offsetX = x;
+        this.offsetY = y;
+        return this;
+    }
+
+    setExpand(w = true, h = false) {
+        this.expandW = w;
+        this.expandH = h;
+        return this;
+    }
+
+    setBackground(show, color = 0) {
+        this.showBg = show;
+        this.bgColor = color;
+        return this;
+    }
+
+    drawBackground(renderer) {
+        if (this.showBg) {
+            renderer.drawLocalRect(this.x, this.y, this.w, this.h, this.bgColor);
+        }
+    }
+
+    layout(parentX, parentY, parentW, parentH) {
+        if (this.expandW) {
+            this.w = Math.max(0, parentW - this.offsetX * 2);
+        } else {
+            this.w = Math.max(0, Math.min(this.prefW, parentW));
+        }
+        if (this.expandH) {
+            this.h = Math.max(0, parentH - this.offsetY * 2);
+        } else {
+            this.h = Math.max(0, Math.min(this.prefH, parentH));
+        }
+        // const targetW = this.expandW ? (parentW - this.offsetX * 2) : this.prefW;
+        // const targetH = this.expandH ? (parentH - this.offsetY * 2) : this.prefH;
+        //
+        // this.w = Math.max(0, Math.min(targetW, parentW));
+        // this.h = Math.max(0, Math.min(targetH, parentH));
+        //
+        // if (this.expandW) this.w = parentW - (this.offsetX * 2);
+        // if (this.expandH) this.h = parentH - (this.offsetY * 2);
+        //
+        // this.w = Math.min(this.w, parentW);
+        // this.h = Math.min(this.h, parentH);
+
+        if (this.alignX === "center") {
+            this.x = parentX + Math.floor((parentW - this.w) / 2) + this.offsetX;
+        } else if (this.alignX === "right") {
+            this.x = parentX + parentW - this.w - this.offsetX;
+        // } else if (this.alignX === "left") {
+        } else {
+            this.x = parentX + this.offsetX;
+            // this.x = this.offsetX;
+        }
+
+        if (this.alignY === "center") {
+            this.y = parentY + Math.floor((parentH - this.h) / 2) + this.offsetY;
+        } else if (this.alignY === "bottom") {
+            this.y = parentY + parentH - this.h - this.offsetY;
+        // } else if (this.alignY === "top") {
+        } else {
+            this.y = parentY + this.offsetY;
+            // this.y = this.offsetY;
+        }
+    }
+
+    isHit(lx, ly) {
+        return lx >= this.x && lx < this.x + this.w &&
+               ly >= this.y && ly < this.y + this.h;
+    }
+
+    getActionAt(lx, ly) { return this.isHit(lx, ly) ? this.action : null; }
+    draw(renderer) {}
+
+    setFocus(val) { this.focused = val; }
+
+    measure() {}
+}
+
+export class UIContainer extends UIElement {
+    constructor() {
+        super();
+        this.elements = [];
+        this.spacing = 0;
+        this.autofitW = false;
+        this.autofitH = false;
+        this.focusable = false;
+    }
+
+    setAutofit(fitW = true, fitH = true) {
+        this.autofitW = fitW;
+        this.autofitH = fitH;
+        return this;
+    }
+
+    add(element) {
+        this.elements.push(element);
+        return this;
+    }
+
+    measure() {
+        this.elements.forEach(el => el.measure());
+    }
+
+    layout(parentX, parentY, parentW, parentH) {
+        super.layout(parentX, parentY, parentW, parentH);
+        this.elements.forEach(el => el.layout(this.x, this.y, this.w, this.h));
+    }
+
+    getActionAt(lx, ly) {
+        for (let i = this.elements.length - 1; i >= 0; i--) {
+            const action = this.elements[i].getActionAt(lx, ly);
+            if (action) return action;
+        }
+        return null;
+    }
+
+    draw(renderer) {
+        this.drawBackground(renderer);
+        this.elements.forEach(el => el.draw?.(renderer));
+    }
+}
+
+export class UIVBox extends UIContainer {
+    constructor(w = 1, h = 1, spacing = 0) {
+        super();
+        this.setSize(w, h);
+        this.spacing = spacing;
+    }
+
+    measure() {
+        super.measure();
+
+        if (this.autofitW || this.autofitH) {
+            let totalH = this.elements.length ? (this.elements.length - 1) * this.spacing : 0;
+            let maxW = 0;
+
+            this.elements.forEach(el => {
+                if (!el.expandH) totalH += el.prefH;
+                if (!el.expandW) maxW = Math.max(maxW, el.prefW);
+            });
+
+            if (this.autofitW) this.prefW = maxW;
+            if (this.autofitH) this.prefH = totalH;
+        }
+    }
+
+    layout(parentX, parentY, parentW, parentH) {
+        super.layout(parentX, parentY, parentW, parentH);
+
+        let totalFixedHeight = (this.elements.length - 1) * this.spacing;
+        let expandCount = 0;
+        this.elements.forEach(el => {
+            if (el.expandH) expandCount++;
+            else totalFixedHeight += el.prefH;
+        });
+
+        const availableSpace = Math.max(0, this.h - totalFixedHeight);
+        const spacePerExpand = expandCount ? Math.floor(availableSpace / expandCount) : 0;
+        const remainder = availableSpace % expandCount;
+
+        let currentY = 0;
+        this.elements.forEach((el, i) => {
+            const margin = el.offsetY || 0;
+            currentY += margin;
+
+            const ch = el.expandH ? spacePerExpand + (i < remainder ? 1 : 0) : el.prefH;
+
+            const origAlignY = el.alignY;
+            const origOffsetY = el.offsetY;
+            el.alignY = "top";
+            el.offsetY = 0;
+
+            // const allottedHeight = el.expandH ? spacePerExpand : el.prefH;
+
+            el.layout(this.x, this.y + currentY, this.w, ch);
+
+            el.alignY = origAlignY;
+            el.offsetY = origOffsetY;
+
+            currentY += el.h + this.spacing;
+        });
+    }
+}
+
+export class UIHBox extends UIContainer {
+    constructor(w = 1, h = 1, spacing = 0) {
+        super();
+        this.setSize(w, h);
+        this.spacing = spacing;
+    }
+
+    measure() {
+        super.measure();
+
+        if (this.autofitW || this.autofitH) {
+            let totalW = this.elements.length ? (this.elements.length - 1) * this.spacing : 0;
+            let maxH = 0;
+
+            this.elements.forEach(el => {
+                if (!el.expandW) totalW += el.prefW;
+                if (!el.expandH) maxH = Math.max(maxH, el.prefH);
+            });
+
+            if (this.autofitW) this.prefW = totalW;
+            if (this.autofitH) this.prefH = maxH;
+        }
+    }
+
+    layout(parentX, parentY, parentW, parentH) {
+        super.layout(parentX, parentY, parentW, parentH);
+
+        let totalFixedWidth = (this.elements.length - 1) * this.spacing;
+        let expandCount = 0;
+        this.elements.forEach(el => {
+            if (el.expandW) expandCount++;
+            else totalFixedWidth += el.prefW;
+        });
+
+        const availableSpace = Math.max(0, this.w - totalFixedWidth);
+        const spacePerExpand = expandCount ? Math.floor(availableSpace / expandCount) : 0;
+        const remainder = availableSpace % expandCount;
+
+        let currentX = 0;
+        this.elements.forEach((el, i) => {
+            const margin = el.offsetX || 0;
+            currentX += margin;
+
+            const cw = el.expandW ? spacePerExpand + (i < remainder ? 1 : 0) : el.prefW;
+
+            const origAlignX = el.alignX;
+            const origOffsetX = el.offsetX;
+            el.alignX = "left";
+            el.offsetX = 0;
+
+            // const allottedWidth = el.expandW ? spacePerExpand : el.prefW;
+
+            el.layout(this.x + currentX, this.y, cw, this.h);
+
+            el.alignX = origAlignX;
+            el.offsetX = origOffsetX;
+
+            currentX += el.w + this.spacing;
+        });
+    }
+}
+
+export class UISpacer extends UIElement {
+    constructor(w = 0, h = 0) {
+        super();
+        this.prefW = w;
+        this.prefH = h;
+        this.focusable = false;
+    }
+
+    measure() {}
+    draw() {}
+}
+
+export class UILabel extends UIElement {
+    constructor(text, color = C_TITLE) {
+        super();
+        this.text = text;
+        this.color = color;
+        this.focusable = false;
+    }
+
+    measure() {
+        this.prefW = this.text.length;
+        this.prefH = 1;
+    }
+
+    draw(renderer) {
+        this.drawBackground(renderer);
+        renderer.drawLocalText(this.text, this.x, this.y, { color: this.color });
+    }
+}
+
+export class UIButton extends UIElement {
+    constructor(label, action) {
+        super(action);
+        this.label = label;
+    }
+
+    measure() {
+        const normal = ` ${this.label} `.length;
+        const focused = `[${this.label}]`.length;
+        this.prefW = Math.max(normal, focused);
+        this.prefH = 1;
+    }
+
+    getActionAt(lx, ly) {
+        return this.isHit(lx, ly) ? this.action : null;
+    }
+
+    draw(renderer) {
+        this.drawBackground(renderer);
+        const color = this.focused ? C_FOCUS : C_OPTION;
+        const text = this.focused ? `[${this.label}]` : ` ${this.label} `;
+        const drawX = this.x + Math.floor((this.w - text.length) / 2);
+
+        renderer.drawLocalText(text, drawX, this.y, { color });
+    }
+}
+
+export class UISpinner extends UIElement {
+    constructor(label, value, action) {
+        super(action);
+        this.label = label;
+        this.value = value;
+    }
+
+    measure() {
+        const text = `  ${this.label}: ${this.value}  `;
+        this.prefW = text.length;
+        this.prefH = 1;
+    }
+
+    handleKey(dir, callback) {
+        callback(this.action, dir);
+    }
+
+    getActionAt(lx, ly) {
+        if (!this.isHit(lx, ly)) return null;
+
+        const relativeX = lx - this.x;
+
+        return {
+            action: this.action,
+            dir: relativeX < (this.w / 2) ? -1 : 1
+        };
+    }
+
+    draw(renderer) {
+        this.drawBackground(renderer);
+        const color = this.focused ? C_FOCUS : C_OPTION;
+        const text = this.focused ? `◄ ${this.label}: ${this.value} ►` : `  ${this.label}: ${this.value}  `;
+        const startX = this.x + Math.floor((this.w - text.length) / 2);
+
+        renderer.drawLocalText(text, startX, this.y, { color });
+    }
+}
+
+export class UISlider extends UIElement {
+    constructor(label, value, max, action, step = 5) {
+        super(action);
+        this.label = label;
+        this.value = value;
+        this.max = max;
+        this.step = step;
+    }
+
+    measure() {
+        const barW = 10;
+        const maxValStr = String(this.max).padStart(3, ' ');
+        const text = `${this.label} ${"█".repeat(barW)} ${maxValStr}%`;
+        this.prefW = text.length;
+        this.prefW = this.prefH || 1;
+    }
+
+    handleKey(dir, callback) {
+        let newVal = this.value + dir * this.step;
+        newVal = Math.max(0, Math.min(this.max, newVal));
+        callback(this.action, newVal);
+    }
+
+    getActionAt(lx, ly) {
+        if (!this.isHit(lx, ly)) return null;
+
+        const barLength = `${this.label}  100%`.length;
+        const barW = Math.max(1, this.w - barLength);
+
+        const textLength = this.label.length + barW + 6;
+        const startX = this.x + Math.floor((this.w - textLength) / 2);
+
+        const barLeft = startX + this.label.length + 1;
+        const barRight = barLeft + barW;
+
+        if (lx < barLeft || lx >= barRight) return null;
+
+        const barPos = lx - barLeft;
+        const percent = barW > 1 ? barPos / (barW - 1) : 0.5;
+        const value = Math.round(percent * this.max);
+
+        return {
+            action: this.action,
+            value: Math.max(0, Math.min(this.max, value)),
+            type: "slider"
+        };
+    }
+
+    draw(renderer) {
+        this.drawBackground(renderer);
+
+        const color = this.focused ? C_FOCUS : C_OPTION;
+
+        const baseText = `${this.label}  100%`;
+        const barW = Math.max(1, this.w - baseText.length);
+
+        const filledW = Math.round((this.value / this.max) * barW);
+        const emptyW = barW - filledW;
+
+        const valStr = String(this.value).padStart(3, ' ');
+        const text = `${this.label} ${"█".repeat(filledW)}${"░".repeat(emptyW)} ${valStr}%`;
+
+        const startX = this.x + Math.floor((this.w - text.length) / 2);
+        renderer.drawLocalText(text, startX, this.y, { color });
+    }
+}
+

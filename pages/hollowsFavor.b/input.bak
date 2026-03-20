@@ -1,0 +1,208 @@
+import { HOTKEYS } from "./data/hotkeys.js";
+import { Renderer } from "./renderer.js";
+import { RendererUtils } from "./rendererUtils.js";
+import { StageManager } from "./stateManager.js";
+import { viewportManager } from "./viewportManager.js";
+
+const INITIAL_DELAY = 200;
+const REPEAT_RATE = 35;
+// const heldActions = [];
+
+function findViewportAt(gridX, gridY) {
+    const topToBottom = viewportManager.getActiveViewports().reverse();
+
+    for (const vp of topToBottom) {
+        if (gridX >= vp.x && gridX < vp.x + vp.width &&
+            gridY >= vp.y && gridY < vp.y + vp.height) {
+
+            return vp;
+        }
+    }
+
+    return null;
+}
+
+class inputHandler {
+    constructor() {
+        this.actionTimers = {};
+        this.actionRepeats = {};
+        this.heldActions = new Set();
+
+        this.setupListeners();
+    }
+
+    setupListeners() {
+        window.addEventListener("keydown", (e) => this.handleKey(e, true));
+        window.addEventListener("keyup", (e) => this.handleKey(e, false));
+
+        Renderer.canvas.addEventListener("pointerdown", (e) => {
+            // if (e.pointerType === "touch") e.preventDefault();
+            this.handlePointer(e, 'down');
+        });
+        Renderer.canvas.addEventListener("pointerup", (e) => this.handlePointer(e, 'up'));
+        Renderer.canvas.addEventListener("pointercancel", (e) => this.handlePointer(e, 'cancel'));
+        Renderer.canvas.addEventListener("pointermove", (e) => this.handlePointer(e, 'move'));
+    }
+
+    tick() {
+        this.heldActions.forEach(action => {
+            this.tryExecute(action);
+        });
+    }
+
+    // startAction(actionData) {
+    //     if (!actionData) return;
+    //
+    //     const actionName = typeof actionData === "string" ? actionData : actionData.action;
+    //
+    //     heldActions = heldActions.filter(a => (typeof a === "string" ? a : a.action) !== actionName);
+    //     heldActions.push(actionData);
+    //
+    //     this.tryExecute(actionData);
+    // }
+    //
+    // stopAction(actionName) {
+    //     heldActions = heldActions.filter(a => (typeof a === "string" ? a : a.action) !== actionName);
+    // }
+    //
+    // stopAllActions() {
+    //     heldActions = [];
+    // }
+
+    tryExecute(action) {
+        const now = performance.now();
+        const lastTime = this.actionTimers[action] || 0;
+        const repeatCount = this.actionRepeats[action] || 0;
+
+        const delay = (repeatCount === 0) ? INITIAL_DELAY : REPEAT_RATE;
+
+        if (now - lastTime >= delay) {
+            this.actionRepeats[action]++;
+            this.execute(action);
+        }
+    }
+
+    execute(actionData, payload = null) {
+        this.actionTimers[actionData] = performance.now();
+
+        // const actionName = typeof actionData === "string" ? actionData : actionData.action;
+
+        const vp = viewportManager.getFocusedViewport();
+
+        if (vp && vp.handleInput) vp.handleInput(actionData);
+    }
+
+    processInputs() {
+        if (this.heldActions.length > 0) {
+            this.tryExecute(this.heldActions[this.heldActions.length - 1]);
+        }
+    }
+
+    handleKey(event, isDown) {
+        if (event.repeat) return;
+        const action = HOTKEYS[event.key.toLowerCase()];
+        if (!action) return;
+        const repeatableKeys = ["move_up", "move_down", "move_left", "move_right"];
+
+
+        if (isDown) {
+            if (!repeatableKeys.includes(action)) {
+                this.execute(action);
+            } else {
+                if (!this.heldActions.has(action)) {
+                    this.heldActions.add(action);
+                    this.actionRepeats[action] = 0;
+                    this.execute(action);
+                }
+            }
+        } else {
+            this.heldActions.delete(action);
+            this.actionRepeats[action] = 0;
+            this.actionTimers[action] = 0;
+        }
+    }
+    //     this.startAction(action);
+    // else this.stopAction(action);
+
+    handlePointer(event, type) {
+        const pointer = (event.changedTouches && event.changedTouches[0]) || event;
+        const rect = Renderer.canvas.getBoundingClientRect();
+        const pxX = pointer.clientX - rect.left;
+        const pxY = pointer.clientY - rect.top;
+        const grid = RendererUtils.pxToGrid(pxX, pxY);
+
+        const targetVp = findViewportAt(grid.x, grid.y);
+        if (!targetVp) {
+            // if (type === "up") heldActions = [];
+            if (type === "up") { this.actionRepeats = {}; this.actionTimers = {};}
+            return;
+        }
+
+        const localX = grid.x - targetVp.x;
+        const localY = grid.y - targetVp.y;
+
+        // if (type === "down" || (type === "move" && event.buttons === 1)) {
+        //     if (targetVp?.getActionAt) {
+        //         const action = targetVp.getActionAt(localX, localY);
+        //         if (action) this.startAction(action);
+        //     } else if (type === "up" || type === "cancel") {
+        //         heldActions = [];
+        //     }
+        // }
+
+        if (type === "down") {
+            if (targetVp?.getActionAt) {
+                const action = targetVp.getActionAt(localX, localY);
+                if (action) {
+                    if (action.type === "slider") {
+                        const slider = targetVp.elements.find(el => el.action === action.action);
+                        if (slider) slider.isDragging = true;
+                    }
+                    if (targetVp.handleInput) targetVp.handleInput(action);
+                }
+            }
+        } else if (type === "move" && event.buttons === 1) {
+            if (targetVp?.elements) {
+                const draggingSlider = targetVp.elements.find(el => el.isDragging);
+                if (draggingSlider) {
+                    const relativeX = localX - draggingSlider.x;
+                    const percent = relativeX / (draggingSlider.w - 1);
+                    const value = Math.round(percent * draggingSlider.max);
+                    targetVp.handleInput({ action: draggingSlider.action, value: Math.max(0, Math.min(draggingSlider.max, value)), type: "slider" });
+                    return;
+                }
+            }
+        } else if (type === "up" || type === "cancel") {
+            if (targetVp?.elements) {
+                targetVp.elements.forEach(el => { if (el.isDragging) el.isDragging = false; });
+            }
+            this.actionRepeats = {};
+            this.actionTimers = {};
+        }
+        if (type === "move" || type === "down") {
+            if (targetVp.setHoverFocus) {
+                targetVp.setHoverFocus(localX, localY);
+            }
+        }
+
+        if (targetVp.handlePointer) {
+            targetVp.handlePointer(type, grid.x, grid.y, localX, localY, event);
+        }
+    }
+
+//     if (targetVp.name === "touchpad") {
+//         const btn = targetVp.buttons.find(b => b.isHit(localX, localY));
+//         if (type === "down" && btn) {
+//             const action = btn.action;
+//             if (!heldActions.includes(action)) heldActions.push(action);
+//             this.tryExecute(action);
+//         } else if (type === "up" || type === "cancel") {
+//             heldActions = [];
+//         }
+//     }
+//
+// }
+}
+
+export const InputHandler = new inputHandler();
+

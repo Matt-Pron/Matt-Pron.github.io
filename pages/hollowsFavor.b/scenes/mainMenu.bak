@@ -1,0 +1,61 @@
+import { MenuViewport } from "./menuViewport.js";
+import { UIButton, UILabel, UISpacer } from "../ui/widgets.js";
+import { StageManager } from "../stateManager.js";
+import { Globals } from "../globals.js";
+import { NewGame } from "./newGame.js";
+import { OptionsMenu } from "./options.js";
+import { InfoMessage } from "../ui/infoMessage.js";
+
+export class MainMenu extends MenuViewport {
+    constructor() {
+        super();
+        this.build();
+        this.index = Globals.mainMenuLast || 2;
+    }
+
+    build() {
+        this.elements = [
+            new UILabel("Hollow's Favor", 13),
+            new UISpacer(2),
+            new UIButton("NUEVA PARTIDA", "start_game"),
+            new UIButton("OPCIONES", "open_options"),
+            new UIButton("TECLAS", "open_keymap"),
+            new UISpacer(1),
+            new UIButton("SALIR", "exit")
+        ];
+        this.layoutElements();
+    }
+
+    // handleInput(data) {
+    //     const action = typeof data === "string" ? data : data.action;
+    //     const currentWidget = this.elements[this.index];
+    //
+    //     // Nav
+    //     if (action ===  "move_up") return this.navigate(-1);
+    //     if (action ===  "move_down") return this.navigate(1);
+    //
+    //     // Selection
+    //     if (action ===  "move_left" || action ===  "move_right") {
+    //         const dir = action === "move_right" ? 1 : -1;
+    //         if (currentWidget.handleKey) {
+    //             currentWidget.handleKey(dir, (act, val) => this.applyChange(act, val));
+    //         }
+    //         return;
+    //     }
+    //
+    //     // Execution
+    //     if (action === "confirm") {
+    //         this.applyChange(currentWidget.action);
+    //     }
+    // }
+
+    applyChange(action) {
+        if (action ===  "start_game") StageManager.setStage(NewGame);
+        if (action ===  "open_options") StageManager.pushUI(new OptionsMenu());
+        if (action ===  "open_keymap") StageManager.pushUI(new InfoMessage(5, 7, 20, 12));
+        if (action ===  "exit") window.location.href = "../../";
+
+        this.build();
+    }
+}
+
