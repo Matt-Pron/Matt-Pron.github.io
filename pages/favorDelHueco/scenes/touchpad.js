@@ -11,11 +11,12 @@ class Touchpad extends Viewport {
         super();
 
         this.pad = new UITouchpad('Touchpad')
-            .setSize(7,5)
+            .setBackground(5)
+            .setSize(15,11)
             .setAction('touchpad');
 
         this.setSize(Globals.cols, Globals.rows)
-            .setPadding(1)
+            .setPadding(0)
             .setAlignment(RIGHT, BOTTOM)
             .add(this.pad);
 
