@@ -3,3 +3,8 @@
 /pages/arquitectura
 /pages/diario
 /pages/questlog
+pages/hollowsFavor/.eslintrc.json
+pages/hollowsFavor/.stylelintrc.json
+/pages/hollowsFavor/node_modules
+pages/hollowsFavor/package-lock.json
+pages/hollowsFavor/package.json
