@@ -1,0 +1,85 @@
+{
+    "goblin": {
+        "level": 1,
+        "xp": [5, 10],
+        "char": "g",
+        "prefix": ["al", "El"],
+        "color": 6,
+        "detection": 8,
+        "hp": 2,
+        "def": 20,
+        "atk": [1, 2],
+        "speed": 15,
+        "skill": 20,
+        "weapon": "dagger",
+        "psychology": {
+            "aggressionMin": 10, "aggressionMax": 100,
+            "fearMin": 25, "fearMax": 100,
+            "lazinessMin": 40, "lazinessMax": 80,
+            "rangedPrefMin": 0, "rangedPrefMax": 65,
+            "curiosityMin": 20, "curiosityMax": 100
+        }
+    },
+    "orco": {
+        "level": 3,
+        "xp": [10, 15],
+        "char": "O",
+        "prefix": ["al", "El"],
+        "color": 5,
+        "detection": 10,
+        "hp": 20,
+        "def": 15,
+        "atk": [2, 4],
+        "speed": 8,
+        "skill": 30,
+        "weapon": "axe",
+        "psychology": {
+            "aggressionMin": 70, "aggressionMax": 100,
+            "fearMin": 0, "fearMax": 20,
+            "lazinessMin": 0, "lazinessMax": 60,
+            "rangedPrefMin": 0, "rangedPrefMax": 0,
+            "curiosityMin": 0, "curiosityMax": 60
+        }
+    },
+    "hidra": {
+        "level": 7,
+        "xp": [20, 35],
+        "char": "H",
+        "prefix": ["a la", "La"],
+        "color": 10,
+        "detection": 8,
+        "hp": 60,
+        "def": 45,
+        "atk": [8, 12],
+        "speed": 7,
+        "skill": 30,
+        "psychology": {
+            "aggressionMin": 10, "aggressionMax": 100,
+            "fearMin": 0, "fearMax": 10,
+            "lazinessMin": 40, "lazinessMax": 60,
+            "rangedPrefMin": 0, "rangedPrefMax": 0,
+            "curiosityMin": 0, "curiosityMax": 20
+        }
+    },
+    "minotauro": {
+        "level": 12,
+        "xp": [50, 80],
+        "char": "M",
+        "prefix": ["al", "El"],
+        "color": 5,
+        "detection": 12,
+        "hp": 50,
+        "def": 30,
+        "atk": [12, 18],
+        "speed": 12,
+        "skill": 50,
+        "psychology": {
+            "aggressionMin": 80, "aggressionMax": 100,
+            "fearMin": 0, "fearMax": 15,
+            "lazinessMin": 20, "lazinessMax": 40,
+            "rangedPrefMin": 0, "rangedPrefMax": 0,
+            "curiosityMin": 20, "curiosityMax": 50
+        }
+    }
+}
+

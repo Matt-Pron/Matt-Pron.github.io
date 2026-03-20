@@ -1,0 +1,67 @@
+import { Renderer } from "./renderer.js";
+import { update, viewportManager } from "./viewportManager.js";
+import { Input, processInput } from "./input.js";
+import { SplashScreen } from "./scenes/splash.js";
+import { Globals } from "./globals.js";
+
+Globals.input = ("ontouchstart" in window || navigator.maxTouchPoints > 0) ? "touch" : "none";
+if (Globals.input === 'touch') Globals.touchpad = true;
+
+Renderer.resize();
+Renderer.setDOMBackground();
+Input.init();
+
+if (Globals.touchpad) {
+    // TouchpadUI.onResize(Globals.cols, Globals.rows);
+}
+
+// loop
+let lastTime = 0;
+const TARGET_FPS = 60;
+const TARGET_INTERVAL = 1000 / TARGET_FPS;
+
+// fps
+let frameCount = 0;
+let fps = 0;
+let lastFpsTime = 0;
+const FPS_UPDATE_INTERVAL = 500;
+
+function loop(t) {
+    if (!lastTime) lastTime = t;
+    if (!lastFpsTime) lastFpsTime = t;
+
+    const delta = t - lastTime;
+
+    if (delta >= TARGET_INTERVAL) {
+        const dt = Math.min(delta, 100); // Making delta safe
+
+        processInput(dt);
+
+        update(dt);
+
+        // render();
+        Renderer.renderStage(t);
+        // pixelRender(t);
+
+        frameCount++;
+
+        lastTime = t - (delta % TARGET_INTERVAL);
+    }
+
+    const fpsDelta = t - lastFpsTime;
+    if (fpsDelta >= FPS_UPDATE_INTERVAL) {
+        fps = frameCount / (fpsDelta / 1000);
+        Renderer.updateFPS(fps);
+
+        frameCount = 0;
+        lastFpsTime = t;
+    }
+
+    requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+
+viewportManager.setScene(SplashScreen);
+
+

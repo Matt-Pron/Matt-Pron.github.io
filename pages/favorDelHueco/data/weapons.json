@@ -1,0 +1,13 @@
+{
+    "dagger": {
+        "atk": [1, 4],
+        "skill": 0.8,
+        "finesse": true
+    },
+    "axe": {
+        "atk": [6, 8],
+        "skill": 1.0,
+        "finesse": false
+    }
+}
+

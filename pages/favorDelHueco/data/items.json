@@ -1,0 +1,15 @@
+{
+    "lightSources": {
+        "torch": {
+            "type": 0,
+            "radius": 8,
+            "duration": 140
+        },
+        "lamp": {
+            "type": 1,
+            "radius": 12,
+            "duration": 220
+        }
+    }
+}
+
