@@ -1,11 +1,15 @@
+import { BOTTOM, LEFT } from "../ui/ui-utils.js";
 import { Viewport } from "./viewport.js";
 
 export class StatsViewport extends Viewport {
     constructor({ player }) {
         super();
-        this.fixed = false;
+        this.fixed = true;
+        this.editMode = true;
         this.player = player;
-        this.setBackground(5);
+        this.setBackground(0)
+            .setBorderLine(3)
+            .setContentAlignment(LEFT, BOTTOM);
     }
 
     draw(renderer) {

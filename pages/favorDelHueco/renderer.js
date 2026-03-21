@@ -59,8 +59,9 @@ class renderer {
         this.ctx.imageSmoothingEnabled = false;
 
         this.currentVP = null;
-        this.bgRects = [];
+        this.drawCommands = [];
         this.dirtyRects = [];
+        this.numLayers = 3;
 
         this.initBuffers();
         window.addEventListener('resize', () => Renderer.resize());
@@ -68,10 +69,8 @@ class renderer {
 
     initBuffers() {
         const size = Globals.cols * Globals.rows;
-        this.fgBuffer = new Uint32Array(size).fill(DEFAULT_PACKED);
+        this.buffers = Array.from({ length: this.numLayers }, () => new Uint32Array(size).fill(DEFAULT_PACKED));
         this.animBuffer = new Uint8Array(Math.ceil(size / 2));
-        // this.lightBuffer = new Float32Array(size);
-
         this.visibleBuffer = new Uint8Array(size);
 
         for (let i = 0; i < this.animBuffer.length; i++) {
@@ -164,9 +163,12 @@ class renderer {
     }
 
     render(totalElapsed) {
-        // Limpiar, only if needed
         this.clear();
-        if (this.fgBuffer) this.fgBuffer.fill(DEFAULT_PACKED);
+
+        for (let l = 0; l < this.numLayers; l++) {
+            this.buffers[l].fill(DEFAULT_PACKED);
+        }
+        this.drawCommands = [];
 
         // Cargando buffers
         const scene = viewportManager.currentScene;
@@ -199,9 +201,6 @@ class renderer {
         const real = RendererUtils.getRealTileSize();
         const fontSize = Globals.fontSize * Globals.fontSizeDelta;
 
-        // const pX = Globals.gameState.player?.screenX || Globals.cols >> 1;
-        // const pY = Globals.gameState.player?.screenY || Globals.rows >> 1;
-
         dirty.forEach(rect => {
             const l = Math.max(0, rect.x);
             const t = Math.max(0, rect.y);
@@ -219,10 +218,21 @@ class renderer {
             this.ctx.clip();
 
             // Backgrounds
-            for (const bg of this.bgRects) {
-                if (intersects(bg, rect)) {
-                    this.ctx.fillStyle = colors[bg.colorIdx] || colors[0];
-                    this.ctx.fillRect(bg.x * real.x, bg.y * real.y, bg.w * real.x, bg.h * real.y);
+            for (const cmd of this.drawCommands) {
+                if (intersects(cmd, rect)) {
+                    if (cmd.type === 'rect') {
+                        this.ctx.fillStyle = colors[cmd.colorIdx] || colors[0];
+                        this.ctx.fillRect(cmd.x * real.x, cmd.y * real.y, cmd.w * real.x, cmd.h * real.y);
+                    } else if (cmd.type === 'border') {
+                        this.ctx.strokeStyle = colors[cmd.colorIdx] || colors[1];
+                        this.ctx.lineWidth = 1;
+                        this.ctx.strokeRect(
+                            cmd.x * real.x + 4.5,
+                            cmd.y * real.y + 4.5,
+                            cmd.w * real.x - 9,
+                            cmd.h * real.y - 9
+                        );
+                    }
                 }
             }
 
@@ -232,41 +242,43 @@ class renderer {
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
 
-            // Char layers, una por ahora
-            for (let py = t; py < b; py++) {
-                for (let px = l; px < r; px++) {
-                    const idx = py * Globals.cols + px;
-                    const cell = unpackCell(this.fgBuffer[idx]);
+            // Char layers
+            for (let layer = 0; layer < this.numLayers; layer++) {
+                const buffer = this.buffers[layer];
+                for (let py = t; py < b; py++) {
+                    for (let px = l; px < r; px++) {
+                        const idx = py * Globals.cols + px;
+                        const cell = unpackCell(buffer[idx]);
 
-                    if (cell.char === ' ') continue;
+                        if (cell.char === ' ') continue;
 
-                    let fgColor;
-                    if (cell.world) {
-                        fgColor = this._applyLightning(cell.fgIdx, idx, cell.lightLevel, totalElapsed);
-                    } else {
-                        fgColor = colors[cell.fgIdx];
+                        let fgColor;
+                        if (cell.world) {
+                            fgColor = this._applyLightning(cell.fgIdx, idx, cell.lightLevel, totalElapsed);
+                        } else {
+                            fgColor = colors[cell.fgIdx];
+                        }
+
+                        if (fgColor !== lastFgColor) {
+                            this.ctx.fillStyle = fgColor;
+                            lastFgColor = fgColor;
+                        }
+
+                        const currentFlags = (cell.bold ? 'b' : '') + (cell.italic ? 'i' : '');
+                        if (currentFlags !== lastFontFlags) {
+                            const fontStr = (cell.bold ? 'bold ' : '') + (cell.italic ? 'italic ' : '');
+                            this.ctx.font = `${fontStr}${fontSize}px "Courier New"`;
+                            lastFontFlags = currentFlags;
+                        }
+
+                        this.ctx.fillText(cell.char, px * real.x + real.x / 2, py * real.y + real.y / 2);
                     }
-
-                    if (fgColor !== lastFgColor) {
-                        this.ctx.fillStyle = fgColor;
-                        lastFgColor = fgColor;
-                    }
-
-                    const currentFlags = (cell.bold ? 'b' : '') + (cell.italic ? 'i' : '');
-                    if (currentFlags !== lastFontFlags) {
-                        const fontStr = (cell.bold ? 'bold ' : '') + (cell.italic ? 'italic ' : '');
-                        this.ctx.font = `${fontStr}${fontSize}px "Courier New"`;
-                        lastFontFlags = currentFlags;
-                    }
-
-                    this.ctx.fillText(cell.char, px * real.x + real.x / 2, py * real.y + real.y / 2);
                 }
             }
             this.ctx.restore();
         });
 
         this.dirtyRects = [];
-        this.bgRects = [];
         // this.drawFPS();
         // this.drawGrid();
         // this.drawBorderLine();
@@ -339,36 +351,24 @@ class renderer {
         }
     }
 
-    addLocalChar(char, lx, ly, fgCol = 1, b = false, it = false) {
+    addLocalChar(char, lx, ly, fgCol = 1, b = false, it = false, layer = 2) {
         if (!this.currentVP) return;
-
         const gx = this.currentVP.x + lx;
         const gy = this.currentVP.y + ly;
-
-        // const gx = this.currentVP ? this.currentVP.x + lx : TouchpadUI.x + lx;
-        // const gy = this.currentVP ? this.currentVP.y + ly : TouchpadUI.y + ly;
-
         if (gx < 0 || gx >= Globals.cols || gy < 0 || gy >= Globals.rows) return;
-
-        this.fgBuffer[gy * Globals.cols + gx] = packCell(char, fgCol, b, it);
+        this.buffers[layer][gy * Globals.cols + gx] = packCell(char, fgCol, b, it);
     }
 
-    addChar(char, x, y, fgCol = 1, b = false, it = false, world = false, lightLevel = 0) {
+    addChar(char, x, y, fgCol = 1, b = false, it = false, world = false, lightLevel = 0, layer = 2) {
         if (x < 0 || x >= Globals.cols || y < 0 || y >= Globals.rows) return;
-
         const idx = y * Globals.cols + x;
-
-        // const visible = lightLevel > 0;
-        this.fgBuffer[idx] = packCell(char, fgCol, b, it, world, lightLevel);
-
-        // this.lightBuffer[idx] = lightLevel;
-
+        this.buffers[layer][idx] = packCell(char, fgCol, b, it, world, lightLevel);
         this.dirtyRects.push({ x: x, y: y, w: 1, h: 1 });
     }
 
-    addText(text, x, y, fgCol = 1, b = false, it = false, world = false, lightLevel = 0) {
+    addText(text, x, y, fgCol = 1, b = false, it = false, world = false, lightLevel = 0, layer = 2) {
         [...text].forEach((char, i) => {
-            this.addChar(char, x + i, y, fgCol, b, it, world, lightLevel);
+            this.addChar(char, x + i, y, fgCol, b, it, world, lightLevel, layer);
         });
     }
 
@@ -382,34 +382,34 @@ class renderer {
 
         if (actualW <= 0 || actualH <= 0) return;
 
-        this.bgRects.push({ x: startX, y: startY, w: actualW, h: actualH, colorIdx });
+        this.drawCommands.push({ type: 'rect', x: startX, y: startY, w: actualW, h: actualH, colorIdx });
 
         for (let py = startY; py < endY; py++) {
             for (let px = startX; px < endX; px++) {
-                this.fgBuffer[py * Globals.cols + px] = DEFAULT_PACKED;
+                const idx = py * Globals.cols + px;
+                for (let l = 0; l < this.numLayers; l++) {
+                    this.buffers[l][idx] = DEFAULT_PACKED;
+                }
             }
         }
+        this.dirtyRects.push({ x: startX, y: startY, w: actualW, h: actualH });
+    }
 
+    addBorderLine(x, y, w, h, colorIdx) {
+        const startX = Math.max(0, x), startY = Math.max(0, y);
+        const endX = Math.min(Globals.cols, x + w), endY = Math.min(Globals.rows, y + h);
+        const actualW = endX - startX, actualH = endY - startY;
+
+        if (actualW <= 0 || actualH <= 0) return;
+        this.drawCommands.push({ type: 'border', x: startX, y: startY, w: actualW, h: actualH, colorIdx });
         this.dirtyRects.push({ x: startX, y: startY, w: actualW, h: actualH });
     }
 
     addLocalRect(lx, ly, w, h, colorIdx) {
         if (!this.currentVP) return;
-
         const gx = this.currentVP.x + lx;
         const gy = this.currentVP.y + ly;
-
-        // const gx = this.currentVP ? this.currentVP.x + lx : TouchpadUI.x + lx;
-        // const gy = this.currentVP ? this.currentVP.y + ly : TouchpadUI.y + ly;
-
-        this.bgRects.push({ x: gx, y: gy, w, h, colorIdx });
-
-        for (let py = gy; py < gy + h; py++) {
-            for (let px = gx; px < gx + w; px++) {
-                if (px < 0 || px >= Globals.cols) continue;
-                this.fgBuffer[py * Globals.cols + px] = DEFAULT_PACKED;
-            }
-        }
+        this.addRect(gx, gy, w, h, colorIdx);
     }
 
     drawChar(char, col, row, { color = 1, weight = 100, bg = false } = {}) {

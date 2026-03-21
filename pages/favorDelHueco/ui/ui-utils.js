@@ -59,6 +59,8 @@ export const createForeground = (obj, color = 1) => { obj.fgColor = color; };
 
 export const createBorder = (obj, color = 4) => { obj.borderColor = color; };
 
+export const createBorderLine = (obj, color = 4) => { obj.borderLineColor = color; };
+
 export const createFocusColors = (obj, fg = 0, style = {}) => {
     obj.focusFgColor = fg;
     obj.contentFocusStyle = style;

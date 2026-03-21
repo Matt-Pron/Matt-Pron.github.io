@@ -1,27 +1,43 @@
 import { Viewport } from "./viewport.js";
+import { UIElement } from "../ui/ui-element.js";
+import { BOTTOM, GROW, LEFT } from "../ui/ui-utils.js";
 
 export class LogViewport extends Viewport {
     constructor({ gameState }) {
         super();
-        this.fixed = false;
+        this.fixed = true;
+        this.editMode = true;
         this.gameState = gameState;
 
-        this.setBackground(2);
+        this.logBox = new UIElement();
+
+        this.setBackground(0)
+            .setBorderLine(3)
+            // .setPadding(1)
+            .add(
+                this.logBox
+                .setSize(GROW, GROW)
+                .setMargin(1,1,1,1)
+                .setContentAlignment(LEFT, BOTTOM)
+            );
+
+        this.updateLog("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam suscipit tincidunt dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse viverra sapien augue, blandit gravida mi vulputate in. Aliquam laoreet nisi nec laoreet fringilla. Sed sed ex non lacus convallis tincidunt non aliquam magna. Nunc faucibus condimentum ante, quis pharetra sem. Maecenas consequat facilisis urna at ultrices. Vivamus eget orci quis orci gravida aliquam. Nulla malesuada leo nulla, nec vulputate libero feugiat in. In quis velit malesuada, faucibus mauris sed, mollis enim. Nulla vel tristique velit. Vestibulum feugiat ex vitae fringilla semper. Duis posuere orci quis nisi finibus, eget mattis tortor pharetra.");
     }
 
-    draw(renderer) {
-        super.draw(renderer);
+    updateLog(message) {
+        this.logBox.setContent(message);
+        this.computeLayout();
+        // const logs = this.gameState.logs && this.gameState.logs.length > 0
+        //     ? this.gameState.logs
+        // : ["Bienvenido, santurrón!"];
+            // : [];
 
-        const logs = this.gameState.logs && this.gameState.logs.length > 0
-            ? this.gameState.logs
-            : ["Bienvenido, santurrón!"];
+        // const maxLines = this.computedH - 2;
+        // const displayLogs = logs.slice(-maxLines);
 
-        const maxLines = this.computedH - 2;
-        const displayLogs = logs.slice(-maxLines);
-
-        displayLogs.forEach((log, i) => {
-            renderer.addText(log, this.globalX + 1, this.globalY + 1 + i, 1);
-        });
+        // displayLogs.forEach((log, i) => {
+        //     renderer.addText(log, this.globalX + 1, this.globalY + 1 + i, 1);
+        // });
     }
 }
 

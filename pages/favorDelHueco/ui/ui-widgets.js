@@ -274,17 +274,25 @@ export class UITouchpad extends UIElement {
         this.setInteractive(true);
     }
 
-    getHit(x, y) {
-        if (x < this.globalX || x >= this.globalX + this.computedW ||
-            y < this.globalY || y >= this.globalY + this.computedH) {
+    getHit(argX, argY, pxX, pxY, pxW, pxH) {
+        const isCanvasMode = pxX !== undefined;
+        const boundsX = isCanvasMode ? pxX : this.globalX;
+        const boundsY = isCanvasMode ? pxY : this.globalY;
+        const boundsW = isCanvasMode ? pxW : this.computedW;
+        const boundsH = isCanvasMode ? pxH : this.computedH;
+
+        const centerX = boundsX + (boundsW / 2);
+        const centerY = boundsY + (boundsH / 2);
+
+        const dx = argX - centerX;
+        const dy = argY - centerY;
+
+        const radius = Math.min(boundsW, boundsH) / 2;
+        const distanceSq = (dx * dx) + (dy * dy);
+
+        if (distanceSq > radius * radius) {
             return null;
         }
-
-        const centerX = this.globalX + (this.computedW / 2);
-        const centerY = this.globalY + (this.computedH / 2);
-
-        const dx = x - centerX;
-        const dy = y - centerY;
 
         let key = null;
 

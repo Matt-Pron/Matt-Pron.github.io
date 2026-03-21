@@ -21,6 +21,7 @@ export class UIElement {
     setBackground(color) { Utils.createBackground(this, color); return this; }
     setColor(color) { Utils.createForeground(this, color); return this; }
     setBorder(color) { Utils.createBorder(this, color); return this; }
+    setBorderLine(color) { Utils.createBorderLine(this, color); return this; }
     setFocusStyle(fg, style = {}) { Utils.createFocusColors(this, fg, style); return this; }
     setPadding(t, l, b, r) { Utils.createPadding(this, t, l, b, r); return this; }
     setMargin(t, l, b, r) { Utils.createMargin(this, t, l, b, r); return this; }
@@ -337,6 +338,10 @@ export class UIElement {
                 renderer.addRect(this.globalX + 1, this.globalY + 1, this.computedW - 2, this.computedH - 2, bg);
             }
             else renderer.addRect(this.globalX, this.globalY, this.computedW, this.computedH, bg);
+        }
+
+        if (this.borderLineColor !== undefined && this.borderLineColor !== null) {
+            renderer.addBorderLine(this.globalX, this.globalY, this.computedW, this.computedH, this.borderLineColor);
         }
 
         if (this.textPositions) {

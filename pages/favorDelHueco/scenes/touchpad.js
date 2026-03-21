@@ -11,7 +11,6 @@ class Touchpad extends Viewport {
         super();
 
         this.pad = new UITouchpad('Touchpad')
-            .setBackground(5)
             .setSize(15,11)
             .setAction('touchpad');
 
@@ -30,7 +29,15 @@ class Touchpad extends Viewport {
         if (!this.active) return false;
 
         if (pointer.isDown) {
-            const hit = this.pad.getHit(pointer.x, pointer.y);
+            const cellW = pointer.canvasW / Globals.cols;
+            const cellH = pointer.canvasH / Globals.rows;
+
+            const pxX = this.pad.globalX * cellW;
+            const pxY = this.pad.globalY * cellH;
+            const pxW = this.pad.computedW * cellW;
+            const pxH = this.pad.computedH * cellH;
+
+            const hit = this.pad.getHit(pointer.canvasX, pointer.canvasY, pxX, pxY, pxW, pxH);
 
             if (hit && hit.emulatedKey) {
                 eventBus.emit("touchpad_isDown");

@@ -19,7 +19,7 @@ export class MainMenu extends MenuViewport {
             .add(
                 new UIElement('Title')
                 .setColor(13)
-                .setContent("Favor del Claro", { bold: true })
+                .setContent("Favor del Hueco", { bold: true })
                 .setContentAlignment(CENTER, CENTER)
             )
             .add(

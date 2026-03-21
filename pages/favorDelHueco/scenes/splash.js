@@ -16,7 +16,7 @@ export class SplashScreen extends Viewport {
             .setBackground(0)
             .add(
                 new UIElement('Title')
-                .setContent("FAVOR DEL CLARO", { bold: true })
+                .setContent("FAVOR DEL HUECO", { bold: true })
                 .setColor(13)
             )
             .add(

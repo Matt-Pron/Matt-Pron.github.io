@@ -28,9 +28,9 @@ export class GameScene extends Viewport {
             player: this.player
         };
 
-        viewportManager.pushUI(World, { x: 14, y: 0, w: this.computedW - 14, h: this.computedH - 6, z: 1, ...sharedState });
         viewportManager.pushUI(StatsViewport, { x: 0, y: 0, w: 14, h: this.computedH - 6, z: 1, ...sharedState }); // stats
         viewportManager.pushUI(LogViewport, { x: 0, y: this.computedH - 6, w: this.computedW, h: 6, z: 1, ...sharedState }); // logs
+        viewportManager.pushUI(World, { x: 14, y: 0, w: this.computedW - 14, h: this.computedH - 6, z: 1, ...sharedState });
 
         // pause menu
 

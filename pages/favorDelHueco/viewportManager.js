@@ -127,6 +127,7 @@ class ViewportManager {
             if (this.focusedVp.onFocus) this.focusedVp.onFocus();
         }
 
+        this.viewports.sort((a, b) => (a.z || 0) - (b.z || 0));
         return this.focusedVp;
     }
 
@@ -148,7 +149,6 @@ class ViewportManager {
         for (const vp of this.viewports) {
             if (vp.update) vp.update(dt);
         }
-
         this.loader.update(dt);
     }
 }

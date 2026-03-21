@@ -39,22 +39,27 @@ export const Input = {
 
     handlePointer(e, type) {
         if (e.pointerType === "touch") e.preventDefault();
-        // Renderer.canvas.setPointerCapture(e.pointerId);
+        Renderer.canvas.setPointerCapture(e.pointerId);
         
         const rect = Renderer.canvas.getBoundingClientRect();
-        const grid = RendererUtils.pxToGrid(e.clientX - rect.left, e.clientY - rect.top);
+        const canvasX = e.clientX - rect.left;
+        const canvasY = e.clientY - rect.top;
+
+        const grid = RendererUtils.pxToGrid(canvasX, canvasY);
 
         this.pointer.x = grid.x;
         this.pointer.y = grid.y;
+        
+        this.pointer.canvasX = canvasX;
+        this.pointer.canvasY = canvasY;
+        this.pointer.canvasW = rect.width;
+        this.pointer.canvasH = rect.height;
+
         if (type === 'down') {
             if (e.button !== 0 && e.pointerType !== 'touch') return;
             this.pointer.isDown = true;
             this.pointer.justPressed = true;
         }
-        // else if (type === 'move') {
-        //     this.pointer.x = grid.x;
-        //     this.pointer.y = grid.y;
-        // }
         else if (type === 'up' || type === 'cancel') {
             this.pointer.isDown = false;
             this.pointer.captureTarget = null;
@@ -75,9 +80,6 @@ export const Input = {
 };
 
 let focusedViewport;
-
-// Usar el touchpad
-// const redButton = { x: 600, y: 400, w: 100, h: 50, active: false };
 
 export function processInput(dt) {
     focusedViewport = viewportManager.getFocusedViewport() || null;
@@ -103,8 +105,30 @@ export function processInput(dt) {
     if (Input.pointer.captureTarget) {
         const ct = Input.pointer.captureTarget;
 
+        if (ct.isResizing) {
+            const dx = Input.pointer.x - ct.lastDragX;
+            const dy = Input.pointer.y - ct.lastDragY;
+
+            if (dx !== 0 || dy !== 0) {
+                const currentW = ct.computedW !== undefined ? ct.computedW : ct.width;
+                const currentH = ct.computedH !== undefined ? ct.computedH : ct.height;
+
+                const newW = Math.max(2, currentW + dx);
+                const newH = Math.max(2, currentH + dy);
+
+                if (ct.setSize) ct.setSize(newW, newH);
+                else { ct.width = newW; ct.height = newH; }
+
+                if (ct.computeLayout) ct.computeLayout();
+
+                ct.lastDragX = Input.pointer.x;
+                ct.lastDragY = Input.pointer.y;
+
+                ct.onResize();
+            }
+        }
         // Moviendo un viewport
-        if (ct.fixed !== undefined && !ct.fixed) {
+        else if ((ct.fixed !== undefined && !ct.fixed) || viewportManager.editMode) {
             ct.x += Input.pointer.x - ct.lastDragX;
             ct.y += Input.pointer.y - ct.lastDragY;
 
@@ -138,7 +162,22 @@ export function processInput(dt) {
 
         const orderedVPs = viewportManager.getActiveViewports().reverse();
         for (const vp of orderedVPs) {
-            if (checkHit(Input.pointer, vp)) {
+            if (!vp.fixed && vp.editMode && checkResizeHit(Input.pointer, vp)) {
+                viewportManager.updateFocus(vp);
+                focusedViewport = viewportManager.getFocusedViewport();
+
+                Input.pointer.captureTarget = vp;
+                vp.isResizing = true;
+                vp.lastDragX = Input.pointer.x;
+                vp.lastDragY = Input.pointer.y;
+
+                vp.onResize();
+
+                clickedSomething = true;
+                break;
+            }
+
+            else if (checkHit(Input.pointer, vp)) {
                 viewportManager.updateFocus(vp);
                 focusedViewport = viewportManager.getFocusedViewport();
 
@@ -148,6 +187,7 @@ export function processInput(dt) {
                     Input.pointer.captureTarget = innerHit.element;
                 } else {
                     Input.pointer.captureTarget = focusedViewport;
+                    focusedViewport.isResizing = false;
                     focusedViewport.lastDragX = Input.pointer.x;
                     focusedViewport.lastDragY = Input.pointer.y;
                 }
@@ -184,6 +224,16 @@ function checkHit(mouse, rect) {
 
     return mouse.x >= rx && mouse.x <= rx + rw &&
            mouse.y >= ry && mouse.y <= ry + rh;
+}
+
+function checkResizeHit(mouse, rect) {
+    const rx = rect.globalX !== undefined ? rect.globalX : rect.x;
+    const ry = rect.globalY !== undefined ? rect.globalY : rect.y;
+    const rw = rect.computedW !== undefined ? rect.computedW : rect.width;
+    const rh = rect.computedH !== undefined ? rect.computedH : rect.height;
+
+    return mouse.x >= (rx + rw - 2) && mouse.x <= (rx + rw) &&
+           mouse.y >= (ry + rh - 2) && mouse.y <= (ry + rh);
 }
 
 // export function processInput(dt) {

@@ -4,11 +4,15 @@ import { getTileData } from "../data/tiles.js";
 import { ACTIONS, REPEATABLE_ACTIONS } from "../data/actions.js";
 import { Input } from "../input.js";
 import { Renderer } from "../renderer.js";
+import { viewportManager } from "../viewportManager.js";
+import { PauseMenu } from "./pauseMenu.js";
+import { TouchpadUI } from "./touchpad.js";
 
 export class World extends Viewport {
     constructor({ gameState, turnManager, player }) {
         super();
-        this.fixed = false;
+        this.fixed = true;
+        this.editMode = true;
         this.mode = 'game';
 
         this.gameState = gameState;
@@ -20,6 +24,9 @@ export class World extends Viewport {
         this.cam = { x: 0, y: 0 };
         this.moveTimer = 0;
         this.moveCooldown = 150;
+
+        this.setBackground(0)
+            .setBorderLine(3);
     }
 
     init() {
@@ -39,6 +46,14 @@ export class World extends Viewport {
     onFocus() {
         Input.repeatDelay = 150;
         Input.repeatRate = 150;
+
+        if (Globals.touchpad === true && this.fixed === true) {
+            TouchpadUI.active = true;
+        }
+    }
+
+    onBlur() {
+        TouchpadUI.active = false;
     }
 
     updateFOV() {
@@ -125,6 +140,7 @@ export class World extends Viewport {
             if (a.action === ACTIONS.MOVE_UP) hasUp = true;
             if (a.action === ACTIONS.MOVE_DOWN) hasDown = true;
             if (a.action === ACTIONS.WAIT) wait = true;
+            if (a.action === ACTIONS.CANCEL) viewportManager.pushUI(PauseMenu, { z: 15 });
         }
 
         const dir = { x: 0, y: 0 };
@@ -165,7 +181,17 @@ export class World extends Viewport {
     }
 
     draw(renderer) {
-        renderer.addRect(this.globalX || 0, this.globalY || 0, this.computedW, this.computedH, 0);
+        super.draw(renderer);
+        if (!this.fixed) {
+            renderer.addChar('◢',
+                this.globalX + this.computedW - 1,
+                this.globalY + this.computedH - 1,
+                4, true, false,
+                false, 0,
+                2
+            );
+        }
+        // renderer.addRect(this.globalX || 0, this.globalY || 0, this.computedW, this.computedH, 0);
 
         for (let i = 0; i < this.computedH; i++) {
             const y = this.cam.y + i;
@@ -199,7 +225,8 @@ export class World extends Viewport {
                     this.globalY + i,
                     tile.color, 
                     false, false,
-                    true, lightLevel
+                    true, lightLevel,
+                    0
                 );
             }
         }
@@ -217,7 +244,7 @@ export class World extends Viewport {
                         const sY = this.globalY + (entity.y - this.cam.y);
                         const lightLevel = Math.max(1, intensity);
 
-                        renderer.addChar(entity.char, sX, sY, entity.color, true, false, true, lightLevel);
+                        renderer.addChar(entity.char, sX, sY, entity.color, true, false, true, lightLevel, 2);
                     }
                 }
             }
