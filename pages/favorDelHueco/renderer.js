@@ -267,7 +267,7 @@ class renderer {
                         const currentFlags = (cell.bold ? 'b' : '') + (cell.italic ? 'i' : '');
                         if (currentFlags !== lastFontFlags) {
                             const fontStr = (cell.bold ? 'bold ' : '') + (cell.italic ? 'italic ' : '');
-                            this.ctx.font = `${fontStr}${fontSize}px "Courier New"`;
+                            this.ctx.font = `${fontStr}${fontSize}px "Courier New", monospace`;
                             lastFontFlags = currentFlags;
                         }
 

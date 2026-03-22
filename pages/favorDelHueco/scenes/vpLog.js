@@ -13,11 +13,10 @@ export class LogViewport extends Viewport {
 
         this.setBackground(0)
             .setBorderLine(3)
-            // .setPadding(1)
+            .setPadding(1)
             .add(
                 this.logBox
                 .setSize(GROW, GROW)
-                .setMargin(1,1,1,1)
                 .setContentAlignment(LEFT, BOTTOM)
             );
 

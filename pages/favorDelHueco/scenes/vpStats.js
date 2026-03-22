@@ -43,13 +43,8 @@ export class StatsViewport extends Viewport {
         this.pClass.setContent(`${this.player.class}`);
         this.pLevel.setContent(`Nivel: ${this.player.level}`);
         this.pXp.setContent(`Exp: ${this.player.exp}%`);
-        this.pHp.setContent(`PS: ${this.player.hp}/${this.player.maxHp}`);
+        this.pHp.setContent(`PS: ${this.player.hp}/${this.player.maxHp}`).computeLayout();
         this.computeLayout();
     }
-    // draw(renderer) {
-    //     super.draw(renderer);
-    //
-    //     renderer.addText(`HP: ${this.player.hp}/${this.player.maxHp}`, this.globalX + 1, this.globalY + 1, 1);
-    // }
 }
 

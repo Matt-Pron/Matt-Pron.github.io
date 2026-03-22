@@ -9,8 +9,10 @@ export class GameState {
     constructor(playerData) {
         this.turn = 0;
 
-        const mapWidth = 200;
-        const mapHeight = 140;
+        // const mapWidth = 200;
+        // const mapHeight = 140;
+        const mapWidth = 100;
+        const mapHeight = 70;
         const chunkSize = 16;
 
         this.world = new WorldManager(mapWidth, mapHeight, chunkSize);

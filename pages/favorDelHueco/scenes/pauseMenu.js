@@ -77,8 +77,9 @@ export class PauseMenu extends MenuViewport {
             });
 
             viewportManager.popUI();
-            this.customBtn.label = this.customBtn.label = 'PERSONALIZAR'
+            this.customBtn.label = this.customBtn.label === 'PERSONALIZAR'
                 ? 'BLOQUEAR UI' : 'PERSONALIZAR';
+            this.customBtn.updateContent();
             this.computeLayout();
         }
         if (input.action ===  "exit") {

@@ -117,7 +117,7 @@ export function processInput(dt) {
                 const newH = Math.max(2, currentH + dy);
 
                 if (ct.setSize) ct.setSize(newW, newH);
-                else { ct.width = newW; ct.height = newH; }
+                else { ct.w = newW; ct.h = newH; }
 
                 if (ct.computeLayout) ct.computeLayout();
 

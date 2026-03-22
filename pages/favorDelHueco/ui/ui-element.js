@@ -188,8 +188,9 @@ export class UIElement {
             this.lines = [];
 
             words.forEach(word => {
-                if ((currentLine + word).length <= availableW) {
-                    currentLine += (currentLine === '' ? '' : ' ') + word;
+                const space = currentLine === '' ? '' : ' ';
+                if ((currentLine + space + word).length <= availableW) {
+                    currentLine += space + word;
                 } else {
                     if (currentLine !== '') this.lines.push(currentLine);
                     currentLine = word;
@@ -282,14 +283,18 @@ export class UIElement {
             }
 
             this.lines.forEach((line, i) => {
-                let lineX = this.globalX + p.l;
-                if (this.contentAlign?.h === Utils.CENTER) {
-                    lineX += Math.max(0, Math.floor((availableW - line.length) / 2));
-                } else if (this.contentAlign?.h === Utils.RIGHT) {
-                    lineX += Math.max(0, availableW - line.length);
-                }
+                if (i < availableH) {
+                    let lineX = this.globalX + p.l;
+                    if (this.contentAlign?.h === Utils.CENTER) {
+                        lineX += Math.max(0, Math.floor((availableW - line.length) / 2));
+                    } else if (this.contentAlign?.h === Utils.RIGHT) {
+                        lineX += Math.max(0, availableW - line.length);
+                    }
 
-                this.textPositions.push({ text: line, x: lineX, y: startY + i });
+                    const clippedText = line.substring(0, availableW);
+
+                    this.textPositions.push({ text: clippedText, x: lineX, y: startY + i });
+                }
             });
         }
     }
