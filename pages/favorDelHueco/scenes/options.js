@@ -196,10 +196,6 @@ export class InGameOptionsMenu extends MenuViewport {
                 .setColor(2)
             )
             .add(
-                new UIButton('Customize', 'PERSONALIZAR', 'customize')
-                .setColor(2)
-            )
-            .add(
                 new UIButton('Back', 'VOLVER', 'back')
                 .setMargin(1,0,0,0)
                 .setColor(2)
@@ -270,18 +266,6 @@ export class InGameOptionsMenu extends MenuViewport {
             }
         }
 
-        if (input.action ===  "customize") {
-            // viewportManager.editMode = false
-            //     ? viewportManager.editMode = true
-            //     : viewportManager.editMode = false;
-            const targets = viewportManager.getActiveViewports().filter(vp => vp.editMode);
-
-            targets.forEach(vp => {
-                vp.fixed = !vp.fixed;
-            });
-
-            viewportManager.popUI();
-        }
         if (input.action ===  "back" || input.action === "escape") {
             viewportManager.popUI();
         }

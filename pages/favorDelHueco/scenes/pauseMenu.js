@@ -13,6 +13,8 @@ export class PauseMenu extends MenuViewport {
         this.fixed = false;
         this.index = 0;
 
+        this.customBtn = new UIButton('Customize', 'PERSONALIZAR', 'customize');
+
         this.setSize(FIT, FIT)
             // Math.floor(Globals.cols / 3) * 2,
             // FIT)
@@ -44,6 +46,10 @@ export class PauseMenu extends MenuViewport {
                 .setColor(2)
             )
             .add(
+                this.customBtn
+                .setColor(2)
+            )
+            .add(
                 new UIButton('Exit', 'SALIR DEL JUEGO', 'exit')
                 .setMargin(1,0,0,0)
                 .setColor(2)
@@ -63,6 +69,17 @@ export class PauseMenu extends MenuViewport {
             viewportManager.pushUI(InGameOptionsMenu, { z: 20 });
         }
         if (input.action ===  "open_keymap");
+        if (input.action ===  "customize") {
+            const targets = viewportManager.getActiveViewports().filter(vp => vp.editMode);
+
+            targets.forEach(vp => {
+                vp.fixed = !vp.fixed;
+            });
+
+            viewportManager.popUI();
+            this.customBtn.setContent(this.customBtn.content = 'PERSONALIZAR'
+                ? 'BLOQUEAR UI' : 'PERSONALIZAR');
+        }
         if (input.action ===  "exit") {
             viewportManager.setScene(MainMenu);
         }
