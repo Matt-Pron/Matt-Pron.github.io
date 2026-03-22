@@ -49,6 +49,7 @@ export class World extends Viewport {
 
         if (Globals.touchpad === true && this.fixed === true) {
             TouchpadUI.active = true;
+            TouchpadUI.onResize(Globals.cols, Globals.rows);
         }
     }
 

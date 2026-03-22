@@ -17,5 +17,7 @@ export const Globals = {
     volume: localStorage.getItem("volume") !== null ? parseInt(localStorage.getItem("volume")) : 15,
     fps: localStorage.getItem("fps") !== null ? parseInt(localStorage.getItem("fps")) : 30,
     touchpad: localStorage.getItem("touchpad") !== null ? localStorage.getItem("touchpad") === 'true' : true,
+
+    layout: localStorage.getItem("layout") !== null ? localStorage.getItem("layout") : null,
 };
 

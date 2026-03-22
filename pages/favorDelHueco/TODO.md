@@ -53,3 +53,5 @@ renderiza los tiles y despues dibuja las entities con fondo negro.
 - [x] aumentar stats simples en lvlUp
 - [x] arreglar botones ui
     el problema eran las coordenadas al renderizar a mitad de resolucion.
+
+    wine ride chato d'ancon lorenadorca

@@ -28,9 +28,43 @@ export class GameScene extends Viewport {
             player: this.player
         };
 
-        viewportManager.pushUI(StatsViewport, { x: 0, y: 0, w: 14, h: this.computedH - 6, z: 1, ...sharedState }); // stats
-        viewportManager.pushUI(LogViewport, { x: 0, y: this.computedH - 6, w: this.computedW, h: 6, z: 1, ...sharedState }); // logs
-        viewportManager.pushUI(World, { x: 14, y: 0, w: this.computedW - 14, h: this.computedH - 6, z: 1, ...sharedState });
+        let layout;
+        const desktop = {
+            stats: {
+                x: 0, y: 0,
+                w: 14, h: Globals.rows - 6,
+            },
+            log: {
+                x: 0, y: Globals.rows - 6,
+                w: Globals.cols, h: 6,
+            },
+            world: {
+                x: 14, y: 0,
+                w: Globals.cols - 14, h: Globals.rows - 6,
+            },
+        }
+        const mobile = {
+            stats: {
+                x: 0, y: 0,
+                w: Globals.cols, h: 6,
+            },
+            log: {
+                x: 0, y: Globals.rows - 6,
+                w: Globals.cols, h: 6,
+            },
+            world: {
+                x: 0, y: 6,
+                w: Globals.cols, h: Globals.rows - 12,
+            },
+        }
+
+        if (Globals.layout !== null) layout = Globals.layout;
+            else if (Globals.cols * Globals.tileSize.x > Globals.rows * Globals.tileSize.y) layout = desktop;
+                else layout = mobile;
+
+        viewportManager.pushUI(StatsViewport, { ...layout.stats, z: 1, ...sharedState }); // stats
+        viewportManager.pushUI(LogViewport, { ...layout.log, z: 1, ...sharedState }); // logs
+        viewportManager.pushUI(World, { ...layout.world, z: 1, ...sharedState });
 
         // pause menu
 

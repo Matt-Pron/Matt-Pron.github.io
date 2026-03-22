@@ -26,9 +26,9 @@ class ViewportManager {
             if (vp.onResize) vp.onResize(Globals.cols, Globals.rows);
         }
 
-        if (Globals.touchpad) {
+        // if (Globals.touchpad) {
             TouchpadUI.onResize(Globals.cols, Globals.rows);
-        }
+        // }
 
         this.loader.onResize(Globals.cols, Globals.rows);
     }

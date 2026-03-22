@@ -314,10 +314,10 @@ export class UITouchpad extends UIElement {
         super.draw(renderer);
         const cx = Math.floor(this.globalX + this.computedW / 2);
         const cy = Math.floor(this.globalY + this.computedH / 2);
-        renderer.addText("▲", cx, cy - 2, 1);
-        renderer.addText("▼", cx, cy + 2, 1);
-        renderer.addText("◄", cx - 3, cy, 1);
-        renderer.addText("►", cx + 3, cy, 1);
+        renderer.addText("▲", cx, cy - 2, 4);
+        renderer.addText("▼", cx, cy + 2, 4);
+        renderer.addText("◄", cx - 3, cy, 4);
+        renderer.addText("►", cx + 3, cy, 4);
     }
 }
 

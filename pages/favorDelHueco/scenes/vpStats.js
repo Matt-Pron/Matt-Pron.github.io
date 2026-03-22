@@ -1,5 +1,5 @@
 import { UIElement } from "../ui/ui-element.js";
-import { BOTTOM, LEFT, VERTICAL } from "../ui/ui-utils.js";
+import { BOTTOM, LEFT, TOP, VERTICAL } from "../ui/ui-utils.js";
 import { Viewport } from "./viewport.js";
 
 export class StatsViewport extends Viewport {
@@ -26,7 +26,7 @@ export class StatsViewport extends Viewport {
         this.setBackground(0)
             .setFlow(VERTICAL)
             .setBorderLine(3)
-            .setContentAlignment(LEFT, BOTTOM)
+            .setContentAlignment(LEFT, TOP)
             .setPadding(1);
         this.add(this.pName)
             .add(this.pRace)
