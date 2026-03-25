@@ -17,7 +17,21 @@ export class UIButton extends UIElement {
     }
 
     updateContent() {
-        this.setContent(this.isFocused ? `[${this.label}]` : `${this.label}`);
+        this.setContent(this.label);
+    }
+
+    draw(renderer) {
+        super.draw(renderer);
+
+        if (this.isFocused && this.textPositions && this.textPositions.length > 0) {
+            const pos = this.textPositions[0];
+            const labelLen = this.content.length;
+            const fg = (this.focusFgColor !== undefined) ? this.focusFgColor : (this.fgColor || 1);
+            const bold = true;
+
+            renderer.addChar('[', pos.x - 1, pos.y, fg, bold);
+            renderer.addChar(']', pos.x + labelLen, pos.y, fg, bold);
+        }
     }
 }
 

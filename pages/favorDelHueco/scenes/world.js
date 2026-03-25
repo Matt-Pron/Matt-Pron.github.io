@@ -9,7 +9,7 @@ import { PauseMenu } from "./pauseMenu.js";
 import { TouchpadUI } from "./touchpad.js";
 
 export class World extends Viewport {
-    constructor({ gameState, turnManager, player }) {
+    constructor({ gameState, turnManager, player, gameScene }) {
         super();
         this.fixed = true;
         this.editMode = true;
@@ -18,6 +18,7 @@ export class World extends Viewport {
         this.gameState = gameState;
         this.turnManager = turnManager;
         this.player = player;
+        this.gameScene = gameScene;
 
         this.turnManager.viewport = this;
 
@@ -46,16 +47,16 @@ export class World extends Viewport {
     onFocus() {
         Input.repeatDelay = 150;
         Input.repeatRate = 150;
-
-        if (Globals.touchpad === true && this.fixed === true) {
-            TouchpadUI.active = true;
-            TouchpadUI.onResize(Globals.cols, Globals.rows);
-        }
+    //
+    //     if (Globals.touchpad === true && this.fixed === true) {
+    //         TouchpadUI.active = true;
+    //         TouchpadUI.onResize(Globals.cols, Globals.rows);
+    //     }
     }
-
-    onBlur() {
-        TouchpadUI.active = false;
-    }
+    //
+    // onBlur() {
+    //     TouchpadUI.active = false;
+    // }
 
     updateFOV() {
         this.gameState.world.clearVisibility();
@@ -141,7 +142,7 @@ export class World extends Viewport {
             if (a.action === ACTIONS.MOVE_UP) hasUp = true;
             if (a.action === ACTIONS.MOVE_DOWN) hasDown = true;
             if (a.action === ACTIONS.WAIT) wait = true;
-            if (a.action === ACTIONS.CANCEL) viewportManager.pushUI(PauseMenu, { z: 15 });
+            if (a.action === ACTIONS.CANCEL) this.gameScene.openMenu();
         }
 
         const dir = { x: 0, y: 0 };
@@ -215,9 +216,9 @@ export class World extends Viewport {
 
                 let lightLevel = 0;
                 if (visibility === 2) {
-                    lightLevel = light;
+                    lightLevel = Math.max(2, light);
                 } else if (visibility === 1) {
-                    lightLevel = 1;
+                    lightLevel = 2;
                 }
 
                 renderer.addChar(
@@ -255,24 +256,3 @@ export class World extends Viewport {
     }
 }
 
-// const light = obtener light level
-// ctx.fillStyle = ajustar tile.color con light level
-
-// for (const e of entities) {
-//     const row = (e.y - cam.y) + panels.pMap.y;
-//     const column = (e.x - cam.x) + panels.pMap.x;
-//
-//     if (row < panels.pMap.y || row >= panels.pMap.yy ||
-//         column < panels.pMap.x || column >= panels.pMap.xx) continue;
-//
-//     const sx = column * screen.font.x;
-//     const sy = row * screen.font.y;
-//
-//     ctx.fillStyle = colors.BLACK;
-//     ctx.fillRect(sx, sy, screen.font.x, screen.font.y);
-//
-//     setFont('600');
-//
-//     ctx.fillStyle = e.color;
-//     ctx.fillText(e.char, sx + screen.font.x / 2, sy + screen.font.y / 2);
-// }

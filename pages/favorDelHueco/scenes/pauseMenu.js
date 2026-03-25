@@ -8,18 +8,16 @@ import { viewportManager } from "../viewportManager.js";
 import { MainMenu } from "./mainMenu.js";
 
 export class PauseMenu extends MenuViewport {
-    constructor() {
+    constructor(gameScene) {
         super();
+        this.gameScene = gameScene;
         this.fixed = false;
-        this.index = 0;
+        this.index = 5;
 
-        this.customBtn = new UIButton('Customize', 'PERSONALIZAR', 'customize');
+        this.customBtn = new UIButton('Customize', 'MOVER UI', 'customize');
+        this.resetCustomBtn = new UIButton('Reset custom', 'R', 'resetui');
 
-        this.setSize(FIT, FIT)
-            // Math.floor(Globals.cols / 3) * 2,
-            // FIT)
-            // .setPosition(Globals.cols - Math.floor(this.computedW / 2),
-                // Globals.rows - Math.floor(this.computedH / 2))
+        this.setSize(20, FIT)
             .setFlow(VERTICAL)
             .setAlignment(CENTER, CENTER)
             .setPadding(2)
@@ -28,17 +26,12 @@ export class PauseMenu extends MenuViewport {
             .add(
                 new UIElement('paused')
                 .setColor(1)
-                .setMargin(1,0,1,0)
+                .setMargin(0,0,1,0)
                 .setContent("EN PAUSA", { bold: true })
                 .setContentAlignment(CENTER, CENTER)
             )
             .add(
-                new UIButton('Back', 'VOLVER', 'back')
-                .setColor(2)
-            )
-            .add(
                 new UIButton('Options', 'OPCIONES', 'open_options')
-                .setMargin(1,0,0,0)
                 .setColor(2)
             )
             .add(
@@ -46,11 +39,24 @@ export class PauseMenu extends MenuViewport {
                 .setColor(2)
             )
             .add(
-                this.customBtn
+                new UIElement('Custom options')
+                    .setGap(1)
+                    .add(
+                        this.customBtn
+                            .setColor(2)
+                    )
+                    .add(
+                        this.resetCustomBtn
+                            .setColor(2)
+                    )
+            )
+            .add(
+                new UIButton('Exit', 'ABANDONAR', 'exit')
+                .setMargin(1,0,0,0)
                 .setColor(2)
             )
             .add(
-                new UIButton('Exit', 'SALIR DEL JUEGO', 'exit')
+                new UIButton('Back', 'VOLVER', 'back')
                 .setMargin(1,0,0,0)
                 .setColor(2)
             );
@@ -77,10 +83,13 @@ export class PauseMenu extends MenuViewport {
             });
 
             viewportManager.popUI();
-            this.customBtn.label = this.customBtn.label === 'PERSONALIZAR'
-                ? 'BLOQUEAR UI' : 'PERSONALIZAR';
+            this.customBtn.label = this.customBtn.label === 'MOVER UI'
+                ? 'BLOQUEAR UI' : 'MOVER UI';
             this.customBtn.updateContent();
             this.computeLayout();
+        }
+        if (input.action ===  "resetui") {
+            this.gameScene.resetUi();
         }
         if (input.action ===  "exit") {
             viewportManager.setScene(MainMenu);

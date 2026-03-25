@@ -1,5 +1,6 @@
 import { getTileData } from "./data/tiles.js";
 import { Monster } from "./entities.js";
+import { eventBus } from "./eventBus.js";
 import { generateFlowMap } from "./pathfinding.js";
 
 export class TurnManager {
@@ -68,6 +69,8 @@ export class TurnManager {
         this.monsterTurns();
 
         this.state.removeDeadEntities();
+
+        eventBus.emit('end_of_turn');
     }
 
     monsterTurns() {

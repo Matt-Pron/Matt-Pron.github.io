@@ -84,6 +84,7 @@ class ViewportManager {
         if (isNew && viewport.init) viewport.init();
 
         this.updateFocus(viewport);
+        return viewport;
     }
 
     popUI() {
@@ -126,6 +127,8 @@ class ViewportManager {
             this.focusedVp.isFocusedVp = true;
             if (this.focusedVp.onFocus) this.focusedVp.onFocus();
         }
+        
+        eventBus.emit("viewport_focus_changed", this.focusedVp);
 
         this.viewports.sort((a, b) => (a.z || 0) - (b.z || 0));
         return this.focusedVp;

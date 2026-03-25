@@ -3,7 +3,7 @@ import { Viewport } from "./viewport.js";
 import { UITouchpad, UIButton } from "../ui/ui-widgets.js";
 import { Input } from "../input.js";
 import { Globals } from "../globals.js";
-import { BOTTOM, CENTER, RIGHT, GROW, FIT, HORIZONTAL } from "../ui/ui-utils.js";
+import { BOTTOM, CENTER, RIGHT, TOP, GROW, FIT, HORIZONTAL } from "../ui/ui-utils.js";
 import { eventBus } from "../eventBus.js";
 
 class Touchpad extends Viewport {
@@ -11,44 +11,53 @@ class Touchpad extends Viewport {
         super();
 
         this.pad = new UITouchpad('Touchpad')
-            .setSize(15,11)
+            .setSize(13,9)
             .setAction('touchpad');
 
         this.setSize(Globals.cols, Globals.rows)
-            .setPadding(0)
-            .setGap(1)
+            .setPadding(0,0,1,0)
             .setAlignment(CENTER, BOTTOM)
             .add(
                 new UIElement('Virtual keyboard')
                     .setSize(GROW, FIT)
                     .setFlow(HORIZONTAL)
-                    .setAlignment(CENTER, CENTER)
+                    .setGap(1)
+                    .setAlignment(CENTER, TOP)
                     .add(
                         new UIButton('Menu', 'X', 'menu')
                             .setSize(3, 3)
-                            .setBackground(5)
+                            .setBackground(0)
                             .setColor(4)
+                            .setBorderLine(4)
                     )
                     .add(
                         new UIButton('Target', 'Q', 'target')
                             .setSize(3, 3)
-                            .setBackground(5)
+                            .setBackground(0)
                             .setColor(4)
+                            .setBorderLine(4)
                     )
                     .add(
                         new UIButton('Confirm', 'E', 'confirm')
                             .setSize(3, 3)
-                            .setBackground(5)
+                            .setBackground(0)
                             .setColor(4)
+                            .setBorderLine(4)
                     )
                     .add(
                         new UIButton('Extra', 'R', 'extra')
                             .setSize(3, 3)
-                            .setBackground(5)
+                            .setBackground(0)
                             .setColor(4)
+                            .setBorderLine(4)
                     )
                     .add(new UIElement('space').setSize(GROW, FIT))
-                    .add(this.pad)
+                    .add(
+                        this.pad
+                        // .setBackground(0)
+                        .setColor(4)
+                        .setBorderLine(4)
+                    )
             );
 
         // this.pad.computeLayout();
@@ -66,6 +75,7 @@ class Touchpad extends Viewport {
         if (!this.active) return false;
 
         let currentEmulatedKey = null;
+        let hitTouchpad = false;
 
         if (pointer.isDown) {
             const cellW = pointer.canvasW / Globals.cols;
@@ -80,17 +90,17 @@ class Touchpad extends Viewport {
 
             if (padHit && padHit.emulatedKey) {
                 currentEmulatedKey = padHit.emulatedKey;
-            } else {
-                const uiHit = this.getHit(pointer.x, pointer.y);
+                hitTouchpad = true;
+            }
 
+            if (!padHit) {
+                const uiHit = this.getHit(pointer.x, pointer.y);
                 if (uiHit && uiHit.action) {
                     const actionToKey = {
-                        'menu': 'escape',
+                        'menu': 'escape', // and the rest of the buttons
                     };
-
-                    if (actionToKey[uiHit.action]) {
-                        currentEmulatedKey = actionToKey[uiHit.action];
-                    }
+                    currentEmulatedKey = actionToKey[uiHit.action];
+                    hitTouchpad = true;
                 }
             }
         }
@@ -98,31 +108,34 @@ class Touchpad extends Viewport {
         if (currentEmulatedKey) {
             eventBus.emit("touchpad_isDown");
 
-            if (this.activeEmulatedKey && this.activeEmulatedKey !== currentEmulatedKey) {
+            if (this.activeEmulatedKey !== currentEmulatedKey) {
+                if (this.activeEmulatedKey) {
+                    Input.handleKey({ key: this.activeEmulatedKey }, false);
+                }
+                this.activeEmulatedKey = currentEmulatedKey;
                 Input.handleKey({ key: this.activeEmulatedKey }, true);
-
-                return true;
-            } else if (this.activeEmulatedKey) {
-                Input.handleKey({ key: this.activeEmulatedKey }, false);
-                this.activeEmulatedKey = null;
             }
 
-            return false;
+        } else if (this.activeEmulatedKey) {
+            Input.handleKey({ key: this.activeEmulatedKey }, false);
+            this.activeEmulatedKey = null;
         }
-        //         eventBus.emit("touchpad_isDown");
-        //         if (this.activeEmulatedKey && this.activeEmulatedKey !== padHit.emulatedKey) {
-        //             Input.handleKey({ key: this.activeEmulatedKey }, false);
-        //         }
-        //         this.activeEmulatedKey = padHit.emulatedKey;
-        //         Input.handleKey({ key: this.activeEmulatedKey }, true);
-        //
-        //         return true;
-        //     } else if (this.activeEmulatedKey) {
-        //         Input.handleKey({ key: this.activeEmulatedKey }, false);
-        //         this.activeEmulatedKey = null;
-        //     }
-        // } else if (this.activeEmulatedKey) {
-        //     Input.handleKey({ key: this.activeEmulatedKey }, false);
+
+        return hitTouchpad;
+    //         eventBus.emit("touchpad_isDown");
+    //         if (this.activeEmulatedKey && this.activeEmulatedKey !== padHit.emulatedKey) {
+    //             Input.handleKey({ key: this.activeEmulatedKey }, false);
+    //         }
+    //         this.activeEmulatedKey = padHit.emulatedKey;
+    //         Input.handleKey({ key: this.activeEmulatedKey }, true);
+    //
+    //         return true;
+    //     } else if (this.activeEmulatedKey) {
+    //         Input.handleKey({ key: this.activeEmulatedKey }, false);
+    //         this.activeEmulatedKey = null;
+    //     }
+    // } else if (this.activeEmulatedKey) {
+    //     Input.handleKey({ key: this.activeEmulatedKey }, false);
         //     this.activeEmulatedKey = null;
         // }
         //

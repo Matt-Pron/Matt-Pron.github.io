@@ -57,9 +57,9 @@ export class Cleric extends Entity {
     interact(target) {
         if (target.hp < target.maxHp) {
             //if (this.hasEnergy(10)) {
+            eventBus.emit('on_message', `El Clérigo te ha sanado.`);
                 target.heal(target.maxHp);
             //    this.useEnergy(10);
-            eventBus.emit('on_message', `El Clérigo te ha sanado.`);
             //} else return `El Clérigo se está recuperando.`;
         } else eventBus.emit('on_message', `Ya tienes la salud al máximo.`);
     }
@@ -105,6 +105,7 @@ export class Monster extends Entity {
     }
 
     takeTurn(gameState, flowMap) {
+        if (!this.isAlive) return;
         this.decideDesire(gameState);
 
         switch (this.currentDesire) {
@@ -119,14 +120,15 @@ export class Monster extends Entity {
                 return;
 
             case 'ranged':
-                console.log(`${this.prefix[1]} ${this.name} te lanza una piedra!`);
+                eventBus.emit('on_message', `${this.prefix[1]} ${this.name} te lanza una piedra!`);
+                this.attack(gameState.player);
                 // if (manhattan <= 8) {
                 //     this.rangedAttack(gameState.player);
                 // }
                 return;
 
             case 'flee': // Maybe use pathfinding to run away clever
-                console.log(`${this.prefix[1]} ${this.name} huye!`);
+                eventBus.emit('on_message', `${this.prefix[1]} ${this.name} huye!`);
                 flee(gameState, this, flowMap, gameState.player.x, gameState.player.y);
                 return;
 
@@ -149,25 +151,25 @@ export class Monster extends Entity {
 
         // move the movement to pathfinding.js' moveTo();
         // from here
-        const px = gameState.player.x;
-        const py = gameState.player.y;
-        const manhattan = Math.abs(this.x - px) + Math.abs(this.y - py);
-
-        if (manhattan === 1) {
-            this.attack(gameState.player);
-            return;
-        }
-
-        const nextStep = seekPath(gameState, this, px, py, flowMap);
-
-        if (nextStep) {
-            if (nextStep.x === this.lastX && nextStep.y === this.lastY && Math.random() < 0.5) return;
-
-            gameState.updateEntityPosition(this, nextStep.x, nextStep.y);
-            this.lastX = nextStep.x;
-            this.lastY = nextStep.y;
-            console.log(`${this.prefix[1]} ${this.name} te persigue.`);
-        }
+        // const px = gameState.player.x;
+        // const py = gameState.player.y;
+        // const manhattan = Math.abs(this.x - px) + Math.abs(this.y - py);
+        //
+        // if (manhattan === 1) {
+        //     this.attack(gameState.player);
+        //     return;
+        // }
+        //
+        // const nextStep = seekPath(gameState, this, px, py, flowMap);
+        //
+        // if (nextStep) {
+        //     if (nextStep.x === this.lastX && nextStep.y === this.lastY && Math.random() < 0.5) return;
+        //
+        //     gameState.updateEntityPosition(this, nextStep.x, nextStep.y);
+        //     this.lastX = nextStep.x;
+        //     this.lastY = nextStep.y;
+        //     console.log(`${this.prefix[1]} ${this.name} te persigue.`);
+        // }
         // to here
     }
 }
@@ -213,21 +215,21 @@ export class LightStand extends Entity {
                 this.currentLight = { ...player.activeLight };
                 player.equipLight(tempLight);
 
-                console.log(`Cambias tu ${playerItemType} por un ${standItemType} del soporte.`);
+                eventBus.emit('on_message', `Cambias tu ${playerItemType} por un ${standItemType} del soporte.`);
             } else {
                 this.currentLight = { ...player.activeLight };
                 player.activeLight = null;
-                console.log(`Colocas tu ${playerItemType} en el soporte.`);
+                eventBus.emit('on_message', `Colocas tu ${playerItemType} en el soporte.`);
             }
         } 
         else if (this.currentLight) {
             const standItemType = this.currentLight.name;
             player.equipLight(this.currentLight);
             this.currentLight = null;
-            console.log(`Tomas el ${standItemType} del soporte.`);
+            eventBus.emit('on_message', `Tomas el ${standItemType} del soporte.`);
         } 
         else {
-            console.log(`El soporte está vacío.`);
+            eventBus.emit('on_message', `El soporte está vacío.`);
         }
 
         this.updateAppearance();

@@ -14,7 +14,7 @@ export const c_hp = (obj, _hp) => {
 
     obj.getDmg = function(amount) {
         obj.hp -= amount;
-        eventBus.emit('on_message', `${obj.name} pierde ${amount}ps.`);
+        // eventBus.emit('on_message', `${obj.name} pierde ${amount}ps.`);
 
         if (obj.hp <= 0) {
             obj.hp = 0;
@@ -69,7 +69,7 @@ export const c_atk = (obj, _atk, _skill = 0) => {
             if (obj instanceof Player) report += `Golpeas ${target.prefix[0]} ${target.name} por `;
             else report += `${obj.prefix[1]} ${obj.name} te golpea por `;
             const damage = random(dmgRange[0], dmgRange[1]);
-            report += `${damage}.`;
+            report += `${damage} PS.`;
             const dmgReport = target.getDmg(damage);
             if (dmgReport && (obj instanceof Player)) {
                 let xp = random(target.exp[0], target.exp[1]);
@@ -195,7 +195,7 @@ export const c_lightSource = (obj, baseRadius) => {
             ...lightData,
             remaining: lightData.duration
         };
-        eventBus.emit('on_message', `Equipas una luz. Radio: ${obj.activeLight.radius}`);
+        // eventBus.emit('on_message', `Equipas una luz. Radio: ${obj.activeLight.radius}`);
     };
 
     obj.lightDecrease = function() {
@@ -204,7 +204,7 @@ export const c_lightSource = (obj, baseRadius) => {
 
             if (obj.activeLight.remaining <= 0) {
                 obj.activeLight = null;
-                eventBus.emit('on_message', `${obj.name}: Tu fuente de luz se ha apagado.`);
+                eventBus.emit('on_message', `Tu fuente de luz se ha apagado.`);
             }
         }
     };
@@ -234,13 +234,17 @@ export const c_desire = (obj) => {
             return 'desist';
         }
 
-        if (this.hp < this.maxHp * 0.4) {
-            if (this.psychology.fear > 40) {
-                this.currentDesire = 'flee';
-                return 'flee';
+        if (this.hp < this.maxHp) {
+            if (this.hp < this.maxHp * 0.4) {
+                if (this.psychology.fear > 40) {
+                    this.currentDesire = 'flee';
+                    return 'flee';
+                }
             }
-            this.currentDesire = 'regen';
-            return 'regen';
+            if (this.hp < this.maxHp * 0.4 || Math.random() * 100 >= 60) {
+                this.currentDesire = 'regen';
+                return 'regen';
+            }
         }
 
         if (this.energy < 12 && Math.random() * 100 < this.psychology.laziness) {
@@ -248,7 +252,7 @@ export const c_desire = (obj) => {
             return 'wait';
         }
 
-        if (this.psychology.rangedPref > 25 && manhattan >= 3 && manhattan <= 9) {
+        if (this.psychology.rangedPref >= Math.random() * 100 && manhattan >= 3 && manhattan <= 9) {
             this.currentDesire = 'ranged';
             return 'ranged';
         }
