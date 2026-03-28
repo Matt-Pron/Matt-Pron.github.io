@@ -2,16 +2,18 @@ import { Viewport } from "./viewport.js";
 import { UIElement } from "../ui/ui-element.js";
 import { BOTTOM, GROW, LEFT } from "../ui/ui-utils.js";
 import { eventBus } from "../eventBus.js";
+import { ACTIONS, REPEATABLE_ACTIONS } from "../data/actions.js";
 
 export class LogViewport extends Viewport {
-    constructor({ gameState }) {
+    constructor(args) {
         super();
         this.fixed = true;
         this.editMode = true;
-        this.gameState = gameState;
+        this.gameState = args.gameState;
+        this.gameScene = args.gameScene;
 
-        this.log = ['Hola, hola, camarada!'];
-        this.lastTurnReport = null;
+        this.log = [];
+        this.turnMessages = [];
         this.logBox = new UIElement();
 
         this.setBackground(0)
@@ -23,7 +25,8 @@ export class LogViewport extends Viewport {
                 .setContentAlignment(LEFT, BOTTOM)
             );
 
-        this.updateLog("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam suscipit tincidunt dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse viverra sapien augue, blandit gravida mi vulputate in. Aliquam laoreet nisi nec laoreet fringilla. Sed sed ex non lacus convallis tincidunt non aliquam magna. Nunc faucibus condimentum ante, quis pharetra sem. Maecenas consequat facilisis urna at ultrices. Vivamus eget orci quis orci gravida aliquam. Nulla malesuada leo nulla, nec vulputate libero feugiat in. In quis velit malesuada, faucibus mauris sed, mollis enim. Nulla vel tristique velit. Vestibulum feugiat ex vitae fringilla semper. Duis posuere orci quis nisi finibus, eget mattis tortor pharetra.");
+        // this.updateLog("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam suscipit tincidunt dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse viverra sapien augue, blandit gravida mi vulputate in. Aliquam laoreet nisi nec laoreet fringilla. Sed sed ex non lacus convallis tincidunt non aliquam magna. Nunc faucibus condimentum ante, quis pharetra sem. Maecenas consequat facilisis urna at ultrices. Vivamus eget orci quis orci gravida aliquam. Nulla malesuada leo nulla, nec vulputate libero feugiat in. In quis velit malesuada, faucibus mauris sed, mollis enim. Nulla vel tristique velit. Vestibulum feugiat ex vitae fringilla semper. Duis posuere orci quis nisi finibus, eget mattis tortor pharetra.");
+        this.updateLog(`${args.player.name} despierta en el Hueco.`)
 
         eventBus.on("on_message", (msg) => {
             this.appendMessage(msg);
@@ -35,15 +38,16 @@ export class LogViewport extends Viewport {
     }
 
     appendMessage(msg) {
-        this.lastTurnReport += ` ${msg}`;
+        this.turnMessages.push(msg);
     }
 
     report() {
-        if (this.lastTurnReport !== null) {
-            this.log.push(this.lastTurnReport);
-            this.updateLog(this.lastTurnReport);
+        if (this.turnMessages.length > 0) {
+            const combined = this.turnMessages.join(' ');
+            this.log.push(combined);
+            this.updateLog(combined);
         }
-        this.lastTurnReport = '';
+        this.turnMessages = [];
     }
 
     updateLog(message) {
@@ -60,6 +64,17 @@ export class LogViewport extends Viewport {
         // displayLogs.forEach((log, i) => {
         //     renderer.addText(log, this.globalX + 1, this.globalY + 1 + i, 1);
         // });
+    }
+
+    executeActions(actions, dt) {
+        for (const a of actions) {
+            const isRepeatable = REPEATABLE_ACTIONS.has(a.action);
+            const shouldTrigger = isRepeatable ? a.isPressed : a.justPressed;
+            if (!shouldTrigger) continue;
+
+            if (a.action === ACTIONS.CANCEL) this.gameScene.openPauseMenu();
+            if (a.action === ACTIONS.OPEN_MENU) this.gameScene.openMenu();
+        }
     }
 }
 

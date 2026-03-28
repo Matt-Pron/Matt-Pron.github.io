@@ -15,7 +15,8 @@ class Touchpad extends Viewport {
             .setAction('touchpad');
 
         this.setSize(Globals.cols, Globals.rows)
-            .setPadding(0,0,1,0)
+            // .setPadding(0,0,1,0)
+            .setPadding(1)
             .setAlignment(CENTER, BOTTOM)
             .add(
                 new UIElement('Virtual keyboard')
@@ -30,13 +31,13 @@ class Touchpad extends Viewport {
                             .setColor(4)
                             .setBorderLine(4)
                     )
-                    .add(
-                        new UIButton('Target', 'Q', 'target')
-                            .setSize(3, 3)
-                            .setBackground(0)
-                            .setColor(4)
-                            .setBorderLine(4)
-                    )
+                    // .add(
+                    //     new UIButton('Target', 'Q', 'target')
+                    //         .setSize(3, 3)
+                    //         .setBackground(0)
+                    //         .setColor(4)
+                    //         .setBorderLine(4)
+                    // )
                     .add(
                         new UIButton('Confirm', 'E', 'confirm')
                             .setSize(3, 3)
@@ -54,9 +55,9 @@ class Touchpad extends Viewport {
                     .add(new UIElement('space').setSize(GROW, FIT))
                     .add(
                         this.pad
-                        // .setBackground(0)
                         .setColor(4)
-                        .setBorderLine(4)
+                        // .setBackground(0)
+                        // .setBorderLine(4)
                     )
             );
 
@@ -98,6 +99,8 @@ class Touchpad extends Viewport {
                 if (uiHit && uiHit.action) {
                     const actionToKey = {
                         'menu': 'escape', // and the rest of the buttons
+                        'confirm': 'e',
+                        'extra': 'r',
                     };
                     currentEmulatedKey = actionToKey[uiHit.action];
                     hitTouchpad = true;
@@ -122,30 +125,11 @@ class Touchpad extends Viewport {
         }
 
         return hitTouchpad;
-    //         eventBus.emit("touchpad_isDown");
-    //         if (this.activeEmulatedKey && this.activeEmulatedKey !== padHit.emulatedKey) {
-    //             Input.handleKey({ key: this.activeEmulatedKey }, false);
-    //         }
-    //         this.activeEmulatedKey = padHit.emulatedKey;
-    //         Input.handleKey({ key: this.activeEmulatedKey }, true);
-    //
-    //         return true;
-    //     } else if (this.activeEmulatedKey) {
-    //         Input.handleKey({ key: this.activeEmulatedKey }, false);
-    //         this.activeEmulatedKey = null;
-    //     }
-    // } else if (this.activeEmulatedKey) {
-    //     Input.handleKey({ key: this.activeEmulatedKey }, false);
-        //     this.activeEmulatedKey = null;
-        // }
-        //
-        // return null;
     }
 
     draw(renderer) {
         if (!this.active) return;
         super.draw(renderer);
-        // this.pad.draw(renderer);
     }
 }
 

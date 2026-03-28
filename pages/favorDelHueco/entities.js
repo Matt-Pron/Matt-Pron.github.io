@@ -2,10 +2,10 @@ import { eventBus } from './eventBus.js';
 
 import * as Components from './entitiesUtils.js';
 import MonsterData from './data/monsters.json' with { type: 'json' };
-import WeaponData from './data/weapons.json' with { type: 'json' };
 import ItemData from './data/items.json' with { type: 'json' };
 import { chase, flee, seekPath, wander } from './pathfinding.js';
 import { random } from './math.js';
+import { CAREERS, STARTER_CAREERS } from './data/careers.js';
 
 export class Entity {
 	constructor(x, y, char, color) {
@@ -18,26 +18,44 @@ export class Entity {
 
 export class Player extends Entity {
 	constructor(x, y, playerData) {
-        super(x, y);
+        super(x, y, playerData.char, playerData.color);
 
         this.name = playerData.name;
-        this.race = playerData.race; // raza cambia stats (dex, str, con)
-        this.class = playerData.class; // clase cambia stats + armamento
-        this.char = playerData.char;
-        this.color = playerData.color;
+        this.race = playerData.race;
+        this.class = playerData.class;
+        this.level = 1;
 
-        Components.c_stats(this);
-        Components.c_hp(this, 180);
-        Components.c_atk(this, [10, 25], 40);
-        Components.c_def(this, 70);
+        this.careerData = CAREERS[this.class];
+
+        this.statAdvances = { WS: 0, BS: 0, S: 0, T: 0, Ag: 0, Int: 0, A: 0, W: 0, M: 0, Mag: 0 };
+        this.availableCareers = [...STARTER_CAREERS];
+        this.completedCareers = [];
+
+        Components.c_stats(this, playerData.race, playerData.class);
+        Components.c_atk(this);
+        Components.c_ammo(this);
         Components.c_energy(this, 10);
         Components.c_exp(this);
         Components.c_lightSource(this, 6);
         this.equipLight(ItemData.lightSources.torch);
+        this.inventory = [];
 
-        if (this.weapon) {
-            const wStats = WeaponData[this.weapon];
-            this.weapon = { ...wStats };
+        if (this.careerData && this.careerData.gear) {
+            this.careerData.gear.forEach(item => {
+                if (item.type === 'ammo') {
+                    this.addAmmo(item.id, item.amount);
+                } else if (item.type === 'armor') {
+                    this.inventory.push(item);
+                    if (!this.equippedArmor) {
+                        this.equipArmor(item);
+                    }
+                } else {
+                    this.inventory.push(item);
+                    if (!this.weapon && item.type === 'melee') {
+                        this.weapon = item;
+                    }
+                }
+            });
         }
 	}
 }
@@ -55,10 +73,10 @@ export class Cleric extends Entity {
     }
 
     interact(target) {
-        if (target.hp < target.maxHp) {
+        if (target.W < target.maxW) {
             //if (this.hasEnergy(10)) {
             eventBus.emit('on_message', `El Clérigo te ha sanado.`);
-                target.heal(target.maxHp);
+                target.heal(target.maxW - target.W);
             //    this.useEnergy(10);
             //} else return `El Clérigo se está recuperando.`;
         } else eventBus.emit('on_message', `Ya tienes la salud al máximo.`);
@@ -67,9 +85,8 @@ export class Cleric extends Entity {
 
 export class Monster extends Entity {
     constructor(type, x, y) {
-        super(x, y);
-
         const data = MonsterData[type];
+        super(x, y, data.char, data.color);
 
         this.name = type;
         this.prefix = data.prefix;
@@ -82,9 +99,8 @@ export class Monster extends Entity {
         this.lastX = x;
         this.lastY = y;
 
-        Components.c_hp(this, data.hp);
-        Components.c_atk(this, data.atk, data.skill);
-        Components.c_def(this, data.def);
+        Components.c_stats(this, type);
+        Components.c_atk(this);
         Components.c_energy(this, 0, data.speed);
         Components.c_desire(this);
 
@@ -99,8 +115,11 @@ export class Monster extends Entity {
         }
 
         if (data.weapon) {
-            const wStats = WeaponData[data.weapon];
+            const wStats = ItemData.weapons[data.weapon];
             this.weapon = { ...wStats };
+        }
+        if (data.ammo) {
+            this.ammo = { ...data.ammo };
         }
     }
 
@@ -115,13 +134,13 @@ export class Monster extends Entity {
                 return;
 
             case 'regen':
-                console.log(`${this.prefix[1]} ${this.name} se cura.`);
-                if (this.hp < this.maxHp) this.heal(Math.floor(this.maxHp * 0.12));
+                // console.log(`${this.prefix[1]} ${this.name} se cura.`);
+                if (this.W < this.maxW) this.heal(Math.floor(this.maxW * 0.12));
                 return;
 
             case 'ranged':
                 eventBus.emit('on_message', `${this.prefix[1]} ${this.name} te lanza una piedra!`);
-                this.attack(gameState.player);
+                this.rangedAttack(gameState.player);
                 // if (manhattan <= 8) {
                 //     this.rangedAttack(gameState.player);
                 // }
@@ -148,29 +167,6 @@ export class Monster extends Entity {
                 chase(gameState, this, gameState.player, flowMap);
                 return;
         }
-
-        // move the movement to pathfinding.js' moveTo();
-        // from here
-        // const px = gameState.player.x;
-        // const py = gameState.player.y;
-        // const manhattan = Math.abs(this.x - px) + Math.abs(this.y - py);
-        //
-        // if (manhattan === 1) {
-        //     this.attack(gameState.player);
-        //     return;
-        // }
-        //
-        // const nextStep = seekPath(gameState, this, px, py, flowMap);
-        //
-        // if (nextStep) {
-        //     if (nextStep.x === this.lastX && nextStep.y === this.lastY && Math.random() < 0.5) return;
-        //
-        //     gameState.updateEntityPosition(this, nextStep.x, nextStep.y);
-        //     this.lastX = nextStep.x;
-        //     this.lastY = nextStep.y;
-        //     console.log(`${this.prefix[1]} ${this.name} te persigue.`);
-        // }
-        // to here
     }
 }
 

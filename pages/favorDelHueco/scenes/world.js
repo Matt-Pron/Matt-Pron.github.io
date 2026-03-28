@@ -47,16 +47,7 @@ export class World extends Viewport {
     onFocus() {
         Input.repeatDelay = 150;
         Input.repeatRate = 150;
-    //
-    //     if (Globals.touchpad === true && this.fixed === true) {
-    //         TouchpadUI.active = true;
-    //         TouchpadUI.onResize(Globals.cols, Globals.rows);
-    //     }
     }
-    //
-    // onBlur() {
-    //     TouchpadUI.active = false;
-    // }
 
     updateFOV() {
         this.gameState.world.clearVisibility();
@@ -142,7 +133,8 @@ export class World extends Viewport {
             if (a.action === ACTIONS.MOVE_UP) hasUp = true;
             if (a.action === ACTIONS.MOVE_DOWN) hasDown = true;
             if (a.action === ACTIONS.WAIT) wait = true;
-            if (a.action === ACTIONS.CANCEL) this.gameScene.openMenu();
+            if (a.action === ACTIONS.CANCEL) this.gameScene.openPauseMenu();
+            if (a.action === ACTIONS.OPEN_MENU) this.gameScene.openMenu();
         }
 
         const dir = { x: 0, y: 0 };

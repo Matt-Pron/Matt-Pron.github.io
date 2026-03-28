@@ -8,6 +8,7 @@ import { NameGen } from "../nameGen.js";
 import { World } from "./world.js";
 import { MainMenu } from "./mainMenu.js";
 import { GameScene } from "./gameScene.js";
+import { STARTER_CAREERS } from "../data/careers.js";
 
 export class NewGame extends MenuViewport {
     constructor() {
@@ -16,7 +17,8 @@ export class NewGame extends MenuViewport {
         this.fixed = true;
 
         this.index = 0;
-        this.classes = ["Guerrero", "Mago", "Constructo", "Pirata", "Arquero"];
+        // this.classes = ["Guerrero", "Mago", "Constructo", "Pirata", "Arquero"];
+        this.classes = STARTER_CAREERS;
         // Guerrero: STR++, CON+, DEX+, Arma y armor iniciales
         // Mago: Acceso a hechizos, sin armas ni stats
         // constructo: mmmmmm Tons of armor, high base dmg, no weapons, slow

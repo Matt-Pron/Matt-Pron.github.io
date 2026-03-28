@@ -8,11 +8,12 @@ import { c_stats } from "./entitiesUtils.js";
 export class GameState {
     constructor(playerData) {
         this.turn = 0;
+        this.killedEntities = [];
 
         // const mapWidth = 200;
         // const mapHeight = 140;
-        const mapWidth = 100;
-        const mapHeight = 70;
+        const mapWidth = 130;
+        const mapHeight = 100;
         const chunkSize = 16;
 
         this.world = new WorldManager(mapWidth, mapHeight, chunkSize);
@@ -78,6 +79,8 @@ export class GameState {
 
         const deadMonsters = deadEntities.filter(e => e instanceof Monster);
         for (let i = 0; i < deadMonsters.length; i++) {
+            this.killedEntities.push(deadMonsters[i].name);
+            // console.log(this.killedEntities);
             this.spawnSingleMonster();
         }
     }
@@ -149,7 +152,7 @@ export class GameState {
 
         this.addEntity(this.player);
 
-        const countMax = 50;
+        const countMax = 40;
         for (let m = 0; m < countMax; m++) {
             const pos = this.getValidSpawnPos();
             if (pos) {

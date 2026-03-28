@@ -6,15 +6,20 @@ import { Globals } from "../globals.js";
 import { UIButton } from "../ui/ui-widgets.js";
 import { viewportManager } from "../viewportManager.js";
 import { MainMenu } from "./mainMenu.js";
+import { KeymapViewport } from "./keymap.js";
+import { GameStatistics } from "./gameStatistics.js";
 
 export class PauseMenu extends MenuViewport {
-    constructor(gameScene) {
+    constructor(args) {
         super();
-        this.gameScene = gameScene;
+        this.gameScene = args.gameScene;
+        this.gameState = args.gameState;
         this.fixed = false;
         this.index = 5;
 
-        this.customBtn = new UIButton('Customize', 'MOVER UI', 'customize');
+        const customLabel = this.gameScene.customizing ? 'BLOQUEAR UI' : 'MOVER UI';
+
+        this.customBtn = new UIButton('Customize', customLabel, 'customize');
         this.resetCustomBtn = new UIButton('Reset custom', 'R', 'resetui');
 
         this.setSize(20, FIT)
@@ -74,25 +79,24 @@ export class PauseMenu extends MenuViewport {
         if (input.action ===  "open_options") {
             viewportManager.pushUI(InGameOptionsMenu, { z: 20 });
         }
-        if (input.action ===  "open_keymap");
+        if (input.action ===  "open_keymap") {
+            viewportManager.pushUI(KeymapViewport, { x: 4, y: 4, z: 20 });
+        }
         if (input.action ===  "customize") {
-            const targets = viewportManager.getActiveViewports().filter(vp => vp.editMode);
-
-            targets.forEach(vp => {
-                vp.fixed = !vp.fixed;
-            });
-
             viewportManager.popUI();
-            this.customBtn.label = this.customBtn.label === 'MOVER UI'
-                ? 'BLOQUEAR UI' : 'MOVER UI';
+            this.gameScene.toggleCustomize();
+
+            const customLabel = this.gameScene.customizing ? 'BLOQUEAR UI' : 'MOVER UI';
+            this.customBtn.label = customLabel;
             this.customBtn.updateContent();
             this.computeLayout();
         }
         if (input.action ===  "resetui") {
+            viewportManager.popUI();
             this.gameScene.resetUi();
         }
         if (input.action ===  "exit") {
-            viewportManager.setScene(MainMenu);
+            this.gameScene.exit();
         }
     }
 }

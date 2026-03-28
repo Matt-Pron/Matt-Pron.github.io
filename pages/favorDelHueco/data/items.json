@@ -1,4 +1,27 @@
 {
+    "weapons": {
+        "espada_corta": { "name": "Espada Corta", "type": "melee", "dmgBonus": 0 },
+        "daga": { "name": "Daga", "type": "melee", "dmgBonus": -3 },
+        "hacha": { "name": "Hacha", "type": "melee", "dmgBonus": 0 },
+
+        "arco_corto": { "name": "Arco Corto", "type": "ranged", "dmgBonus": 3, "range": 7, "ammoType": "flechas" },
+        "pistola": { "name": "Pistola", "type": "ranged", "dmgBonus": 4, "range": 5, "ammoType": "balas" },
+        "piedras": { "name": "Piedras", "type": "ranged", "dmgBonus": -4, "range": 4, "ammoType": "piedras" },
+        "honda": { "name": "Honda", "type": "ranged", "dmgBonus": 3, "range": 6, "ammoType": "piedras" },
+        "jabalina": { "name": "Jabalina", "type": "ranged", "dmgBonus": -1, "range": 4, "ammoType": "jabalinas" }
+    },
+    "ammunition": {
+        "flechas": { "max": 30 },
+        "balas": { "max": 40 },
+        "piedras": { "max": 12 },
+        "jabalinas": { "max": 3 }
+    },
+    "armor": {
+        "armadura_acolchada": { "name": "Armadura acolchada", "ap": 1, "type": "armor" },
+        "armadura_cuero": { "name": "Armadura de Cuero", "ap": 2, "type": "armor" },
+        "armadura_malla": { "name": "Cota de malla", "ap": 3, "type": "armor", "penalty": -1 },
+        "armadura_placas": { "name": "Armadura de placas", "ap": 5, "type": "armor", "penalty": -2 }
+    },
     "lightSources": {
         "torch": {
             "type": 0,

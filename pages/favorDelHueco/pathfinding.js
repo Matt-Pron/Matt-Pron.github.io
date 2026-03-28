@@ -87,7 +87,7 @@ export function chase(gameState, entity, target, flowMap) {
     const manhattan = Math.abs(entity.x - target.x) + Math.abs(entity.y - target.y);
 
     if (manhattan === 1) {
-        if (entity.attack) entity.attack(target);
+        if (entity.meleeAttack) entity.meleeAttack(target);
         return;
     }
 

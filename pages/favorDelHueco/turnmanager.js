@@ -1,6 +1,7 @@
 import { getTileData } from "./data/tiles.js";
 import { Monster } from "./entities.js";
 import { eventBus } from "./eventBus.js";
+import { random } from "./math.js";
 import { generateFlowMap } from "./pathfinding.js";
 
 export class TurnManager {
@@ -10,6 +11,7 @@ export class TurnManager {
     }
 
     processTurn(action) {
+        const player = this.state.player;
         let playerTookTurn = false;
 
         switch (action.type) {
@@ -21,6 +23,8 @@ export class TurnManager {
                 break;
             case 'wait':
                 playerTookTurn = true;
+                if (random(1, 100) <= 12 && player.W < player.maxW) player.heal(random(1, 4));
+                player.onGuard = true;
                 break;
         }
 
@@ -32,8 +36,9 @@ export class TurnManager {
     }
 
     moveOrAttack(dx, dy) {
-        const tx = this.state.player.x + dx;
-        const ty = this.state.player.y + dy;
+        const player = this.state.player;
+        const tx = player.x + dx;
+        const ty = player.y + dy;
 
         if (tx < 0 || tx >= this.state.world.width || ty < 0 || ty >= this.state.world.height) return false;
 
@@ -43,26 +48,30 @@ export class TurnManager {
         }
 
         const target = this.state.getEntityAt(tx, ty);
-        if (target && target !== this.state.player) {
+        if (target && target !== player) {
             if (target.interact) {
-                target.interact(this.state.player);
+                target.interact(player);
                 return true;
             }
             else if (target.getDmg) {
-                this.state.player.attack(target);
+                player.meleeAttack(target);
                 return true;
             }
             return false;
         }
 
-        this.state.player.x = tx;
-        this.state.player.y = ty;
-        this.state.updateEntityPosition(this.state.player, tx, ty);
+        player.x = tx;
+        player.y = ty;
+        this.state.updateEntityPosition(player, tx, ty);
+        if (random(1, 100) <= 4 && player.W < player.maxW) player.heal(1);
         return true;
     }
 
     tick() {
         this.state.turn++;
+
+        this.state.player.alreadyDefended = false;
+        this.state.player.onGuard = false;
 
         if (this.state.player.lightDecrease) this.state.player.lightDecrease();
 
@@ -90,6 +99,7 @@ export class TurnManager {
 
             for (const entity of chunk.entities) {
                 if (entity instanceof Monster) {
+                    entity.alreadyDefended = false;
                     if (entity.regen) entity.regen();
                     if (entity.takeTurn) {
                         entity.takeTurn(this.state, flowMap);
@@ -112,8 +122,8 @@ export class TurnManager {
         const pCX = Math.floor(playerX / chunkSize);
         const pCY = Math.floor(playerY / chunkSize);
 
-        for (let dy = -4; dy <=4; dy++) {
-            for (let dx = -4; dx <= 4; dx++) {
+        for (let dy = -3; dy <=3; dy++) {
+            for (let dx = -3; dx <= 3; dx++) {
                 const cx = pCX + dx;
                 const cy = pCY + dy;
 

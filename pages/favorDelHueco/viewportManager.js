@@ -64,7 +64,7 @@ class ViewportManager {
             this.viewports.splice(idx, 1);
             viewport.active = true;
         } else {
-            viewport = new vp(args); // vm.pushUI(vpClass, { x: 10, y: 10, w: 20, h: 20 })
+            viewport = new vp(args);
             isNew = true;
         }
 

@@ -60,7 +60,7 @@ export class Viewport extends UIElement {
         for (const key of rawState.keys) {
             const actionType = mapping.get(key);
             if (actionType === undefined) {
-                console.debug(`Unhandled key: ${key}`);
+                // console.debug(`Unhandled key: ${key}`);
                 continue;
             }
 

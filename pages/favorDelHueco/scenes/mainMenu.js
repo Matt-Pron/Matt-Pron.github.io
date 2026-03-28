@@ -6,6 +6,7 @@ import { OptionsMenu } from "./options.js";
 import { Globals } from "../globals.js";
 import { UIButton } from "../ui/ui-widgets.js";
 import { viewportManager } from "../viewportManager.js";
+import { KeymapViewport } from "./keymap.js";
 
 export class MainMenu extends MenuViewport {
     constructor() {
@@ -27,11 +28,11 @@ export class MainMenu extends MenuViewport {
                 .setMargin(1,0,0,0)
                 .setColor(2)
             )
-            .add(
-                new UIButton('Quests', 'MISIONES', 'open_quests')
-                .setMargin(1,0,0,0)
-                .setColor(2)
-            )
+            // .add(
+            //     new UIButton('Quests', 'MISIONES', 'open_quests')
+            //     .setMargin(1,0,0,0)
+            //     .setColor(2)
+            // )
             .add(
                 new UIButton('Options', 'OPCIONES', 'open_options')
                 .setColor(2)
@@ -59,7 +60,9 @@ export class MainMenu extends MenuViewport {
         if (input.action ===  "open_options") {
             viewportManager.pushUI(OptionsMenu, { x: 4, y: 4, z: 10 });
         }
-        if (input.action ===  "open_keymap");
+        if (input.action ===  "open_keymap") {
+            viewportManager.pushUI(KeymapViewport, { x: 4, y: 4, z: 10 });
+        }
         if (input.action ===  "exit" || input.action === "escape") window.location.href = "../../";
     }
 }
