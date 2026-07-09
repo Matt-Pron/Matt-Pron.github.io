@@ -1,0 +1,197 @@
+:root {
+    --bg-color: #000000;
+    --text-amber: #FFB000;
+    --hover-amber: #FFD000;
+    --border-amber: #8a6300;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: var(--bg-color);
+    color: var(--text-amber);
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    letter-spacing: 1px;
+    
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    
+    text-rendering: crispEdges;
+
+    user-select: none
+}
+
+/* Layout PC */
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+aside {
+    width: 300px;
+    border-right: 2px solid var(--border-amber);
+    padding: 20px;
+    overflow-y: auto;
+    background-color: var(--bg-color);
+    box-sizing: border-box;
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+h1, h2 {
+    margin-top: 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-amber);
+    padding-bottom: 10px;
+}
+
+/* Listas del Sidebar */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.npc-item {
+    margin-bottom: 20px;
+}
+
+.npc-name {
+    font-size: 32px;
+    //text-transform: capitalize;
+    cursor: pointer;
+    transition: text-shadow 0.2s;
+}
+
+.npc-name:hover {
+    text-shadow: 0 0 8px var(--text-amber);
+    color: var(--hover-amber);
+}
+
+.quest-list {
+    display: none; /* Oculto por defecto */
+    padding-left: 20px;
+    margin-top: 10px;
+    border-left: 0px dashed var(--border-amber);
+}
+
+.quest-list.active {
+    display: block; /* Muestra las quests al desplegar */
+}
+
+.quest-item {
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 22px;
+    opacity: 0.8;
+}
+
+.quest-item:hover {
+    opacity: 1;
+    text-shadow: 0 0 5px var(--text-amber);
+}
+
+.quest-item::before {
+    content: "> ";
+}
+
+/* Color para objetivos cumplidos */
+.objective-item.completed {
+    color: #00FF33; 
+    text-shadow: 0 0 8px #00FF33;
+}
+
+/* Estilo general para la lista de objetivos en el main */
+.objectives-container {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-amber);
+}
+
+.objective-item {
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+#quest-info {
+    font-size: 26px;
+    line-height: 1.5;
+}
+
+/* Elementos móviles ocultos en PC */
+.mobile-only {
+    display: none;
+    background: transparent;
+    color: var(--text-amber);
+    border: 2px solid var(--border-amber);
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#btn-open-menu {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 5;
+    background-color: var(--bg-color);
+}
+
+#btn-close-menu {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Comportamiento en Móvil */
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+    
+    #btn-open-menu {
+        display: inline-block;
+    }
+
+    aside {
+        position: fixed;
+        top: 0;
+        left: -100%; /* Oculto fuera de la pantalla */
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        transition: left 0.3s ease-in-out;
+    }
+
+    aside.open {
+        left: 0; /* Desplaza a la vista */
+    }
+
+    main {
+        padding-top: 80px; /* Espacio para el botón de abrir */
+    }
+}
+
+/* Estilos para los enlaces de los objetivos */
+.quest-link {
+    color: inherit; /* Hereda el ámbar o el verde automáticamente */
+    text-decoration: none; /* Quita el subrayado sólido estándar */
+    border-bottom: 1px dotted currentColor; /* Un subrayado punteado más retro */
+    transition: text-shadow 0.2s, color 0.2s;
+}
+
+.quest-link:hover {
+    color: var(--hover-amber);
+    text-shadow: 0 0 8px currentColor;
+}
+
+/* Si el objetivo está completado, aseguramos que el hover mantenga el brillo verde */
+.objective-item.completed .quest-link:hover {
+    color: #00FF33; 
+}
