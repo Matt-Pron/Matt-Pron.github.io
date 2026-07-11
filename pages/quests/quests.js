@@ -22,7 +22,7 @@ export const questDatabase = {
             {
                 "id": "b1",
                 "title": "Problema de plagas",
-                "desc": "Las ratas están devorando la cosecha. A éste ritmo no quedará comida para pasar el invierno.<br><br>Si me traes estas cuatro cuerdas del tamaño exacto, podré fabricar un aparato que emita ondas que afecten a los roedores, aumentando su apetito.",
+                "desc": "Las ratas están devorando la cosecha. A éste ritmo no quedará comida para pasar el invierno.<br><br>Si me traes estas cuatro cuerdas del tamaño exacto, podré fabricar un aparato que emita ondas que afecten a los roedores, aumentando su apetito.<br><br>De las de Ernie Ball o Rotosound.",
                 "objectives": [
                     { "text": "Cuerda E para bajo", "current": 0, "required": 1, "url": "https://www.mercadolibre.com.ar/ernie-ball-2834-encordado-bajo-4-cuerdas-super-slinky-45-100/p/MLA21809480?pdp_filters=item_id%3AMLA2470200876&matt_tool=89488245&ua=Fu-E7ENID1H-Vum8CZUmwBtuDcMH62_IhBxXtePB7xhgD3Y#origin=share&sid=share&wid=MLA2470200876&action=copy" },
                     { "text": "Cuerda A para bajo", "current": 0, "required": 1, "url": "https://www.mercadolibre.com.ar/ernie-ball-2834-encordado-bajo-4-cuerdas-super-slinky-45-100/p/MLA21809480?pdp_filters=item_id%3AMLA2470200876&matt_tool=89488245&ua=Fu-E7ENID1H-Vum8CZUmwBtuDcMH62_IhBxXtePB7xhgD3Y#origin=share&sid=share&wid=MLA2470200876&action=copy" },
