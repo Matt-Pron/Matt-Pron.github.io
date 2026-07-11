@@ -32,6 +32,22 @@ export const questDatabase = {
             }
         ]
     },
+    "genghis": {
+        "npcName": "Genghis Khan",
+        "quests": [
+            {
+                "id": "ge1",
+                "title": "Estrategia formidable",
+                "desc": "La muralla china no caerá por si sola. Mi plan es abrir un paso con barriles de pólvora, pero siempre hay que tener un plan B.<br><br>Si los explosivos no funcionan, derribaremos la muralla con los puños. Voy a necesitar algunas cosas para entrenar a mis hombres.",
+                "objectives": [
+                    { "text": "Kettlebell de 16kg", "current": 0, "required": 1, "url": "https://www.mercadolibre.com.ar/pesa-rusa-kettlebell-de-fundicion-x-16kg/up/MLAU317059231#polycard_client=recommendations_vip-v2p&reco_backend=ranker_retrieval_online_vpp_v2p&reco_model=coldstart_low_exposition&reco_client=vip-v2p&reco_item_pos=14&reco_backend_type=low_level&reco_id=6ab5da32-250b-45d3-ab7e-dd3cbf2c3fbc&wid=MLA1126565245&sid=recos" },
+                    { "text": "Anillas de gimnasia", "current": 0, "required": 1, "url": "https://www.mercadolibre.com.ar/anillas-de-calistenia-profesional-jazak-de-madera-con-hebillas-de-seguridad-y-cintas-antideslizantes/p/MLA69445638?pdp_filters=item_id%3AMLA3307781462&matt_tool=89488245&ua=f6vU8MqraQc08DjvDjFW8yFabkOdU9Q23QxJ6YyoJg_wsrI#origin=share&sid=share&wid=MLA3307781462&action=copy" },
+                    { "text": "Par de discos de fundición, de 2,5, 5 o 10kg", "current": 0, "required": 1 },
+                    { "text": "Barra para dominadas y fondos", "current": 0, "required": 1, "url": "https://www.mercadolibre.com.ar/barra-de-ejercicios-jazak-multifuncional-de-pared-para-dominadas-y-abdominales-soporta-200-kg/p/MLA45819527?pdp_filters=item_id%3AMLA1474273351&matt_tool=89488245&ua=43nFUKMzCyT_25F2TPBLkuDBK7uO-oqiENvaOwOAiuxvMVE#origin=share&sid=share&wid=MLA1474273351&action=copy" },
+                ]
+            }
+        ]
+    },
     "casimiro": {
         "npcName": "Casimiro, el girondino",
         "quests": [
