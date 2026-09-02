@@ -1,0 +1,208 @@
+:root {
+    --header-height: 4rem;
+    font-family: "Courier New", monospace;
+    font-size: 1.06rem;
+    line-height: 1.28;
+
+    --fg: hsl(38, 41%, 71%);
+    --bg: hsl(195, 6%, 12%);
+
+    --bg1: hsl(0, 0%, 16%);
+    --bg2: hsl(20, 5%, 22%);
+    --bg3: hsl(22, 7%, 29%);
+
+    --yellow: hsl(37, 62%, 59%);
+    --red: hsl(3, 76%, 65%);
+    --green: hsl(70, 36%, 55%);
+
+    --grey0: hsl(28, 11%, 44%);
+    --grey1: hsl(30, 12%, 51%);
+    --grey2: hsl(35, 17%, 59%);
+
+    --bg-yellow: hsl(38, 27%, 22%);
+    --bg-red: hsl(2, 33%, 18%);
+}
+
+@media only screen and (max-width: 50em) {
+    :root { --header-height: 5.5rem; }
+}
+
+body {
+    color: var(--fg);
+    background-color: var(--bg);
+}
+
+::-webkit-scrollbar {
+    width: 1.1em;
+}
+
+::-webkit-scrollbar-track {
+    margin: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--fg);
+    border: .34em solid var(--bg);
+}
+
+.main-header {
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg);
+    border-bottom: 0.20rem solid var(--fg);
+    box-shadow: 0 1rem 0.8rem var(--bg);
+    z-index: 100;
+}
+
+.main-base {
+    margin: calc(var(--header-height) + 1.2rem) auto;
+}
+
+.main-nav {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    align-items: center;
+}
+
+@media only screen and (max-width: 50em) {
+    .main-nav {
+        grid-template-columns: 1fr 4fr;
+    }
+}
+
+.main-nav a {
+    justify-self: safe center;
+}
+
+a:hover, a:focus {
+    color: var(--yellow);
+}
+
+section {
+    padding-block: .4rem;
+}
+
+.texto {
+    margin-inline: auto;
+    max-width: clamp(45ch, 100%, 75ch);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    transition: 100ms;
+}
+
+.logo img {
+    padding: .2em 0;
+    max-height: calc(var(--header-height) - (2 * .6em));
+}
+
+.logo a:hover, .logo a:focus {
+    filter: brightness(130%);
+}
+
+.advertencia {
+    border-top: .3em solid;
+    border-bottom: .6em solid;
+    border-color: var(--red);
+    border-radius: 1em;
+    padding: .8em;
+    margin-top: .6rem;
+    margin-bottom: 2.8rem;
+}
+
+.notyet {
+    color: var(--bg3);
+    opacity: .1;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 60em;
+    margin-inline: auto;
+    padding-inline: 2em;
+}
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f7f7f7;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Base Flex Container holding the column tracks */
+.gallery {
+    display: flex;
+    gap: 16px; /* Horizontal space between column tracks */
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* Individual Column Tracks */
+.gallery-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Vertical space between cards inside a column */
+    flex: 1;
+    min-width: 0; /* Prevents overflow bugs */
+}
+
+/* Individual Photo Cards */
+.gallery-item {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+}
+
+/* Image scaling */
+.gallery-item img {
+    width: 100%;
+    height: auto; /* Perfectly preserves image proportions */
+    display: block;
+}
+
+/* Metadata Text Styles */
+.gallery-info {
+    padding: 12px;
+}
+
+.gallery-description {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.gallery-technique {
+    font-size: 0.8rem;
+    color: #767676;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
